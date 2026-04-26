@@ -1,0 +1,2507 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ForjaTech — Troqueles de Precisión Industrial</title>
+  <meta name="description"
+    content="Troqueles de estampado en frío y caliente para palas, palines y carretillas. Ingeniería de precisión con disponibilidad inmediata.">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            deep: '#0B0C10',
+            petrol: '#111A28',
+            cyanN: '#00F0FF',
+            copper: '#C47F45',
+            steel: '#C5C6C7',
+            burnt: '#FF6B35',
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+            fira: ['Fira Code', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Three.js Import Map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <style>
+    /* === VARIABLES DE DISEÑO === */
+    :root {
+      --bg: #0B0C10;
+      --bg-alt: #111A28;
+      --fg: #C5C6C7;
+      --fg-bright: #E8E9EA;
+      --muted: #667788;
+      --accent: #00F0FF;
+      --accent2: #C47F45;
+      --cta: #FF6B35;
+      --card: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(0, 240, 255, 0.12);
+      --glow: 0 0 20px rgba(0, 240, 255, 0.15), 0 0 60px rgba(0, 240, 255, 0.05);
+      --glow-strong: 0 0 30px rgba(0, 240, 255, 0.3), 0 0 80px rgba(0, 240, 255, 0.1);
+      --glow-copper: 0 0 20px rgba(196, 127, 69, 0.2), 0 0 60px rgba(196, 127, 69, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    ::selection {
+      background: rgba(0, 240, 255, 0.3);
+      color: #fff;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 240, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    /* === CURSOR PERSONALIZADO === */
+    #cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.1s;
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    #cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(0, 240, 255, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transition: width 0.3s, height 0.3s, border-color 0.3s;
+    }
+
+    #cursor-ring.hover {
+      width: 52px;
+      height: 52px;
+      border-color: var(--accent2);
+    }
+
+    @media (max-width: 768px) {
+
+      #cursor-dot,
+      #cursor-ring {
+        display: none;
+      }
+
+      body {
+        cursor: auto;
+      }
+    }
+
+    /* === PRELOADER === */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s, visibility 0.8s;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #preloader .brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 0.3em;
+      margin-bottom: 2rem;
+    }
+
+    #preloader .bar-track {
+      width: 200px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    #preloader .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 1px;
+      animation: loadBar 1.8s ease-out forwards;
+    }
+
+    @keyframes loadBar {
+      to {
+        width: 100%;
+      }
+    }
+
+    /* === GLASSMORPHISM === */
+    .glass {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+    }
+
+    .glass:hover {
+      border-color: rgba(0, 240, 255, 0.3);
+      box-shadow: var(--glow);
+    }
+
+    /* === ANIMACIONES DE SCROLL === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    /* === GLOW TEXT === */
+    .glow-text {
+      text-shadow: 0 0 20px rgba(0, 240, 255, 0.4), 0 0 60px rgba(0, 240, 255, 0.15);
+    }
+
+    .glow-copper-text {
+      text-shadow: 0 0 20px rgba(196, 127, 69, 0.4), 0 0 60px rgba(196, 127, 69, 0.15);
+    }
+
+    /* === BOTON CTA PRINCIPAL === */
+    .btn-cta {
+      background: var(--cta);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(255, 107, 53, 0.4), 0 8px 32px rgba(255, 107, 53, 0.2);
+    }
+
+    .btn-cta::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.15) 50%, transparent 60%);
+      animation: btnShine 3s infinite;
+    }
+
+    @keyframes btnShine {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--accent);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 10px 24px;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(0, 240, 255, 0.08);
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    /* === HERO === */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11, 12, 16, 0.5) 0%, rgba(11, 12, 16, 0.8) 60%, rgba(11, 12, 16, 1) 100%);
+      z-index: 1;
+    }
+
+    /* === TARJETAS DE PRODUCTO === */
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card .card-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .product-card:hover .card-glow {
+      opacity: 1;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* === CARRUSEL DE IMÁGENES === */
+    .product-carousel {
+      position: relative;
+      background: rgba(17, 26, 40, 0.4);
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .product-carousel .carousel-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: opacity;
+    }
+
+    .product-carousel .carousel-img:not(.active) {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .carousel-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: background 0.3s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .carousel-dots .dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .carousel-dots .dot:hover {
+      transform: scale(1.3);
+    }
+
+    /* Fallback cuando no hay imágenes (icono grande) */
+    .product-fallback-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      color: rgba(0, 240, 255, 0.2);
+      pointer-events: none;
+    }
+
+    /* === ICONOS DE MARKETPLACE === */
+    .marketplace-icons a {
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+    }
+
+    .marketplace-icons a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    /* === DIAGRAMA DE PROCESO === */
+    .process-step {
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .process-step:hover .step-icon {
+      box-shadow: var(--glow-strong);
+      border-color: var(--accent);
+    }
+
+    .process-step:hover .step-label {
+      color: var(--accent);
+    }
+
+    .step-connector {
+      position: absolute;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0, 240, 255, 0.1), rgba(0, 240, 255, 0.4), rgba(0, 240, 255, 0.1));
+      z-index: 0;
+    }
+
+    .step-connector::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 30px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--accent);
+      animation: connectorPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes connectorPulse {
+      0% {
+        left: -30px;
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        left: calc(100% + 30px);
+        opacity: 0;
+      }
+    }
+
+    /* === TOOLTIP === */
+    .tooltip-content {
+      position: absolute;
+      bottom: calc(100% + 16px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      white-space: nowrap;
+      z-index: 50;
+    }
+
+    .process-step:hover .tooltip-content {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* === MODAL === */
+    #contact-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 8000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s;
+    }
+
+    #contact-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #contact-modal .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+    }
+
+    #contact-modal .modal-content {
+      position: relative;
+      max-width: 520px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #contact-modal.open .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    /* === CHAT === */
+    #chat-bubble {
+      position: fixed;
+      bottom: 100px;
+      right: 24px;
+      z-index: 7000;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0B0C10, #1a2a3a);
+      border: 1.5px solid rgba(0, 240, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: var(--glow);
+    }
+
+    #chat-bubble:hover {
+      border-color: var(--accent);
+      transform: scale(1.1);
+      box-shadow: var(--glow-strong);
+    }
+
+    #chat-bubble .pulse-ring {
+      position: absolute;
+      inset: -6px;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 50%;
+      animation: chatPulse 2s ease-out infinite;
+    }
+
+    @keyframes chatPulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    #chat-window {
+      position: fixed;
+      bottom: 175px;
+      right: 24px;
+      z-index: 7000;
+      width: 380px;
+      max-width: calc(100vw - 48px);
+      height: 520px;
+      max-height: calc(100vh - 220px);
+      border-radius: 16px;
+      overflow: hidden;
+      transform: scale(0.8) translateY(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: bottom right;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chat-window.open {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: rgba(0, 240, 255, 0.2);
+      border-radius: 2px;
+    }
+
+    .chat-msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      animation: msgIn 0.3s ease-out;
+    }
+
+    @keyframes msgIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-msg.bot {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.1);
+      color: var(--fg-bright);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      color: var(--fg-bright);
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 16px 8px;
+    }
+
+    .quick-reply {
+      background: rgba(0, 240, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .quick-reply:hover {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--accent);
+    }
+
+    .typing-indicator span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin: 0 2px;
+      animation: typing 1.2s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+
+      30% {
+        transform: translateY(-6px);
+        opacity: 1;
+      }
+    }
+
+    /* === WHATSAPP FLOTANTE === */
+    #wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      z-index: 6000;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      text-decoration: none;
+    }
+
+    #wa-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+    }
+
+    /* === TOAST === */
+    #toast-container {
+      position: fixed;
+      top: 80px;
+      right: 24px;
+      z-index: 9500;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      animation: toastIn 0.4s ease-out, toastOut 0.4s ease-in 3.6s forwards;
+      max-width: 340px;
+    }
+
+    .toast.success {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--accent);
+    }
+
+    .toast.info {
+      background: rgba(196, 127, 69, 0.12);
+      border: 1px solid rgba(196, 127, 69, 0.3);
+      color: var(--accent2);
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes toastOut {
+      to {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+    }
+
+    /* === BADGE DE ESCASEZ === */
+    .scarcity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      color: var(--cta);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .scarcity-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--cta);
+      border-radius: 50%;
+      animation: scarcityBlink 1.5s infinite;
+    }
+
+    @keyframes scarcityBlink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    /* === AUTHORITY SEAL === */
+    .authority-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 240, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-family: 'Fira Code', monospace;
+      padding: 6px 14px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* === FONDO CON TEXTURA === */
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* === FORM INPUTS === */
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--fg-bright);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--muted);
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--fg);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    select.form-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300F0FF' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    select.form-input option {
+      background: #111A28;
+      color: #C5C6C7;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 640px) {
+      #chat-window {
+        width: calc(100vw - 32px);
+        height: 70vh;
+        bottom: 170px;
+        right: 16px;
+      }
+
+      #chat-bubble {
+        right: 16px;
+        bottom: 90px;
+      }
+
+      #wa-float {
+        right: 16px;
+        bottom: 24px;
+      }
+    }
+
+    /* === REDUCIR MOVIMIENTO === */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* === ICONO ANIMADO CON LINEA DE LUZ === */
+    .icon-glow {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-glow::before {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+      animation: iconPulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes iconPulseGlow {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+    }
+
+    /* === TESTIMONIO CARD === */
+    .testimonial-card {
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      font-size: 4rem;
+      color: rgba(0, 240, 255, 0.08);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    /* === NAVBAR MOBILE === */
+    #mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      background: rgba(11, 12, 16, 0.97);
+      backdrop-filter: blur(20px);
+      z-index: 5500;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 80px 32px 32px;
+      border-left: 1px solid rgba(0, 240, 255, 0.1);
+    }
+
+    #mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    #mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 5400;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    #mobile-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+  </style>
+</head>
+
+<body class="bg-grid">
+
+  <!-- Cursor personalizado -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="brand">FORJATECH</div>
+    <div class="bar-track">
+      <div class="bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container"></div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="fixed top-0 left-0 right-0 z-[5000] transition-all duration-500" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 no-underline" aria-label="ForjaTech inicio">
+        <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5">
+          <i class="fa-solid fa-industry text-cyanN text-sm"></i>
+        </div>
+        <span class="font-orbitron font-bold text-lg tracking-[0.15em] text-white">FORJA<span
+            class="text-cyanN">TECH</span></span>
+      </a>
+      <!-- Links desktop -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#valor"
+          class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide">Propuesta</a>
+        <a href="#catalogo"
+          class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide">Catálogo</a>
+        <a href="#proceso"
+          class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide">Proceso</a>
+        <a href="#testimonios"
+          class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide">Confianza</a>
+        <button onclick="openModal()" class="btn-ghost text-xs py-2 px-5">CONTACTAR</button>
+      </div>
+      <!-- Hamburger mobile -->
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Abrir menú">
+        <span class="block w-5 h-0.5 bg-steel transition-all duration-300" id="ham1"></span>
+        <span class="block w-5 h-0.5 bg-steel transition-all duration-300" id="ham2"></span>
+        <span class="block w-3.5 h-0.5 bg-steel transition-all duration-300 ml-auto" id="ham3"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-overlay" onclick="closeMobileMenu()"></div>
+  <div id="mobile-menu">
+    <div class="flex flex-col gap-6">
+      <a href="#valor" onclick="closeMobileMenu()"
+        class="text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide text-lg">Propuesta</a>
+      <a href="#catalogo" onclick="closeMobileMenu()"
+        class="text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide text-lg">Catálogo</a>
+      <a href="#proceso" onclick="closeMobileMenu()"
+        class="text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide text-lg">Proceso</a>
+      <a href="#testimonios" onclick="closeMobileMenu()"
+        class="text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide text-lg">Confianza</a>
+      <hr class="border-white/5">
+      <button onclick="closeMobileMenu(); openModal();" class="btn-cta text-xs py-3 w-full">CONTACTAR AHORA</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-overlay"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-2 gap-12 items-center w-full">
+        <div>
+          <div class="flex flex-wrap gap-3 mb-8 reveal">
+            <div class="authority-seal"><i class="fa-solid fa-shield-halved text-xs"></i> Ingeniería de estampado — 30
+              años</div>
+            <div class="scarcity-badge"><span class="dot"></span> Lote limitado — consulte disponibilidad</div>
+          </div>
+          <h1
+            class="font-orbitron font-black text-3xl sm:text-4xl lg:text-5xl xl:text-[3.4rem] leading-[1.1] tracking-tight text-white mb-6 reveal reveal-delay-1">
+            Troqueles de Precisión Que <span class="text-cyanN glow-text">Forjan Líderes</span> en Ferretería
+          </h1>
+          <p class="font-inter text-base sm:text-lg text-steel/90 leading-relaxed max-w-xl mb-10 reveal reveal-delay-2">
+            Aumente su capacidad de producción con moldes de estampado en frío y caliente. Equipamiento original para
+            palas, palines y carretillas. Disponibilidad inmediata.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 items-start reveal reveal-delay-3">
+            <button onclick="openModal()" class="btn-cta">SOLICITAR CATÁLOGO TÉCNICO</button>
+            <a href="#catalogo" class="btn-ghost flex items-center gap-2"><i class="fa-solid fa-grid-2 text-xs"></i> VER
+              PRODUCTOS</a>
+          </div>
+          <p class="font-fira text-[0.7rem] text-muted mt-4 tracking-wide reveal reveal-delay-3">
+            <i class="fa-solid fa-bolt text-cyanN/60 mr-1"></i> Respuesta en menos de 2 horas por nuestro equipo de
+            ingeniería.
+          </p>
+        </div>
+        <div class="hidden lg:block"></div>
+      </div>
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-50">
+        <span class="text-[0.65rem] font-fira text-steel/50 tracking-widest uppercase">Scroll</span>
+        <div class="w-5 h-8 border border-steel/20 rounded-full flex justify-center pt-1.5">
+          <div class="w-1 h-2 bg-cyanN/50 rounded-full" style="animation: scrollBounce 2s infinite"></div>
+        </div>
+      </div>
+      <style>
+        @keyframes scrollBounce {
+
+          0%,
+          100% {
+            transform: translateY(0);
+            opacity: 0.5;
+          }
+
+          50% {
+            transform: translateY(8px);
+            opacity: 1;
+          }
+        }
+      </style>
+    </section>
+
+    <!-- ========== PROPUESTA DE VALOR ========== -->
+    <section id="valor" class="relative py-24 lg:py-32">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <p class="font-fira text-xs text-cyanN/70 tracking-[0.2em] uppercase mb-4 reveal">Por qué ForjaTech</p>
+          <h2
+            class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1">
+            Ingeniería Que Se Traduce en <span class="text-copper glow-copper-text">Rentabilidad</span>
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+          <div class="glass p-8 text-center group reveal reveal-delay-1">
+            <div class="icon-glow w-16 h-16 mx-auto mb-6">
+              <i
+                class="fa-solid fa-gears text-2xl text-cyanN relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+            </div>
+            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">ESTAMPADO FRÍO Y CALIENTE</h3>
+            <p class="font-inter text-sm text-steel/80 leading-relaxed">Procesos optimizados para calibres de 1.5 mm
+              hasta 2.5 mm. Compatibilidad multilámina verificada en campo.</p>
+          </div>
+          <div class="glass p-8 text-center group reveal reveal-delay-2">
+            <div class="icon-glow w-16 h-16 mx-auto mb-6">
+              <i
+                class="fa-solid fa-fire-flame-curved text-2xl text-copper relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+            </div>
+            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">COMBO COMPLETO INTEGRAL</h3>
+            <p class="font-inter text-sm text-steel/80 leading-relaxed">Troquel de corte, molde de embutido y molde de
+              inyección para empuñaduras. Todo en un solo proveedor.</p>
+          </div>
+          <div class="glass p-8 text-center group reveal reveal-delay-3">
+            <div class="icon-glow w-16 h-16 mx-auto mb-6">
+              <i
+                class="fa-solid fa-globe-americas text-2xl text-cyanN relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
+            </div>
+            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">LISTOS PARA EXPORTAR</h3>
+            <p class="font-inter text-sm text-steel/80 leading-relaxed">Servimos a fabricantes en toda Latinoamérica.
+              Logística documentada y soporte técnico remoto incluido.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CATÁLOGO DE PRODUCTOS ========== -->
+    <section id="catalogo" class="relative py-24 lg:py-32">
+      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyanN/20 to-transparent">
+      </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-6">
+          <p class="font-fira text-xs text-cyanN/70 tracking-[0.2em] uppercase mb-4 reveal">Línea completa</p>
+          <h2
+            class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1">
+            Catálogo de Troqueles y Moldes
+          </h2>
+          <p class="font-inter text-sm text-steel/60 mt-4 max-w-2xl mx-auto reveal reveal-delay-2">
+            Cada pieza es el resultado de tres décadas de ingeniería de estampado. Consulte disponibilidad para su línea
+            de producción.
+          </p>
+        </div>
+        <div class="flex justify-center mb-12 reveal reveal-delay-2">
+          <div class="scarcity-badge"><span class="dot"></span> Lote limitado de troqueles originales — consulte
+            disponibilidad</div>
+        </div>
+        <!-- Grid de productos (se genera con JS) -->
+        <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+      </div>
+    </section>
+
+    <!-- ========== DIAGRAMA DE PROCESO ========== -->
+    <section id="proceso" class="relative py-24 lg:py-32">
+      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-copper/20 to-transparent">
+      </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <p class="font-fira text-xs text-copper/70 tracking-[0.2em] uppercase mb-4 reveal">Know-how técnico</p>
+          <h2
+            class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1">
+            Proceso de <span class="text-copper glow-copper-text">Fabricación</span>
+          </h2>
+          <p class="font-inter text-sm text-steel/60 mt-4 max-w-2xl mx-auto reveal reveal-delay-2">
+            Desde la plancha de acero hasta la herramienta terminada: cada etapa está controlada con tolerancias de
+            precisión CNC.
+          </p>
+        </div>
+        <div id="process-diagram" class="relative max-w-4xl mx-auto reveal reveal-delay-1"></div>
+        <div class="grid md:grid-cols-2 gap-8 mt-20 max-w-4xl mx-auto">
+          <div class="glass p-6 reveal">
+            <h4 class="font-orbitron font-bold text-xs tracking-wider text-cyanN mb-3">ESTAMPADO EN FRÍO</h4>
+            <p class="font-inter text-sm text-steel/80 leading-relaxed">Proceso a temperatura ambiente para láminas de
+              1.5 a 2.0 mm. Ideal para geometrías de corte limpio con alta velocidad de producción y menor desgaste de
+              matriz. Aplicado en escardillas, palas sin refuerzo, rines y bateas.</p>
+          </div>
+          <div class="glass p-6 reveal reveal-delay-1">
+            <h4 class="font-orbitron font-bold text-xs tracking-wider text-copper mb-3">ESTAMPADO EN CALIENTE</h4>
+            <p class="font-inter text-sm text-steel/80 leading-relaxed">La lámina se calienta antes del conformado para
+              espesores de 2.0 a 2.5 mm. Reduce la fuerza necesaria y permite refuerzos de doble capa. Esencial para
+              palines de mina, palines de corte y modelos andinos de alta resistencia.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TESTIMONIOS ========== -->
+    <section id="testimonios" class="relative py-24 lg:py-32">
+      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyanN/20 to-transparent">
+      </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <p class="font-fira text-xs text-cyanN/70 tracking-[0.2em] uppercase mb-4 reveal">Prueba social</p>
+          <h2
+            class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1">
+            Lo Que Dicen los Fabricantes
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8" id="testimonials-grid"></div>
+        <div class="flex flex-wrap justify-center gap-6 mt-14 reveal">
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
+              class="fa-solid fa-truck-fast text-cyanN/40"></i> Entrega inmediata</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
+              class="fa-solid fa-headset text-cyanN/40"></i> Soporte técnico remoto</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
+              class="fa-solid fa-certificate text-cyanN/40"></i> Garantía de dimensionalidad</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
+              class="fa-solid fa-file-invoice text-cyanN/40"></i> Documentación técnica incluida</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="relative border-t border-white/5 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5">
+              <i class="fa-solid fa-industry text-cyanN text-sm"></i>
+            </div>
+            <span class="font-orbitron font-bold text-lg tracking-[0.15em] text-white">FORJA<span
+                class="text-cyanN">TECH</span></span>
+          </div>
+          <p class="font-inter text-sm text-steel/60 leading-relaxed max-w-md">No vendemos troqueles; entregamos la
+            llave para fabricar las herramientas del futuro. Treinta años de ingeniería de estampado al servicio de
+            fabricantes latinoamericanos.</p>
+        </div>
+        <div>
+          <h4 class="font-orbitron font-bold text-xs tracking-wider text-steel/50 mb-4">NAVEGACIÓN</h4>
+          <div class="flex flex-col gap-2">
+            <a href="#valor" class="text-sm text-steel/60 hover:text-cyanN transition-colors">Propuesta de valor</a>
+            <a href="#catalogo" class="text-sm text-steel/60 hover:text-cyanN transition-colors">Catálogo de
+              productos</a>
+            <a href="#proceso" class="text-sm text-steel/60 hover:text-cyanN transition-colors">Proceso de
+              fabricación</a>
+            <a href="#testimonios" class="text-sm text-steel/60 hover:text-cyanN transition-colors">Testimonios</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-orbitron font-bold text-xs tracking-wider text-steel/50 mb-4">CONTACTO</h4>
+          <div class="flex flex-col gap-2">
+            <a href="mailto:ingenieria@forjatech.com"
+              class="text-sm text-steel/60 hover:text-cyanN transition-colors"><i
+                class="fa-solid fa-envelope text-xs mr-2 text-cyanN/40"></i>ingenieria@forjatech.com</a>
+            <a href="#" target="_blank" rel="noopener" class="text-sm text-steel/60 hover:text-cyanN transition-colors"
+              id="footer-wa"><i class="fa-brands fa-whatsapp text-xs mr-2 text-green-400/40"></i>WhatsApp directo</a>
+          </div>
+          <button onclick="openModal()" class="btn-ghost text-[0.65rem] py-2 px-4 mt-4 w-full">SOLICITAR
+            CATÁLOGO</button>
+          <!-- Iconos de redes/marketplaces en footer -->
+          <div class="flex gap-3 mt-4 marketplace-icons">
+            <a href="#" target="_blank" rel="noopener" title="Mercado Libre" id="footer-ml"
+              class="w-9 h-9 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all">
+              <i class="fa-solid fa-shop text-[#FFE600] text-sm"></i>
+            </a>
+            <a href="#" target="_blank" rel="noopener" title="Facebook Marketplace" id="footer-mkt"
+              class="w-9 h-9 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all">
+              <i class="fa-brands fa-facebook-f text-[#1877F2] text-sm"></i>
+            </a>
+            <a href="#" target="_blank" rel="noopener" title="YouTube" id="footer-yt"
+              class="w-9 h-9 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all">
+              <i class="fa-brands fa-youtube text-[#FF0000] text-sm"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-steel/30 font-inter">&copy; 2025 ForjaTech. Todos los derechos reservados.</p>
+        <p class="text-xs text-steel/20 font-fira">Engineering precision since 1995</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== MODAL DE CONTACTO ========== -->
+  <div id="contact-modal" role="dialog" aria-modal="true" aria-label="Formulario de contacto">
+    <div class="modal-backdrop" onclick="closeModal()"></div>
+    <div class="modal-content glass p-8">
+      <button onclick="closeModal()"
+        class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-steel/50 hover:text-white transition-colors"
+        aria-label="Cerrar modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="mb-6">
+        <h3 class="font-orbitron font-bold text-lg text-white tracking-wide">Solicitar Información</h3>
+        <p class="font-inter text-xs text-steel/60 mt-1">Un especialista le responderá en menos de 2 horas.</p>
+      </div>
+      <form id="contact-form" class="flex flex-col gap-4" onsubmit="handleContactSubmit(event)">
+        <div>
+          <label class="form-label" for="cf-name">Nombre completo</label>
+          <input type="text" id="cf-name" class="form-input" placeholder="Juan Pérez" required>
+        </div>
+        <div>
+          <label class="form-label" for="cf-company">Empresa</label>
+          <input type="text" id="cf-company" class="form-input" placeholder="Fábrica Metálica S.A." required>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="form-label" for="cf-country">País</label>
+            <input type="text" id="cf-country" class="form-input" placeholder="Colombia" required>
+          </div>
+          <div>
+            <label class="form-label" for="cf-phone">Teléfono / WhatsApp</label>
+            <input type="tel" id="cf-phone" class="form-input" placeholder="+57 300 000 0000" required>
+          </div>
+        </div>
+        <div>
+          <label class="form-label" for="cf-email">Correo electrónico</label>
+          <input type="email" id="cf-email" class="form-input" placeholder="juan@fabrica.com" required>
+        </div>
+        <div>
+          <label class="form-label" for="cf-product">Producto de interés</label>
+          <select id="cf-product" class="form-input" required>
+            <option value="">Seleccione un producto...</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label" for="cf-message">Mensaje adicional</label>
+          <textarea id="cf-message" class="form-input" rows="3"
+            placeholder="Cuéntenos sobre su necesidad de producción..."></textarea>
+        </div>
+        <button type="submit" class="btn-cta w-full mt-2" id="cf-submit-btn">ENVIAR SOLICITUD</button>
+        <p class="text-center text-[0.65rem] text-steel/30 font-fira">Su información es tratada con confidencialidad
+          industrial.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== CHAT IA ========== -->
+  <div id="chat-bubble" onclick="toggleChat()" role="button" aria-label="Abrir chat de asistencia">
+    <span class="pulse-ring"></span>
+    <i class="fa-solid fa-robot text-cyanN text-lg relative z-10"></i>
+  </div>
+  <div id="chat-window" class="glass" style="border-color: rgba(0,240,255,0.2);">
+    <div class="p-4 border-b border-white/5 flex items-center gap-3 shrink-0" style="background: rgba(0,240,255,0.03);">
+      <div class="w-9 h-9 rounded-full bg-deep border border-cyanN/30 flex items-center justify-center">
+        <i class="fa-solid fa-robot text-cyanN text-sm"></i>
+      </div>
+      <div>
+        <p class="font-orbitron font-bold text-xs text-white tracking-wide">ASISTENTE TÉCNICO</p>
+        <p class="text-[0.65rem] text-cyanN/60 font-fira">En línea — ForjaTech</p>
+      </div>
+      <button onclick="toggleChat()" class="ml-auto text-steel/40 hover:text-white transition-colors"
+        aria-label="Cerrar chat">
+        <i class="fa-solid fa-minus"></i>
+      </button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-quick-replies" id="chat-quick-replies"></div>
+    <div class="p-3 border-t border-white/5 shrink-0 flex gap-2" style="background: rgba(0,0,0,0.2);">
+      <input type="text" id="chat-input" class="form-input flex-1 text-sm py-2" placeholder="Escriba su consulta..."
+        onkeydown="if(event.key==='Enter')sendChatMessage()">
+      <button onclick="sendChatMessage()"
+        class="w-10 h-10 rounded-lg bg-cyanN/10 border border-cyanN/30 flex items-center justify-center text-cyanN hover:bg-cyanN/20 transition-colors"
+        aria-label="Enviar mensaje">
+        <i class="fa-solid fa-paper-plane text-sm"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== BOTÓN WHATSAPP ========== -->
+  <a id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- ========== SCRIPTS ========== -->
+
+  <!-- Three.js: Escena 3D del troquel (se mantiene igual, sin cambios) -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    const canvas = document.getElementById('hero-canvas');
+    if (!canvas) throw new Error('Canvas no encontrado');
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(canvas.parentElement.clientWidth, canvas.parentElement.clientHeight);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x0B0C10, 0.08);
+
+    const camera = new THREE.PerspectiveCamera(40, canvas.parentElement.clientWidth / canvas.parentElement.clientHeight, 0.1, 100);
+    camera.position.set(4, 3, 6);
+    camera.lookAt(0, 0.5, 0);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.8;
+    controls.maxPolarAngle = Math.PI / 2.2;
+    controls.minPolarAngle = Math.PI / 6;
+
+    const ambientLight = new THREE.AmbientLight(0x112233, 0.6);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xffeedd, 2.5);
+    keyLight.position.set(5, 8, 3);
+    scene.add(keyLight);
+
+    const cyanLight = new THREE.PointLight(0x00F0FF, 3, 15);
+    cyanLight.position.set(-3, 2, 2);
+    scene.add(cyanLight);
+
+    const copperLight = new THREE.PointLight(0xC47F45, 2, 12);
+    copperLight.position.set(3, 1, -2);
+    scene.add(copperLight);
+
+    const rimLight = new THREE.PointLight(0x00F0FF, 1.5, 10);
+    rimLight.position.set(0, -1, -4);
+    scene.add(rimLight);
+
+    const steelMat = new THREE.MeshStandardMaterial({ color: 0x2a2e35, metalness: 0.95, roughness: 0.25 });
+    const brightSteelMat = new THREE.MeshStandardMaterial({ color: 0x8a9aaa, metalness: 0.9, roughness: 0.15 });
+
+    const dieGroup = new THREE.Group();
+    const upperDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat);
+    upperDie.position.y = 1.6;
+    dieGroup.add(upperDie);
+    const lowerDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat);
+    lowerDie.position.y = -1.6;
+    dieGroup.add(lowerDie);
+
+    const guideMat = new THREE.MeshStandardMaterial({ color: 0x444d55, metalness: 0.9, roughness: 0.3 });
+    [-1.5, 1.5].forEach(x => {
+      const guide = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 3.5, 16), guideMat);
+      guide.position.set(x, 0, 0.8);
+      dieGroup.add(guide);
+    });
+
+    const bladeShape = new THREE.Shape();
+    bladeShape.moveTo(-0.6, 0);
+    bladeShape.lineTo(0.6, 0);
+    bladeShape.lineTo(0.9, -2.2);
+    bladeShape.lineTo(-0.9, -2.2);
+    bladeShape.closePath();
+
+    const extrudeSettings = { depth: 0.06, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 2 };
+    const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings);
+    bladeGeo.center();
+    const blade = new THREE.Mesh(bladeGeo, brightSteelMat);
+    blade.position.set(0, 0.8, 0);
+    blade.rotation.x = -Math.PI / 2;
+    blade.scale.set(0.8, 0.8, 0.8);
+    dieGroup.add(blade);
+
+    scene.add(dieGroup);
+
+    function createSparkTexture(color1, color2) {
+      const c = document.createElement('canvas');
+      c.width = 32; c.height = 32;
+      const ctx = c.getContext('2d');
+      const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+      g.addColorStop(0, color1);
+      g.addColorStop(0.4, color2);
+      g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 32, 32);
+      return new THREE.CanvasTexture(c);
+    }
+
+    const cyanTex = createSparkTexture('#ffffff', '#00F0FF');
+    const copperTex = createSparkTexture('#ffffff', '#C47F45');
+
+    const sparkCount = 150;
+    const sparkGeo = new THREE.BufferGeometry();
+    const sparkPositions = new Float32Array(sparkCount * 3);
+    const sparkVelocities = [];
+    const sparkLifetimes = [];
+    for (let i = 0; i < sparkCount; i++) resetSpark(i);
+    sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
+    const sparkMat = new THREE.PointsMaterial({ map: cyanTex, size: 0.15, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.8 });
+    const sparks = new THREE.Points(sparkGeo, sparkMat);
+    scene.add(sparks);
+
+    const spark2Count = 80;
+    const spark2Geo = new THREE.BufferGeometry();
+    const spark2Pos = new Float32Array(spark2Count * 3);
+    const spark2Vel = [];
+    for (let i = 0; i < spark2Count; i++) resetSpark2(i);
+    spark2Geo.setAttribute('position', new THREE.BufferAttribute(spark2Pos, 3));
+    const spark2Mat = new THREE.PointsMaterial({ map: copperTex, size: 0.12, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.7 });
+    const sparks2 = new THREE.Points(spark2Geo, spark2Mat);
+    scene.add(sparks2);
+
+    function resetSpark(i) {
+      sparkPositions[i * 3] = (Math.random() - 0.5) * 2;
+      sparkPositions[i * 3 + 1] = Math.random() * 0.5 + 0.5;
+      sparkPositions[i * 3 + 2] = (Math.random() - 0.5) * 1.5;
+      sparkVelocities[i] = {
+        x: (Math.random() - 0.5) * 0.02,
+        y: Math.random() * 0.03 + 0.01,
+        z: (Math.random() - 0.5) * 0.02,
+      };
+      sparkLifetimes[i] = Math.random();
+    }
+
+    function resetSpark2(i) {
+      spark2Pos[i * 3] = (Math.random() - 0.5) * 1.5;
+      spark2Pos[i * 3 + 1] = Math.random() * 0.3;
+      spark2Pos[i * 3 + 2] = (Math.random() - 0.5) * 1;
+      spark2Vel[i] = {
+        x: (Math.random() - 0.5) * 0.015,
+        y: Math.random() * 0.025 + 0.005,
+        z: (Math.random() - 0.5) * 0.015,
+      };
+    }
+
+    const gridHelper = new THREE.GridHelper(20, 40, 0x00F0FF, 0x00F0FF);
+    gridHelper.material.opacity = 0.04;
+    gridHelper.material.transparent = true;
+    gridHelper.position.y = -2.5;
+    scene.add(gridHelper);
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      blade.position.y = 0.8 + Math.sin(t * 0.5) * 0.4 + 0.3;
+      upperDie.position.y = 1.6 + Math.sin(t * 0.5) * 0.15;
+      lowerDie.position.y = -1.6 - Math.sin(t * 0.5) * 0.1;
+
+      const posArr = sparks.geometry.attributes.position.array;
+      for (let i = 0; i < sparkCount; i++) {
+        sparkLifetimes[i] += 0.008;
+        if (sparkLifetimes[i] > 1) resetSpark(i);
+        posArr[i * 3] += sparkVelocities[i].x;
+        posArr[i * 3 + 1] += sparkVelocities[i].y;
+        posArr[i * 3 + 2] += sparkVelocities[i].z;
+        sparkVelocities[i].y -= 0.0002;
+      }
+      sparks.geometry.attributes.position.needsUpdate = true;
+
+      const posArr2 = sparks2.geometry.attributes.position.array;
+      for (let i = 0; i < spark2Count; i++) {
+        posArr2[i * 3] += spark2Vel[i].x;
+        posArr2[i * 3 + 1] += spark2Vel[i].y;
+        posArr2[i * 3 + 2] += spark2Vel[i].z;
+        spark2Vel[i].y -= 0.00015;
+        if (posArr2[i * 3 + 1] > 4 || posArr2[i * 3 + 1] < -3) resetSpark2(i);
+      }
+      sparks2.geometry.attributes.position.needsUpdate = true;
+
+      cyanLight.intensity = 3 + Math.sin(t * 2) * 0.5;
+      copperLight.intensity = 2 + Math.sin(t * 1.5 + 1) * 0.4;
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      const w = canvas.parentElement.clientWidth;
+      const h = canvas.parentElement.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+  </script>
+
+  <!-- ========== SCRIPT PRINCIPAL ========== -->
+  <script>
+    // ##############################
+    // CONFIGURACIÓN INICIAL
+    // ##############################
+
+    // --- WhatsApp ---
+    const WA_NUMBER = '584146576845'; // <-- CAMBIA por tu número real (sin + ni espacios)
+    const WA_DEFAULT_MSG = 'Hola%2C%20quiero%20información%20sobre%20troqueles%20ForjaTech';
+
+    // --- Envío de correos: elige solo un método (true) ---
+    const USE_FORMSPREE = false;   // <-- Pon true para usar Formspree
+    const USE_EMAILJS = true; // <-- Pon true para usar EmailJS
+    // if (USE_EMAILJS && EMAILJS_USER_ID) {
+    //   emailjs.init(EMAILJS_USER_ID);
+    // }
+    // Endpoints (rellena según el servicio que actives)
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/TU_ENDPOINT'; // <-- Pega tu URL de Formspree
+    const EMAILJS_SERVICE_ID = 'service_qqgy6en';   // Solo si usas EmailJS
+    const EMAILJS_TEMPLATE_ID = 'template_k9xpbzu';
+    const EMAILJS_USER_ID = 'pYRjEaqZQViCKwmnA';
+
+    // --- Redes sociales / marketplaces globales (footer) ---
+    const SOCIAL_LINKS = {
+      mercadolibre: 'https://www.mercadolibre.com.co/p/...',   // Tienda o perfil
+      marketplace: 'https://www.facebook.com/marketplace/profile/...',  // Perfil de Marketplace
+      youtube: 'https://youtube.com/@forjatech',               // Canal
+      facebookAds: 'https://www.facebook.com/ads/...',        // Campaña (opcional)
+    };
+
+    // Actualizar links del footer
+    document.getElementById('footer-wa').href = `https://wa.me/${WA_NUMBER}?text=${WA_DEFAULT_MSG}`;
+    document.getElementById('footer-ml').href = SOCIAL_LINKS.mercadolibre || '#';
+    document.getElementById('footer-mkt').href = SOCIAL_LINKS.marketplace || '#';
+    document.getElementById('footer-yt').href = SOCIAL_LINKS.youtube || '#';
+
+    // ##############################
+    // DATOS DE PRODUCTOS (¡personaliza las imágenes y enlaces!)
+    // ##############################
+    const products = [
+      {
+        name: "Troquel para Escardilla Jardinera",
+        process: "Estampado en frío",
+        thickness: "1.5 – 2.0 mm",
+        desc: "Incluye molde de formado cóncavo para jardinería profesional. Diseñado para alta velocidad con mínimo retrabajo.",
+        phrase: "El complemento que faltaba en su catálogo de herramientas de jardín.",
+        icon: "fa-seedling",
+        hot: false,
+        images: [
+          "/img/productos/escardilla-01.webp",
+          "/img/productos/escardilla-02.webp",
+          "/img/productos/escardilla-03.webp",
+          "/img/productos/escardilla-04.webp"
+        ],
+        links: {
+          mercadolibre: "https://www.mercadolibre.com.co/p/troquel-escardilla",
+          marketplace: "https://www.facebook.com/marketplace/item/123456",
+          youtube: "https://youtube.com/shorts/demostracion-escardilla",
+          facebookAds: "https://www.facebook.com/ads/campana-escardilla"
+        }
+      },
+      {
+        name: "Troquel para Pala Punta Cuadrada",
+        process: "Estampado en frío",
+        thickness: "1.5 – 2.0 mm",
+        desc: "Diseño simplificado de 3 estaciones. Geometría exacta de punta cuadrada con tolerancias mínimas.",
+        phrase: "Pala de albañil de geometría exacta con mínimo retrabajo.",
+        icon: "fa-square",
+        hot: false,
+        images: [
+          "./img/productos/pala-cuadrada-01.webp",
+          "./img/productos/pala-cuadrada-02.webp",
+          "./img/productos/pala-cuadrada-03.webp",
+          "./img/productos/pala-cuadrada-04.webp"
+        ],
+        links: {
+          mercadolibre: "",
+          marketplace: "",
+          youtube: "",
+          facebookAds: ""
+        }
+      },
+      {
+        name: "Troquel para Pala Punta Redonda",
+        process: "Estampado en frío",
+        thickness: "1.5 – 2.0 mm",
+        desc: "Incluye molde redondeador tubular para cabo. Ergonomía estructural para uso mixto.",
+        phrase: "Ergonomía estructural para palas de uso mixto.",
+        icon: "fa-circle",
+        hot: false,
+        images: [
+          "./img/productos/pala-redonda-01.webp",
+          "./img/productos/pala-redonda-02.webp",
+          "./img/productos/pala-redonda-03.webp",
+          "./img/productos/pala-redonda-04.webp"
+        ],
+        links: {}
+      },
+      {
+        name: "Troquel para Palín de Mina con Refuerzo",
+        process: "Estampado en caliente",
+        thickness: "≥ 2.5 mm",
+        desc: "Troquel de refuerzo de doble capa integrado. Máxima resistencia para condiciones extremas.",
+        phrase: "Resistencia comprobada bajo las condiciones más extremas.",
+        icon: "fa-mountain",
+        hot: true,
+        images: [],
+        links: {}
+      },
+      {
+        name: "Troquel para Palín de Corte",
+        process: "Estampado en caliente",
+        thickness: "≥ 2.0 mm",
+        desc: "Lógica de corte lateral con bisel incluido en el embutido. Filo industrial preciso.",
+        phrase: "Filo industrial que multiplica la productividad en campo.",
+        icon: "fa-scissors",
+        hot: true,
+        images: [],
+        links: {}
+      },
+      {
+        name: "Troquel para Palín Andino",
+        process: "Estampado en caliente",
+        thickness: "≥ 2.0 mm",
+        desc: "Diseño regional optimizado para agricultura de altura. Adaptable a láminas gruesas.",
+        phrase: "Tradición forjada con tecnología moderna.",
+        icon: "fa-wheat-awn",
+        hot: true,
+        images: [],
+        links: {}
+      },
+      {
+        name: "Troquel para Rin ML25",
+        process: "Estampado en frío",
+        thickness: "1.5 – 2.0 mm",
+        desc: "Sistema de redondeo tubular de alta precisión. Componente clave para línea de carretillas.",
+        phrase: "El componente circular que completa su línea de carretillas.",
+        icon: "fa-circle-notch",
+        hot: false,
+        images: [],
+        links: {}
+      },
+      {
+        name: "Troquel y Molde para Batea 60 L",
+        process: "Corte + Embutido",
+        thickness: "1.5 – 2.0 mm",
+        desc: "Conjunto de corte y embutido para carretilla de 60 litros. Solidez volumétrica para uso diario.",
+        phrase: "Solidez volumétrica para carretillas de uso diario.",
+        icon: "fa-bucket",
+        hot: false,
+        images: [],
+        links: {}
+      },
+      {
+        name: "Troquel y Molde para Batea 80 L",
+        process: "Corte + Embutido",
+        thickness: "1.5 – 2.0 mm",
+        desc: "Troquel de corte y molde de embutido profundo. Equilibrio perfecto entre capacidad y maniobrabilidad.",
+        phrase: "El equilibrio perfecto entre capacidad y maniobrabilidad.",
+        icon: "fa-bucket",
+        hot: false,
+        images: [],
+        links: {}
+      },
+      {
+        name: "Troquel y Molde para Batea 110 L",
+        process: "Embutido progresivo",
+        thickness: "1.5 – 2.0 mm",
+        desc: "Sistema de gran formato con estampado en frío y embutido progresivo. Máxima carga volumétrica.",
+        phrase: "Máxima carga volumétrica. Ingeniería para grandes volúmenes.",
+        icon: "fa-boxes-stacked",
+        hot: true,
+        images: [],
+        links: {}
+      },
+    ];
+
+    const processSteps = [
+      { icon: "fa-scissors", label: "CORTE CNC", desc: "Troquel de corte de precisión con tolerancias de ±0.05 mm sobre la plancha de acero.", color: "cyanN" },
+      { icon: "fa-compress", label: "EMBUTIDO", desc: "Conformado progresivo de la geometría de la pieza con control de adelgazamiento.", color: "cyanN" },
+      { icon: "fa-temperature-high", label: "REFUERZO", desc: "Estampado en caliente para láminas ≥2.0 mm. Doble capa de refuerzo estructural.", color: "copper" },
+      { icon: "fa-circle-notch", label: "REDONDEO", desc: "Acabado de bordes tubulares y verificación dimensional con instrumentación calibrated.", color: "copper" },
+    ];
+
+    const testimonials = [
+      { quote: "Desde que instalamos el troquel de pala punta redonda, nuestra merma bajó un 40%. La inversión se pagó en el primer trimestre.", name: "Carlos Mendoza", role: "Jefe de Planta", city: "Medellín, Colombia" },
+      { quote: "El combo completo de palín de mina nos permitió eliminar dos proveedores. La calidad del refuerzo en caliente es impresionante.", name: "Roberto Guzmán", role: "Director de Producción", city: "Monterrey, México" },
+      { quote: "Exportamos carretillas con batea 110 L a Centroamérica. El molde de embutido progresivo de ForjaTech nos dio la capacidad que necesitábamos.", name: "Andrés Vargas", role: "Gerente General", city: "Lima, Perú" },
+    ];
+
+    // ##############################
+    // RENDERIZAR PRODUCTOS (CON CARRUSEL E ICONOS)
+    // ##############################
+    const productGrid = document.getElementById('product-grid');
+    const productSelect = document.getElementById('cf-product');
+
+    products.forEach((p, idx) => {
+      const card = document.createElement('div');
+      card.className = 'product-card glass p-5 flex flex-col reveal';
+      card.style.transitionDelay = `${(idx % 4) * 0.08}s`;
+
+      // Carrusel de imágenes o icono fallback
+      let carouselHTML = '';
+      if (p.images && p.images.length > 0) {
+        const dotsHTML = p.images.map((_, i) =>
+          `<span class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`
+        ).join('');
+
+        const imgsHTML = p.images.map((src, i) =>
+          `<img src="${src}" class="carousel-img ${i === 0 ? 'active' : ''}" alt="${p.name} ${i + 1}" loading="${i === 0 ? 'eager' : 'lazy'}">`
+        ).join('');
+
+        carouselHTML = `
+          <div class="product-carousel aspect-[4/3]">
+            ${imgsHTML}
+            <div class="carousel-dots">${dotsHTML}</div>
+          </div>`;
+      } else {
+        // Fallback: icono grande
+        carouselHTML = `
+          <div class="product-carousel aspect-[4/3] flex items-center justify-center">
+            <i class="fa-solid ${p.icon} text-7xl text-cyanN/20"></i>
+          </div>`;
+      }
+
+      // Iconos de marketplace
+      const linkML = p.links?.mercadolibre || '';
+      const linkMkt = p.links?.marketplace || '';
+      const linkYT = p.links?.youtube || '';
+      const linkAds = p.links?.facebookAds || '';
+
+      card.innerHTML = `
+        <div class="card-glow"></div>
+        ${carouselHTML}
+        <div class="flex items-start justify-between mb-2">
+          ${p.hot ? '<span class="text-[0.6rem] font-orbitron font-bold tracking-wider px-2 py-0.5 rounded bg-burnt/15 text-burnt border border-burnt/30">HOT</span>' : '<span class="text-[0.6rem] font-orbitron font-bold tracking-wider px-2 py-0.5 rounded bg-cyanN/8 text-cyanN/60 border border-cyanN/15">STD</span>'}
+          <span class="font-fira text-[0.6rem] text-steel/40">${p.thickness}</span>
+        </div>
+        <h3 class="font-orbitron font-bold text-xs tracking-wide text-white leading-snug mb-2">${p.name.toUpperCase()}</h3>
+        <div class="flex items-center gap-2 mb-3">
+          <i class="fa-solid ${p.process.includes('caliente') ? 'fa-fire text-copper/70' : 'fa-snowflake text-cyanN/50'} text-[0.6rem]"></i>
+          <span class="font-fira text-[0.65rem] ${p.process.includes('caliente') ? 'text-copper/70' : 'text-cyanN/50'}">${p.process}</span>
+        </div>
+        <p class="font-inter text-xs text-steel/60 leading-relaxed mb-3 flex-1">${p.desc}</p>
+        <p class="font-inter text-[0.7rem] text-white/40 italic mb-4 border-t border-white/5 pt-3">${p.phrase}</p>
+        <button onclick="openModalWithProduct(${idx})" class="btn-ghost text-[0.6rem] py-2 px-3 w-full">CONSULTAR DISPONIBILIDAD</button>
+
+        <!-- Iconos de marketplace -->
+        <div class="flex items-center justify-center gap-3 mt-4 pt-3 border-t border-white/5 marketplace-icons">
+          <a href="${linkML || '#'}" target="_blank" rel="noopener" 
+             class="w-8 h-8 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all"
+             title="Ver en Mercado Libre"
+             onclick="if(!this.getAttribute('href') || this.getAttribute('href')==='#') { event.preventDefault(); showToast('Próximamente en Mercado Libre', 'info'); }">
+            <i class="fa-solid fa-shop text-[#FFE600] text-xs"></i>
+          </a>
+          <a href="${linkMkt || '#'}" target="_blank" rel="noopener"
+             class="w-8 h-8 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all"
+             title="Ver en Facebook Marketplace"
+             onclick="if(!this.getAttribute('href') || this.getAttribute('href')==='#') { event.preventDefault(); showToast('Próximamente en Marketplace', 'info'); }">
+            <i class="fa-brands fa-facebook-f text-[#1877F2] text-xs"></i>
+          </a>
+          <a href="${linkYT || '#'}" target="_blank" rel="noopener"
+             class="w-8 h-8 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all"
+             title="Ver video en YouTube"
+             onclick="if(!this.getAttribute('href') || this.getAttribute('href')==='#') { event.preventDefault(); showToast('Video próximamente', 'info'); }">
+            <i class="fa-brands fa-youtube text-[#FF0000] text-xs"></i>
+          </a>
+          <a href="${linkAds || '#'}" target="_blank" rel="noopener"
+             class="w-8 h-8 rounded-full bg-[#FF6B35]/10 border border-[#FF6B35]/20 flex items-center justify-center hover:bg-[#FF6B35]/20 transition-all"
+             title="Ver campaña de Facebook"
+             onclick="if(!this.getAttribute('href') || this.getAttribute('href')==='#') { event.preventDefault(); showToast('Campaña próximamente', 'info'); }">
+            <i class="fa-solid fa-bullhorn text-[#FF6B35] text-xs"></i>
+          </a>
+        </div>
+      `;
+
+      // Efecto glow que sigue al mouse
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+        card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+      });
+
+      productGrid.appendChild(card);
+
+      // Opción del select
+      const opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = p.name;
+      productSelect.appendChild(opt);
+    });
+
+    // ##############################
+    // RENDERIZAR DIAGRAMA DE PROCESO
+    // ##############################
+    const processDiagram = document.getElementById('process-diagram');
+    const processContainer = document.createElement('div');
+    processContainer.className = 'grid grid-cols-2 md:grid-cols-4 gap-6 relative';
+
+    processSteps.forEach((step, idx) => {
+      const el = document.createElement('div');
+      el.className = 'process-step flex flex-col items-center text-center relative z-10';
+      const colorClass = step.color === 'copper' ? 'text-copper border-copper/30' : 'text-cyanN border-cyanN/30';
+      const hoverGlow = step.color === 'copper' ? 'hover:shadow-[0_0_30px_rgba(196,127,69,0.3)]' : 'hover:shadow-[0_0_30px_rgba(0,240,255,0.3)]';
+      el.innerHTML = `
+        <div class="tooltip-content glass px-4 py-3 text-xs font-inter text-steel/80 leading-relaxed max-w-[220px]" style="white-space:normal;">
+          ${step.desc}
+        </div>
+        <div class="step-icon w-16 h-16 rounded-xl border ${colorClass} flex items-center justify-center mb-4 transition-all duration-300 ${hoverGlow}" style="background: rgba(${step.color === 'copper' ? '196,127,69' : '0,240,255'}, 0.06);">
+          <i class="fa-solid ${step.icon} text-xl ${colorClass}"></i>
+        </div>
+        <span class="step-label font-orbitron font-bold text-[0.65rem] tracking-wider text-steel/70 transition-colors duration-300">${step.label}</span>
+        <span class="font-fira text-[0.55rem] text-steel/30 mt-1">PASO ${idx + 1}</span>
+      `;
+      processContainer.appendChild(el);
+    });
+    processDiagram.appendChild(processContainer);
+
+    // ##############################
+    // RENDERIZAR TESTIMONIOS
+    // ##############################
+    const testimonialsGrid = document.getElementById('testimonials-grid');
+    testimonials.forEach((t, idx) => {
+      const card = document.createElement('div');
+      card.className = `testimonial-card glass p-6 reveal reveal-delay-${idx + 1}`;
+      card.innerHTML = `
+        <p class="font-inter text-sm text-steel/80 leading-relaxed mb-6 relative z-10">${t.quote}</p>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-cyanN/10 border border-cyanN/20 flex items-center justify-center font-orbitron font-bold text-xs text-cyanN">${t.name.split(' ').map(n => n[0]).join('')}</div>
+          <div>
+            <p class="font-inter text-sm font-medium text-white/90">${t.name}</p>
+            <p class="text-xs text-steel/50">${t.role} — ${t.city}</p>
+          </div>
+        </div>
+      `;
+      testimonialsGrid.appendChild(card);
+    });
+
+    // ##############################
+    // CARRUSELES AUTOMÁTICOS
+    // ##############################
+    function initCarousels() {
+      const carousels = document.querySelectorAll('.product-carousel');
+      carousels.forEach(carousel => {
+        const imgs = carousel.querySelectorAll('.carousel-img');
+        if (imgs.length === 0) return; // Sin imágenes (fallback)
+
+        const dots = carousel.querySelectorAll('.dot');
+        let current = 0;
+        let interval;
+
+        function goTo(index) {
+          imgs[current].classList.remove('active');
+          dots[current].classList.remove('active');
+          imgs[index].classList.add('active');
+          dots[index].classList.add('active');
+          current = index;
+        }
+
+        function next() {
+          goTo((current + 1) % imgs.length);
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              interval = setInterval(next, 3500);
+            } else {
+              clearInterval(interval);
+            }
+          });
+        }, { threshold: 0.3 });
+        observer.observe(carousel);
+
+        dots.forEach((dot, i) => {
+          dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearInterval(interval);
+            goTo(i);
+            interval = setInterval(next, 3500);
+          });
+        });
+
+        // Guardar para limpieza
+        carousel._interval = interval;
+        carousel._observer = observer;
+      });
+    }
+
+    // ##############################
+    // SCROLL REVEAL, NAVBAR, CURSOR
+    // ##############################
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        navbar.style.background = 'rgba(11,12,16,0.9)';
+        navbar.style.backdropFilter = 'blur(16px)';
+        navbar.style.borderBottom = '1px solid rgba(0,240,255,0.08)';
+      } else {
+        navbar.style.background = 'transparent';
+        navbar.style.backdropFilter = 'none';
+        navbar.style.borderBottom = 'none';
+      }
+    });
+
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
+    });
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      ring.style.transform = `translate(${ringX - 18}px, ${ringY - 18}px)`;
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    document.querySelectorAll('a, button, .product-card, .quick-reply, input, select, textarea').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      mobileOverlay.classList.toggle('open');
+    });
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      mobileOverlay.classList.remove('open');
+    }
+
+    // ##############################
+    // MODAL DE CONTACTO Y ENVÍO
+    // ##############################
+    const contactModal = document.getElementById('contact-modal');
+    function openModal() {
+      contactModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function openModalWithProduct(idx) {
+      openModal();
+      document.getElementById('cf-product').value = idx;
+    }
+    function closeModal() {
+      contactModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeModal();
+        if (chatWindow.classList.contains('open')) toggleChat();
+      }
+    });
+
+    // Envío unificado
+    async function sendEmail(data) {
+      // Decide qué método usar (solo uno)
+      if (USE_FORMSPREE && FORMSPREE_ENDPOINT) {
+        try {
+          const res = await fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+          return res.ok;
+        } catch (e) {
+          console.error('Error Formspree:', e);
+          return false;
+        }
+      }
+      else if (USE_EMAILJS && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_USER_ID) {
+        // Integración simplificada con EmailJS (requiere cargar su SDK o hacer fetch a su API)
+        // Aquí asumimos que el SDK está cargado (emailjs-com) o puedes usar su REST API.
+        // Si no está disponible, mostramos un error.
+        if (typeof emailjs !== 'undefined') {
+          try {
+            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data, EMAILJS_USER_ID);
+            return true;
+          } catch (e) {
+            console.error('Error EmailJS:', e);
+            return false;
+          }
+        } else {
+          console.warn('EmailJS no está cargado. Agrega el script de emailjs-com.');
+          return false;
+        }
+      }
+      // Si no hay ningún método configurado
+      return false;
+    }
+
+    async function handleContactSubmit(e) {
+      e.preventDefault();
+      const btn = document.getElementById('cf-submit-btn');
+      btn.textContent = 'ENVIANDO...';
+      btn.disabled = true;
+
+      const formData = {
+        name: document.getElementById('cf-name').value,
+        company: document.getElementById('cf-company').value,
+        country: document.getElementById('cf-country').value,
+        phone: document.getElementById('cf-phone').value,
+        email: document.getElementById('cf-email').value,
+        product: products[document.getElementById('cf-product').value]?.name || 'General',
+        message: document.getElementById('cf-message').value,
+        _subject: `Nuevo lead: ${document.getElementById('cf-name').value} - ${document.getElementById('cf-company').value}`,
+      };
+
+      const success = await sendEmail(formData);
+      if (success) {
+        btn.textContent = '✓ ENVIADO';
+        btn.style.background = 'rgba(0,240,255,0.15)';
+        showToast('Solicitud enviada. Un especialista le contactará en breve.', 'success');
+        document.getElementById('contact-form').reset();
+      } else {
+        btn.textContent = 'ERROR — REINTENTAR';
+        btn.style.background = 'rgba(255,80,80,0.3)';
+        showToast('No se pudo enviar. Intente de nuevo o contáctenos por WhatsApp.', 'info');
+      }
+      setTimeout(() => {
+        btn.textContent = 'ENVIAR SOLICITUD';
+        btn.disabled = false;
+        btn.style.background = '';
+      }, 3000);
+    }
+
+    // ##############################
+    // TOAST
+    // ##############################
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-info'} mr-2"></i>${msg}`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4200);
+    }
+
+    // ##############################
+    // CHATBOT IA
+    // ##############################
+    const chatBubble = document.getElementById('chat-bubble');
+    const chatWindow = document.getElementById('chat-window');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatQuickReplies = document.getElementById('chat-quick-replies');
+    const chatInput = document.getElementById('chat-input');
+    let chatOpen = false;
+
+    function toggleChat() {
+      chatOpen = !chatOpen;
+      chatWindow.classList.toggle('open', chatOpen);
+      if (chatOpen && chatMessages.children.length === 0) startChat();
+    }
+
+    let chatState = 'IDLE';
+    let chatLead = { name: '', company: '', country: '', phone: '', email: '', product: '', message: '' };
+
+    function addBotMsg(text) {
+      const typing = document.createElement('div');
+      typing.className = 'chat-msg bot typing-indicator';
+      typing.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(typing);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      setTimeout(() => {
+        typing.remove();
+        const msg = document.createElement('div');
+        msg.className = 'chat-msg bot';
+        msg.textContent = text;
+        chatMessages.appendChild(msg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 800 + Math.random() * 400);
+    }
+
+    function addUserMsg(text) {
+      const msg = document.createElement('div');
+      msg.className = 'chat-msg user';
+      msg.textContent = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function setQuickReplies(options) {
+      chatQuickReplies.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'quick-reply';
+        btn.textContent = opt.label;
+        btn.onclick = () => {
+          addUserMsg(opt.label);
+          chatQuickReplies.innerHTML = '';
+          opt.action();
+        };
+        chatQuickReplies.appendChild(btn);
+      });
+    }
+
+    function detectIntent(text) {
+      const lower = text.toLowerCase();
+      const priceWords = ['precio', 'costo', 'cuánto', 'cuanto', 'cotización', 'cotizacion', 'cotizar', 'valor', 'presupuesto', 'comprar', 'adquirir'];
+      const techWords = ['especificación', 'especificacion', 'técnico', 'tecnico', 'material', 'espesor', 'dimensión', 'dimension', 'tolerancia'];
+      if (priceWords.some(w => lower.includes(w))) return 'pricing';
+      if (techWords.some(w => lower.includes(w))) return 'tech';
+      return 'general';
+    }
+
+    function startChat() {
+      chatState = 'GREETING';
+      chatLead = { name: '', company: '', country: '', phone: '', email: '', product: '', message: '' };
+      addBotMsg('Bienvenido al Asistente Técnico de ForjaTech. Soy su primer punto de contacto para consultas sobre troqueles y moldes de estampado.');
+      setTimeout(() => {
+        addBotMsg('¿En qué puedo ayudarle hoy?');
+        setTimeout(() => {
+          setQuickReplies([
+            { label: 'Ver productos', action: showProductList },
+            { label: 'Consultar precio', action: () => startLeadCapture('pricing') },
+            { label: 'Soporte técnico', action: startTechSupport },
+            { label: 'Hablar con especialista', action: () => startLeadCapture('general') },
+          ]);
+        }, 1200);
+      }, 1400);
+    }
+
+    function showProductList() {
+      chatState = 'PRODUCT_LIST';
+      const names = products.map(p => p.name);
+      const first = names.slice(0, 5);
+      const rest = names.slice(5);
+      const replies = first.map(n => ({
+        label: n.length > 35 ? n.substring(0, 35) + '...' : n,
+        action: () => { chatLead.product = n; showProductDetail(n); }
+      }));
+      if (rest.length > 0) {
+        replies.push({ label: 'Ver más productos...', action: () => showMoreProducts(rest) });
+      }
+      replies.push({
+        label: 'Volver', action: () => {
+          addBotMsg('¿En qué más puedo ayudarle?');
+          setTimeout(() => setQuickReplies([
+            { label: 'Consultar precio', action: () => startLeadCapture('pricing') },
+            { label: 'Soporte técnico', action: startTechSupport },
+            { label: 'Hablar con especialista', action: () => startLeadCapture('general') },
+          ]), 1000);
+        }
+      });
+      addBotMsg('Contamos con la siguiente línea de troqueles y moldes:');
+      setTimeout(() => setQuickReplies(replies), 1000);
+    }
+
+    function showMoreProducts(rest) {
+      const replies = rest.map(n => ({
+        label: n.length > 35 ? n.substring(0, 35) + '...' : n,
+        action: () => { chatLead.product = n; showProductDetail(n); }
+      }));
+      replies.push({ label: 'Volver', action: showProductList });
+      setQuickReplies(replies);
+    }
+
+    function showProductDetail(name) {
+      chatState = 'PRODUCT_DETAIL';
+      const p = products.find(pr => pr.name === name);
+      if (!p) return;
+      addBotMsg(`${p.name}. Proceso: ${p.process}. Espesores: ${p.thickness}. ${p.desc}`);
+      setTimeout(() => {
+        addBotMsg('¿Desea consultar disponibilidad y precio para este producto?');
+        setTimeout(() => setQuickReplies([
+          { label: 'Sí, consultar precio', action: () => startLeadCapture('pricing') },
+          { label: 'Otro producto', action: showProductList },
+          {
+            label: 'Volver al inicio', action: () => {
+              addBotMsg('¿En qué más puedo ayudarle?');
+              setTimeout(() => setQuickReplies([
+                { label: 'Ver productos', action: showProductList },
+                { label: 'Soporte técnico', action: startTechSupport },
+                { label: 'Hablar con especialista', action: () => startLeadCapture('general') },
+              ]), 1000);
+            }
+          },
+        ]), 1000);
+      }, 1200);
+    }
+
+    function startTechSupport() {
+      chatState = 'TECH_SUPPORT';
+      addBotMsg('Nuestro equipo de ingeniería puede asistirle con especificaciones técnicas, tiempos de entrega y compatibilidad de materiales.');
+      setTimeout(() => {
+        addBotMsg('Por favor, describa su consulta técnica:');
+        chatState = 'TECH_SUPPORT_INPUT';
+      }, 1200);
+    }
+
+    function startLeadCapture(intent) {
+      chatState = 'LEAD_CAPTURE';
+      if (intent === 'pricing') {
+        addBotMsg('Para enviarle una cotización personalizada, necesito algunos datos. Comencemos:');
+      } else {
+        addBotMsg('Para conectarle con un especialista, necesito algunos datos básicos:');
+      }
+      setTimeout(() => {
+        addBotMsg('¿Cuál es su nombre completo?');
+        chatState = 'LEAD_CAPTURE_NAME';
+      }, 1200);
+    }
+
+    function processLeadField(text) {
+      switch (chatState) {
+        case 'LEAD_CAPTURE_NAME':
+          chatLead.name = text;
+          addBotMsg(`Gracias, ${text}. ¿Cuál es el nombre de su empresa?`);
+          chatState = 'LEAD_CAPTURE_COMPANY';
+          break;
+        case 'LEAD_CAPTURE_COMPANY':
+          chatLead.company = text;
+          addBotMsg('¿Desde qué país nos escribe?');
+          chatState = 'LEAD_CAPTURE_COUNTRY';
+          break;
+        case 'LEAD_CAPTURE_COUNTRY':
+          chatLead.country = text;
+          addBotMsg('¿Cuál es su número de WhatsApp? (incluya código de país)');
+          chatState = 'LEAD_CAPTURE_PHONE';
+          break;
+        case 'LEAD_CAPTURE_PHONE':
+          chatLead.phone = text;
+          addBotMsg('¿Y su correo electrónico?');
+          chatState = 'LEAD_CAPTURE_EMAIL';
+          break;
+        case 'LEAD_CAPTURE_EMAIL':
+          chatLead.email = text;
+          if (!chatLead.product) {
+            addBotMsg('¿Hay algún producto específico de su interés, o desea información general?');
+            chatState = 'LEAD_CAPTURE_PRODUCT_OPT';
+            setTimeout(() => setQuickReplies([
+              { label: 'Información general', action: () => finalizeLead() },
+              { label: 'Seleccionar producto', action: showProductList },
+            ]), 1200);
+          } else {
+            finalizeLead();
+          }
+          break;
+        case 'LEAD_CAPTURE_PRODUCT_OPT':
+          finalizeLead();
+          break;
+      }
+    }
+
+    async function finalizeLead() {
+      chatState = 'TRANSFER';
+      const summary = `Lead: ${chatLead.name}\nEmpresa: ${chatLead.company}\nPaís: ${chatLead.country}\nWhatsApp: ${chatLead.phone}\nEmail: ${chatLead.email}\nProducto: ${chatLead.product || 'General'}`;
+      console.log('[ForjaTech Chat] Lead capturado:', summary);
+
+      // Enviar por correo usando el mismo sistema
+      const success = await sendEmail({
+        name: chatLead.name,
+        company: chatLead.company,
+        country: chatLead.country,
+        phone: chatLead.phone,
+        email: chatLead.email,
+        product: chatLead.product || 'General',
+        message: '',
+        _subject: `Lead Chatbot: ${chatLead.name} - ${chatLead.company}`,
+      });
+
+      if (success) console.log('[Chat] Lead enviado por correo exitosamente');
+      else console.warn('[Chat] No se pudo enviar el lead por correo');
+
+      addBotMsg('Perfecto. He registrado su solicitud y enviado un resumen a nuestro equipo de ingeniería.');
+      setTimeout(() => {
+        addBotMsg(`Un especialista le contactará por WhatsApp en menos de 2 horas al número ${chatLead.phone}.`);
+        setTimeout(() => {
+          setQuickReplies([
+            {
+              label: 'Ir a WhatsApp ahora', action: () => {
+                const msg = encodeURIComponent(`Hola, soy ${chatLead.name} de ${chatLead.company} (${chatLead.country}). Consulto sobre: ${chatLead.product || 'troqueles ForjaTech'}.`);
+                window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
+              }
+            },
+            { label: 'Nueva consulta', action: startChat },
+          ]);
+        }, 1000);
+      }, 1200);
+    }
+
+    function sendChatMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = '';
+      addUserMsg(text);
+      chatQuickReplies.innerHTML = '';
+
+      switch (chatState) {
+        case 'GREETING':
+        case 'PRODUCT_LIST':
+        case 'PRODUCT_DETAIL': {
+          const intent = detectIntent(text);
+          if (intent === 'pricing') {
+            startLeadCapture('pricing');
+          } else if (intent === 'tech') {
+            startTechSupport();
+          } else {
+            const found = products.find(p => text.toLowerCase().includes(p.name.toLowerCase().split(' ').slice(-2).join(' ')));
+            if (found) {
+              chatLead.product = found.name;
+              showProductDetail(found.name);
+            } else {
+              addBotMsg('Le puedo ayudar a explorar nuestra línea de productos, consultar precios o conectarme con un especialista técnico. ¿Qué prefiere?');
+              setTimeout(() => setQuickReplies([
+                { label: 'Ver productos', action: showProductList },
+                { label: 'Consultar precio', action: () => startLeadCapture('pricing') },
+                { label: 'Hablar con especialista', action: () => startLeadCapture('general') },
+              ]), 1000);
+            }
+          }
+          break;
+        }
+        case 'TECH_SUPPORT':
+        case 'TECH_SUPPORT_INPUT':
+          chatLead.message = text;
+          addBotMsg('Gracias por su consulta. Un ingeniero revisará los detalles técnicos. ¿Desea dejar sus datos para que le contacten directamente con la respuesta?');
+          chatState = 'TECH_SUPPORT_ASK_LEAD';
+          setTimeout(() => setQuickReplies([
+            { label: 'Sí, dejar mis datos', action: () => startLeadCapture('tech') },
+            {
+              label: 'No, gracias', action: () => {
+                addBotMsg('Entendido. Si cambia de opinión, estoy aquí. Le deseo un excelente día.');
+                chatState = 'IDLE';
+              }
+            },
+          ]), 1000);
+          break;
+        case 'LEAD_CAPTURE_NAME':
+        case 'LEAD_CAPTURE_COMPANY':
+        case 'LEAD_CAPTURE_COUNTRY':
+        case 'LEAD_CAPTURE_PHONE':
+        case 'LEAD_CAPTURE_EMAIL':
+          processLeadField(text);
+          break;
+        case 'TRANSFER':
+        case 'IDLE':
+          addBotMsg('¿En qué más puedo ayudarle?');
+          setTimeout(() => setQuickReplies([
+            { label: 'Ver productos', action: showProductList },
+            { label: 'Consultar precio', action: () => startLeadCapture('pricing') },
+            { label: 'Soporte técnico', action: startTechSupport },
+            { label: 'Hablar con especialista', action: () => startLeadCapture('general') },
+          ]), 1000);
+          break;
+      }
+    }
+
+    // ##############################
+    // INICIALIZACIÓN FINAL
+    // ##############################
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2200);
+      initCarousels();
+
+      // WhatsApp flotante
+      document.getElementById('wa-float').href = `https://wa.me/${WA_NUMBER}?text=${WA_DEFAULT_MSG}`;
+    });
+
+  </script>
+
+</body>
+
+</html>
