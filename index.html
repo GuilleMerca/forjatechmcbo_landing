@@ -1589,6 +1589,7 @@
       renderProducts();
       renderProcess();
       renderTestimonials();
+      resetChat();
     };
 
     window.toggleTheme = function () {
@@ -1891,6 +1892,16 @@
     function setQuickReplies(opts) {
       chatQuickReplies.innerHTML = '';
       opts.forEach(o => { const b = document.createElement('button'); b.className = 'quick-reply'; b.textContent = o.label; b.onclick = () => { addUserMsg(o.label); chatQuickReplies.innerHTML = ''; o.action(); }; chatQuickReplies.appendChild(b); });
+    }
+
+    function resetChat() {
+      chatMessages.innerHTML = '';
+      chatQuickReplies.innerHTML = '';
+      chatState = 'IDLE';
+      chatLead = {};
+      if (chatOpen) {
+        startChat();
+      }
     }
 
     function startChat() {
