@@ -1283,6 +1283,41 @@
     .lightbox-dots .dot:hover {
       transform: scale(1.3);
     }
+
+    /* Preloader más pequeño en móvil */
+    @media (max-width: 640px) {
+      #preloader .brand {
+        font-size: 1.25rem;
+        /* era 2rem */
+        letter-spacing: 0.15em;
+      }
+    }
+
+    /* Controles flotantes móviles */
+    #mobile-controls {
+      transition: opacity 0.3s;
+    }
+
+    .light #theme-toggle-float {
+      background: var(--bg-alt);
+      color: var(--fg);
+    }
+
+    /* Ajustar posición en móviles pequeños */
+    @media (max-width: 640px) {
+      #mobile-controls {
+        bottom: 140px;
+        right: 16px;
+      }
+
+      #chat-bubble {
+        bottom: 90px;
+      }
+
+      #wa-float {
+        bottom: 24px;
+      }
+    }
   </style>
 </head>
 
@@ -1331,18 +1366,12 @@
         <div class="flex items-center gap-3 ml-2">
           <div id="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>
           </div>
-          <div id="lang-es" class="lang-flag active" onclick="switchLang('es')">🇻🇪</div>
-          <div id="lang-en" class="lang-flag" onclick="switchLang('en')">🇺🇸</div>
+          <div id="lang-es" class="lang-flag active flex-shrink-0" onclick="switchLang('es')">🇻🇪</div>
+          <div id="lang-en" class="lang-flag flex-shrink-0" onclick="switchLang('en')">🇺🇸</div>
         </div>
       </div>
       <!-- Mobile -->
       <div class="md:hidden flex items-center gap-3">
-        <div id="theme-toggle-mobile" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i><i
-            class="fa-solid fa-moon"></i></div>
-        <div id="lang-es-mobile" class="lang-flag active" onclick="switchLang('es')"
-          style="width:34px;height:34px;font-size:1.1rem;">🇻🇪</div>
-        <div id="lang-en-mobile" class="lang-flag" onclick="switchLang('en')"
-          style="width:34px;height:34px;font-size:1.1rem;">🇺🇸</div>
         <button id="hamburger" class="flex flex-col gap-1.5 p-2" aria-label="Abrir menú">
           <span class="block w-5 h-0.5 bg-steel transition-all duration-300" id="ham1"></span>
           <span class="block w-5 h-0.5 bg-steel transition-all duration-300" id="ham2"></span>
@@ -1767,11 +1796,19 @@
       renderProcess();
       renderTestimonials();
       resetChat();
+
     };
 
     window.toggleTheme = function () {
       document.documentElement.classList.toggle('light');
       document.documentElement.classList.toggle('dark');
+      // Actualizar íconos en flotante móvil
+      const floatToggle = document.getElementById('theme-toggle-float');
+      if (floatToggle) {
+        const isLight = document.documentElement.classList.contains('light');
+        floatToggle.querySelector('.fa-sun').style.display = isLight ? 'none' : 'inline-block';
+        floatToggle.querySelector('.fa-moon').style.display = isLight ? 'inline-block' : 'none';
+      }
     };
 
     // Datos de productos bilingües
@@ -2317,6 +2354,22 @@
       document.getElementById('wa-float').href = `https://wa.me/${WA_NUMBER}`;
     });
   </script>
+  <!-- ========== CONTROLES FLOTANTES MÓVIL (tema + idiomas) ========== -->
+  <div id="mobile-controls" class="fixed md:hidden flex flex-col items-center gap-3"
+    style="bottom: 140px; right: 24px; z-index: 6500;">
+    <!-- Toggle tema -->
+    <div id="theme-toggle-float" onclick="toggleTheme()"
+      class="w-11 h-11 rounded-full flex items-center justify-center cursor-pointer bg-deep border border-cyanN/30 text-white text-lg shadow-lg">
+      <i class="fa-solid fa-sun hidden"></i>
+      <i class="fa-solid fa-moon"></i>
+    </div>
+    <!-- Idioma español -->
+    <div id="lang-es-float" class="lang-flag active" onclick="switchLang('es')"
+      style="width: 38px; height: 38px; font-size: 1.2rem;">🇻🇪</div>
+    <!-- Idioma inglés -->
+    <div id="lang-en-float" class="lang-flag" onclick="switchLang('en')"
+      style="width: 38px; height: 38px; font-size: 1.2rem;">🇺🇸</div>
+  </div>
 </body>
 
 </html>
