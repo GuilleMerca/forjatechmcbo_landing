@@ -1303,10 +1303,10 @@
       color: var(--fg);
     }
 
-    /* Ajustar posición en móviles pequeños */
     @media (max-width: 640px) {
       #mobile-controls {
-        bottom: 140px;
+        bottom: 180px;
+        /* ← antes 140px, ahora más cerca del robot */
         right: 16px;
       }
 
@@ -1786,17 +1786,23 @@
 
     window.switchLang = function (lang) {
       currentLang = lang;
-      document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-      document.getElementById('lang-es-mobile').classList.toggle('active', lang === 'es');
-      document.getElementById('lang-en-mobile').classList.toggle('active', lang === 'en');
+      // --- escritorio ---
+      const desktopEs = document.getElementById('lang-es');
+      const desktopEn = document.getElementById('lang-en');
+      if (desktopEs) desktopEs.classList.toggle('active', lang === 'es');
+      if (desktopEn) desktopEn.classList.toggle('active', lang === 'en');
+      // --- flotantes móviles ---
+      const floatEs = document.getElementById('lang-es-float');
+      const floatEn = document.getElementById('lang-en-float');
+      if (floatEs) floatEs.classList.toggle('active', lang === 'es');
+      if (floatEn) floatEn.classList.toggle('active', lang === 'en');
+      // --- aplicar traducción ---
       translatePage();
       renderValueCards();
       renderProducts();
       renderProcess();
       renderTestimonials();
       resetChat();
-
     };
 
     window.toggleTheme = function () {
@@ -2198,10 +2204,10 @@
     window.closeModal = () => { contactModal.classList.remove('open'); document.body.style.overflow = ''; };
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
-        closeModal(); if (document.getElementById('chat-window').classList.contains('open')) toggleChat(); if (e.key === 'Escape') {
-          closeModal();
-          closeLightbox();  // <-- añadir esta línea
-          if (document.getElementById('chat-window').classList.contains('open')) toggleChat();
+        closeModal();
+        closeLightbox();
+        if (document.getElementById('chat-window').classList.contains('open')) {
+          toggleChat();
         }
       }
     });
