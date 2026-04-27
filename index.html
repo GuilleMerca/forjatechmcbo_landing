@@ -1106,6 +1106,92 @@
     .lang-flag:hover {
       transform: scale(1.1);
     }
+
+    /* texto "blanco" (en realidad, color de primer plano brillante) */
+    .text-white,
+    .text-white\/90,
+    .text-white\/80,
+    .text-white\/70,
+    .text-white\/60,
+    .text-white\/50,
+    .text-white\/40,
+    .text-white\/30,
+    .text-white\/20,
+    .text-white\/10,
+    h1.text-white,
+    h2.text-white,
+    h3.text-white,
+    h4.text-white,
+    span.text-white,
+    p.text-white,
+    a.text-white {
+      color: var(--fg-bright) !important;
+    }
+
+    /* texto "steel" y similares (color de primer plano general) */
+    .text-steel,
+    .text-steel\/80,
+    .text-steel\/70,
+    .text-steel\/60,
+    .text-steel\/50,
+    .text-steel\/40,
+    .text-steel\/30,
+    .text-steel\/20,
+    .text-steel\/10,
+    .text-steel\/90,
+    a.text-steel\/80,
+    a.text-steel\/60 {
+      color: var(--fg) !important;
+    }
+
+    /* texto "muted" y "steel" tenues */
+    .text-muted,
+    .text-steel\/40,
+    .text-steel\/30,
+    .text-steel\/20,
+    .text-steel\/10,
+    .text-steel\/50 {
+      color: var(--muted) !important;
+    }
+
+    /* fondos que se usan como "glass" o tarjetas – que ya tienen variable, pero por seguridad */
+    .glass,
+    .bg-deep,
+    .bg-petrol,
+    .bg-cyanN\/10,
+    .bg-cyanN\/5,
+    .bg-burnt\/15,
+    .bg-burnt\/10 {
+      background-color: var(--card) !important;
+      border-color: var(--card-border) !important;
+    }
+
+    /* Botones fantasma (ghost) y CTA – mantener legibilidad */
+    .btn-ghost {
+      color: var(--accent) !important;
+      border-color: var(--accent) !important;
+    }
+
+    .btn-cta {
+      background-color: var(--cta) !important;
+      color: white !important;
+      /* el texto del botón CTA siempre blanco, porque el fondo es naranja intenso */
+    }
+
+    .quick-reply {
+      color: var(--accent) !important;
+      border-color: var(--accent) !important;
+      background-color: rgba(0, 240, 255, 0.06) !important;
+    }
+
+    #mobile-menu {
+      background: var(--bg) !important;
+    }
+
+    #mobile-menu a,
+    #mobile-menu button {
+      color: var(--fg) !important;
+    }
   </style>
 </head>
 
