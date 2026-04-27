@@ -8,56 +8,37 @@
   <meta name="description"
     content="Troqueles de estampado en frío y caliente para palas, palines y carretillas. Ingeniería de precisión con disponibilidad inmediata.">
 
-  <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400&display=swap"
     rel="stylesheet">
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            deep: '#0B0C10',
-            petrol: '#111A28',
-            cyanN: '#00F0FF',
-            copper: '#C47F45',
-            steel: '#C5C6C7',
-            burnt: '#FF6B35',
-            neonM: '#FF4500'
+            deep: '#0B0C10', petrol: '#111A28', cyanN: '#00F0FF', copper: '#C47F45',
+            steel: '#C5C6C7', burnt: '#FF6B35', neonM: '#FF4500'
           },
           fontFamily: {
-            orbitron: ['Orbitron', 'sans-serif'],
-            inter: ['Inter', 'sans-serif'],
-            fira: ['Fira Code', 'monospace'],
+            orbitron: ['Orbitron', 'sans-serif'], inter: ['Inter', 'sans-serif'], fira: ['Fira Code', 'monospace'],
           }
         }
       }
     }
   </script>
 
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Three.js Import Map -->
   <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-      }
-    }
+    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
   <style>
-    /* ========== VARIABLES DE TEMA (OSCURO POR DEFECTO) ========== */
     :root,
     .dark {
       --bg: #0B0C10;
@@ -74,12 +55,9 @@
       --glow-strong: 0 0 30px rgba(0, 240, 255, 0.3), 0 0 80px rgba(0, 240, 255, 0.1);
       --glow-copper: 0 0 20px rgba(196, 127, 69, 0.2), 0 0 60px rgba(196, 127, 69, 0.05);
       --bg-grid: rgba(0, 240, 255, 0.03);
-      --border-light: rgba(0, 240, 255, 0.12);
-      --text-muted: #667788;
       --hero-overlay: linear-gradient(180deg, rgba(11, 12, 16, 0.5) 0%, rgba(11, 12, 16, 0.8) 60%, rgba(11, 12, 16, 1) 100%);
     }
 
-    /* TEMA CLARO */
     .light {
       --bg: #F5F7FA;
       --bg-alt: #E2E8F0;
@@ -95,12 +73,9 @@
       --glow-strong: 0 0 30px rgba(11, 114, 133, 0.2), 0 0 80px rgba(11, 114, 133, 0.07);
       --glow-copper: 0 0 20px rgba(156, 66, 33, 0.15), 0 0 60px rgba(156, 66, 33, 0.05);
       --bg-grid: rgba(11, 114, 133, 0.03);
-      --border-light: rgba(11, 114, 133, 0.12);
-      --text-muted: #718096;
       --hero-overlay: linear-gradient(180deg, rgba(245, 247, 250, 0.5) 0%, rgba(245, 247, 250, 0.8) 60%, rgba(245, 247, 250, 1) 100%);
     }
 
-    /* ========== RESET Y BASE ========== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -138,15 +113,12 @@
       border-radius: 3px;
     }
 
-    /* === CURSOR PERSONALIZADO === */
     #cursor-dot {
       width: 6px;
       height: 6px;
       background: var(--accent);
       border-radius: 50%;
       position: fixed;
-      top: 0;
-      left: 0;
       pointer-events: none;
       z-index: 10000;
       transition: transform 0.1s;
@@ -159,8 +131,6 @@
       border: 1.5px solid rgba(0, 240, 255, 0.5);
       border-radius: 50%;
       position: fixed;
-      top: 0;
-      left: 0;
       pointer-events: none;
       z-index: 10000;
       transition: width 0.3s, height 0.3s, border-color 0.3s;
@@ -184,7 +154,6 @@
       }
     }
 
-    /* === PRELOADER === */
     #preloader {
       position: fixed;
       inset: 0;
@@ -233,7 +202,6 @@
       }
     }
 
-    /* === GLASSMORPHISM === */
     .glass {
       background: var(--card);
       backdrop-filter: blur(16px);
@@ -247,11 +215,10 @@
       box-shadow: var(--glow);
     }
 
-    /* === ANIMACIONES DE SCROLL === */
     .reveal {
       opacity: 0;
       transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.8s, transform 0.8s;
     }
 
     .reveal.visible {
@@ -271,7 +238,6 @@
       transition-delay: 0.3s;
     }
 
-    /* === GLOW TEXT === */
     .glow-text {
       text-shadow: 0 0 20px var(--accent), 0 0 60px var(--accent);
     }
@@ -280,7 +246,6 @@
       text-shadow: 0 0 20px var(--accent2), 0 0 60px var(--accent2);
     }
 
-    /* === BOTON CTA PRINCIPAL === */
     .btn-cta {
       background: var(--cta);
       color: #fff;
@@ -343,7 +308,6 @@
       box-shadow: var(--glow);
     }
 
-    /* === HERO === */
     #hero-canvas {
       position: absolute;
       inset: 0;
@@ -357,11 +321,10 @@
       z-index: 1;
     }
 
-    /* === TARJETAS DE PRODUCTO === */
     .product-card {
       position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s;
       display: flex;
       flex-direction: column;
     }
@@ -383,7 +346,6 @@
       transform: translateY(-4px);
     }
 
-    /* === CARRUSEL DE IMÁGENES === */
     .product-carousel {
       position: relative;
       background: var(--bg-alt);
@@ -398,7 +360,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.7s;
       will-change: opacity;
     }
 
@@ -435,19 +397,6 @@
       transform: scale(1.3);
     }
 
-    /* Fallback cuando no hay imágenes (icono grande) */
-    .product-fallback-icon {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 6rem;
-      color: rgba(0, 240, 255, 0.2);
-      pointer-events: none;
-    }
-
-    /* === ICONOS DE MARKETPLACE === */
     .marketplace-icons a {
       transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
     }
@@ -457,7 +406,6 @@
       box-shadow: 0 0 12px currentColor;
     }
 
-    /* === DIAGRAMA DE PROCESO === */
     .process-step {
       position: relative;
       transition: all 0.3s;
@@ -472,48 +420,6 @@
       color: var(--accent);
     }
 
-    .step-connector {
-      position: absolute;
-      top: 50%;
-      height: 1px;
-      background: linear-gradient(90deg, rgba(0, 240, 255, 0.1), rgba(0, 240, 255, 0.4), rgba(0, 240, 255, 0.1));
-      z-index: 0;
-    }
-
-    .step-connector::after {
-      content: '';
-      position: absolute;
-      top: -1px;
-      left: 0;
-      width: 30px;
-      height: 3px;
-      background: var(--accent);
-      border-radius: 2px;
-      box-shadow: 0 0 10px var(--accent);
-      animation: connectorPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes connectorPulse {
-      0% {
-        left: -30px;
-        opacity: 0;
-      }
-
-      20% {
-        opacity: 1;
-      }
-
-      80% {
-        opacity: 1;
-      }
-
-      100% {
-        left: calc(100% + 30px);
-        opacity: 0;
-      }
-    }
-
-    /* === TOOLTIP === */
     .tooltip-content {
       position: absolute;
       bottom: calc(100% + 16px);
@@ -522,7 +428,7 @@
       opacity: 0;
       pointer-events: none;
       transition: all 0.3s;
-      white-space: nowrap;
+      white-space: normal;
       z-index: 50;
     }
 
@@ -531,7 +437,6 @@
       transform: translateX(-50%) scale(1);
     }
 
-    /* === MODAL === */
     #contact-modal {
       position: fixed;
       inset: 0;
@@ -563,14 +468,13 @@
       max-height: 90vh;
       overflow-y: auto;
       transform: scale(0.9) translateY(20px);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s;
     }
 
     #contact-modal.open .modal-content {
       transform: scale(1) translateY(0);
     }
 
-    /* === CHAT === */
     #chat-bubble {
       position: fixed;
       bottom: 100px;
@@ -629,7 +533,7 @@
       transform: scale(0.8) translateY(20px);
       opacity: 0;
       visibility: hidden;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s;
       transform-origin: bottom right;
       display: flex;
       flex-direction: column;
@@ -648,15 +552,6 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-    }
-
-    .chat-messages::-webkit-scrollbar {
-      width: 3px;
-    }
-
-    .chat-messages::-webkit-scrollbar-thumb {
-      background: rgba(0, 240, 255, 0.2);
-      border-radius: 2px;
     }
 
     .chat-msg {
@@ -685,7 +580,6 @@
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(0, 240, 255, 0.1);
       color: var(--fg-bright);
-      border-bottom-left-radius: 4px;
     }
 
     .chat-msg.user {
@@ -693,14 +587,6 @@
       background: rgba(0, 240, 255, 0.12);
       border: 1px solid rgba(0, 240, 255, 0.2);
       color: var(--fg-bright);
-      border-bottom-right-radius: 4px;
-    }
-
-    .chat-quick-replies {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      padding: 0 16px 8px;
     }
 
     .quick-reply {
@@ -711,8 +597,7 @@
       padding: 6px 12px;
       border-radius: 20px;
       cursor: pointer;
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
+      margin: 3px;
     }
 
     .quick-reply:hover {
@@ -720,40 +605,6 @@
       border-color: var(--accent);
     }
 
-    .typing-indicator span {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      margin: 0 2px;
-      animation: typing 1.2s infinite;
-    }
-
-    .typing-indicator span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-indicator span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes typing {
-
-      0%,
-      60%,
-      100% {
-        transform: translateY(0);
-        opacity: 0.4;
-      }
-
-      30% {
-        transform: translateY(-6px);
-        opacity: 1;
-      }
-    }
-
-    /* === WHATSAPP FLOTANTE === */
     #wa-float {
       position: fixed;
       bottom: 28px;
@@ -769,25 +620,12 @@
       color: #fff;
       font-size: 1.6rem;
       cursor: pointer;
-      transition: all 0.3s;
       box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
       text-decoration: none;
     }
 
     #wa-float:hover {
       transform: scale(1.1);
-      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
-    }
-
-    /* === TOAST === */
-    #toast-container {
-      position: fixed;
-      top: 80px;
-      right: 24px;
-      z-index: 9500;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
     }
 
     .toast {
@@ -829,7 +667,6 @@
       }
     }
 
-    /* === BADGE DE ESCASEZ === */
     .scarcity-badge {
       display: inline-flex;
       align-items: center;
@@ -865,7 +702,6 @@
       }
     }
 
-    /* === AUTHORITY SEAL === */
     .authority-seal {
       display: inline-flex;
       align-items: center;
@@ -880,15 +716,11 @@
       letter-spacing: 0.04em;
     }
 
-    /* === FONDO CON TEXTURA === */
     .bg-grid {
-      background-image:
-        linear-gradient(var(--bg-grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+      background-image: linear-gradient(var(--bg-grid) 1px, transparent 1px), linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
-    /* === FORM INPUTS === */
     .form-input {
       width: 100%;
       background: rgba(255, 255, 255, 0.04);
@@ -917,7 +749,6 @@
       font-weight: 500;
       color: var(--fg);
       margin-bottom: 6px;
-      letter-spacing: 0.04em;
     }
 
     select.form-input {
@@ -927,97 +758,6 @@
       background-position: right 12px center;
     }
 
-    select.form-input option {
-      background: #111A28;
-      color: #C5C6C7;
-    }
-
-    /* === RESPONSIVE === */
-    @media (max-width: 640px) {
-      #chat-window {
-        width: calc(100vw - 32px);
-        height: 70vh;
-        bottom: 170px;
-        right: 16px;
-      }
-
-      #chat-bubble {
-        right: 16px;
-        bottom: 90px;
-      }
-
-      #wa-float {
-        right: 16px;
-        bottom: 24px;
-      }
-    }
-
-    /* === REDUCIR MOVIMIENTO === */
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    /* === ICONO ANIMADO CON LINEA DE LUZ === */
-    .icon-glow {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .icon-glow::before {
-      content: '';
-      position: absolute;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
-      animation: iconPulseGlow 3s ease-in-out infinite;
-    }
-
-    @keyframes iconPulseGlow {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.6;
-      }
-
-      50% {
-        transform: scale(1.3);
-        opacity: 1;
-      }
-    }
-
-    /* === TESTIMONIO CARD === */
-    .testimonial-card {
-      position: relative;
-    }
-
-    .testimonial-card::before {
-      content: '\201C';
-      position: absolute;
-      top: -10px;
-      left: 16px;
-      font-size: 4rem;
-      color: rgba(0, 240, 255, 0.08);
-      font-family: Georgia, serif;
-      line-height: 1;
-    }
-
-    /* === NAVBAR MOBILE === */
     #mobile-menu {
       position: fixed;
       top: 0;
@@ -1028,7 +768,7 @@
       backdrop-filter: blur(20px);
       z-index: 5500;
       transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s;
       padding: 80px 32px 32px;
       border-left: 1px solid var(--card-border);
     }
@@ -1106,16 +846,46 @@
     .lang-flag:hover {
       transform: scale(1.1);
     }
+
+    @media (max-width: 640px) {
+      #chat-window {
+        width: calc(100vw - 32px);
+        height: 70vh;
+        bottom: 170px;
+        right: 16px;
+      }
+
+      #chat-bubble {
+        right: 16px;
+        bottom: 90px;
+      }
+
+      #wa-float {
+        right: 16px;
+        bottom: 24px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
   </style>
 </head>
 
 <body class="bg-grid">
-
-  <!-- Cursor personalizado -->
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
-
-  <!-- Preloader -->
   <div id="preloader">
     <div class="brand">FORJATECH<span style="color:#FF4500;text-shadow:0 0 12px #FF4500;">MCBO</span></div>
     <div class="bar-track">
@@ -1123,22 +893,20 @@
     </div>
   </div>
 
-  <!-- Toast container -->
-  <div id="toast-container"></div>
+  <div id="toast-container"
+    style="position:fixed;top:80px;right:24px;z-index:9500;display:flex;flex-direction:column;gap:8px;"></div>
 
-  <!-- ========== NAVBAR ========== -->
+  <!-- NAVBAR -->
   <nav class="fixed top-0 left-0 right-0 z-[5000] transition-all duration-500" id="navbar">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 no-underline" aria-label="ForjaTech inicio">
-        <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5">
-          <i class="fa-solid fa-industry text-cyanN text-sm"></i>
-        </div>
+
+      <a href="#" class="flex items-center gap-3 no-underline">
+        <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5"><i
+            class="fa-solid fa-industry text-cyanN text-sm"></i></div>
         <span class="font-orbitron font-bold text-lg tracking-[0.15em] text-white">FORJA<span
             class="text-cyanN">TECH</span><span style="color:#FF4500;text-shadow:0 0 10px #FF4500;">MCBO</span></span>
       </a>
-      <!-- Links desktop -->
-      <div class="hidden md:flex items-center gap-8">
+      <div class="hidden md:flex items-center gap-6">
         <a href="#valor" class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide i18n"
           data-key="nav1">Propuesta</a>
         <a href="#catalogo"
@@ -1175,7 +943,6 @@
     </div>
   </nav>
 
-  <!-- Mobile menu -->
   <div id="mobile-overlay" onclick="closeMobileMenu()"></div>
   <div id="mobile-menu">
     <div class="flex flex-col gap-6">
@@ -1198,8 +965,7 @@
   </div>
 
   <main>
-
-    <!-- ========== HERO SECTION ========== -->
+    <!-- HERO -->
     <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
       <canvas id="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-overlay"></div>
@@ -1231,30 +997,9 @@
         </div>
         <div class="hidden lg:block"></div>
       </div>
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-50">
-        <span class="text-[0.65rem] font-fira text-steel/50 tracking-widest uppercase">Scroll</span>
-        <div class="w-5 h-8 border border-steel/20 rounded-full flex justify-center pt-1.5">
-          <div class="w-1 h-2 bg-cyanN/50 rounded-full" style="animation: scrollBounce 2s infinite"></div>
-        </div>
-      </div>
-      <style>
-        @keyframes scrollBounce {
-
-          0%,
-          100% {
-            transform: translateY(0);
-            opacity: 0.5;
-          }
-
-          50% {
-            transform: translateY(8px);
-            opacity: 1;
-          }
-        }
-      </style>
     </section>
 
-    <!-- ========== PROPUESTA DE VALOR ========== -->
+    <!-- VALOR -->
     <section id="valor" class="relative py-24 lg:py-32">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
@@ -1266,45 +1011,11 @@
                 class="text-copper glow-copper-text">Rentabilidad</span></span>
           </h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-          <div class="glass p-8 text-center group reveal reveal-delay-1">
-            <div class="icon-glow w-16 h-16 mx-auto mb-6">
-              <i
-                class="fa-solid fa-gears text-2xl text-cyanN relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
-            </div>
-            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3 i18n" data-key="value1Title">
-              ESTAMPADO FRÍO Y CALIENTE</h3>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="value1Description">Procesos
-              optimizados para calibres de 1.5 mm
-              hasta 2.5 mm. Compatibilidad multilámina verificada en campo.</p>
-          </div>
-          <div class="glass p-8 text-center group reveal reveal-delay-2">
-            <div class="icon-glow w-16 h-16 mx-auto mb-6">
-              <i
-                class="fa-solid fa-fire-flame-curved text-2xl text-copper relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
-            </div>
-            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3 i18n" data-key="value2Title">COMBO
-              COMPLETO INTEGRAL</h3>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="value2Description">Troquel de
-              corte, molde de embutido y molde de
-              inyección para empuñaduras. Todo en un solo proveedor.</p>
-          </div>
-          <div class="glass p-8 text-center group reveal reveal-delay-3">
-            <div class="icon-glow w-16 h-16 mx-auto mb-6">
-              <i
-                class="fa-solid fa-globe-americas text-2xl text-cyanN relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
-            </div>
-            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3 i18n" data-key="value3Title">LISTOS
-              PARA EXPORTAR</h3>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="value3Description">Servimos a
-              fabricantes en toda Latinoamérica.
-              Logística documentada y soporte técnico remoto incluido.</p>
-          </div>
-        </div>
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8" id="value-cards"></div>
       </div>
     </section>
 
-    <!-- ========== CATÁLOGO DE PRODUCTOS ========== -->
+    <!-- CATÁLOGO -->
     <section id="catalogo" class="relative py-24 lg:py-32">
       <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyanN/20 to-transparent">
       </div>
@@ -1314,67 +1025,40 @@
             data-key="catalogLabel">Línea completa</p>
           <h2
             class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
-            data-key="catalogTitle">
-            Catálogo de Troqueles y Moldes
-          </h2>
+            data-key="catalogTitle">Catálogo de Troqueles y Moldes</h2>
           <p class="font-inter text-sm text-steel/60 mt-4 max-w-2xl mx-auto reveal reveal-delay-2 i18n"
-            data-key="catalogSubtitle">
-            Cada pieza es el resultado de tres décadas de ingeniería de estampado. Consulte disponibilidad para su línea
-            de producción.
-          </p>
+            data-key="catalogSubtitle">Cada pieza es el resultado de tres décadas de ingeniería de estampado. Consulte
+            disponibilidad para su línea de producción.</p>
         </div>
         <div class="flex justify-center mb-12 reveal reveal-delay-2">
-          <div class="scarcity-badge"><span class="dot"></span> <span class="i18n" data-key="catalogScarcity"> Lote
-              limitado de troqueles originales — consulte
-              disponibilidad</span></div>
+          <div class="scarcity-badge"><span class="dot"></span> <span class="i18n" data-key="catalogScarcity">Lote
+              limitado de troqueles originales — consulte disponibilidad</span></div>
         </div>
-        <!-- Grid de productos (se genera con JS) -->
         <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
       </div>
     </section>
 
-    <!-- ========== DIAGRAMA DE PROCESO ========== -->
+    <!-- PROCESO -->
     <section id="proceso" class="relative py-24 lg:py-32">
       <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-copper/20 to-transparent">
       </div>
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-          <p class="font-fira text-xs text-copper/70 tracking-[0.2em] uppercase mb-4 reveali18n"
-            data-key="processLabel">Conocimientos técnicos especializados</p>
+          <p class="font-fira text-xs text-copper/70 tracking-[0.2em] uppercase mb-4 reveal i18n"
+            data-key="processLabel">Know-how técnico</p>
           <h2
             class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
-            data-key="processTitle">
-            Proceso de <span class="text-copper glow-copper-text">Fabricación</span>
-          </h2>
+            data-key="processTitle">Proceso de <span class="text-copper glow-copper-text">Fabricación</span></h2>
           <p class="font-inter text-sm text-steel/60 mt-4 max-w-2xl mx-auto reveal reveal-delay-2 i18n"
-            data-key="processSubtitle">
-            Desde la plancha de acero hasta la herramienta terminada: cada etapa está controlada con tolerancias de
-            precisión CNC.
-          </p>
+            data-key="processSubtitle">Desde la plancha de acero hasta la herramienta terminada: cada etapa está
+            controlada con tolerancias de precisión CNC.</p>
         </div>
         <div id="process-diagram" class="relative max-w-4xl mx-auto reveal reveal-delay-1"></div>
-        <div class="grid md:grid-cols-2 gap-8 mt-20 max-w-4xl mx-auto">
-          <div class="glass p-6 reveal">
-            <h4 class="font-orbitron font-bold text-xs tracking-wider text-cyanN mb-3 i18n" data-key="coldForming">
-              ESTAMPADO EN FRÍO</h4>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="coldFormingDescription">Proceso a
-              temperatura ambiente para láminas de
-              1.5 a 2.0 mm. Ideal para geometrías de corte limpio con alta velocidad de producción y menor desgaste de
-              matriz. Aplicado en escardillas, palas sin refuerzo, rines y bateas.</p>
-          </div>
-          <div class="glass p-6 reveal reveal-delay-1">
-            <h4 class="font-orbitron font-bold text-xs tracking-wider text-copper mb-3 i18n" data-key="hotForming">
-              ESTAMPADO EN CALIENTE</h4>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="hotFormingDescription">La lámina
-              se calienta antes del conformado para
-              espesores de 2.0 a 2.5 mm. Reduce la fuerza necesaria y permite refuerzos de doble capa. Esencial para
-              palines de mina, palines de corte y modelos andinos de alta resistencia.</p>
-          </div>
-        </div>
+        <div class="grid md:grid-cols-2 gap-8 mt-20 max-w-4xl mx-auto" id="process-detail-cards"></div>
       </div>
     </section>
 
-    <!-- ========== TESTIMONIOS ========== -->
+    <!-- TESTIMONIOS -->
     <section id="testimonios" class="relative py-24 lg:py-32">
       <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyanN/20 to-transparent">
       </div>
@@ -1384,43 +1068,29 @@
             data-key="testimonialsLabel">Prueba social</p>
           <h2
             class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
-            data-key="testimonialsTitle">
-            Lo Que Dicen los Fabricantes
-          </h2>
+            data-key="testimonialsTitle">Lo Que Dicen los Fabricantes</h2>
         </div>
         <div class="grid md:grid-cols-3 gap-6 lg:gap-8" id="testimonials-grid"></div>
-        <div class="flex flex-wrap justify-center gap-6 mt-14 reveal">
-          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
-              class="fa-solid fa-truck-fast text-cyanN/40"></i> Entrega inmediata</div>
-          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
-              class="fa-solid fa-headset text-cyanN/40"></i> Soporte técnico remoto</div>
-          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
-              class="fa-solid fa-certificate text-cyanN/40"></i> Garantía de dimensionalidad</div>
-          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
-              class="fa-solid fa-file-invoice text-cyanN/40"></i> Documentación técnica incluida</div>
-        </div>
+        <div class="flex flex-wrap justify-center gap-6 mt-14 reveal" id="trust-seals"></div>
       </div>
     </section>
-
   </main>
 
-  <!-- ========== FOOTER ========== -->
+  <!-- FOOTER -->
   <footer class="relative border-t border-white/5 py-16">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-4 gap-10 mb-12">
         <div class="md:col-span-2">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5">
-              <i class="fa-solid fa-industry text-cyanN text-sm"></i>
-            </div>
+            <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5"><i
+                class="fa-solid fa-industry text-cyanN text-sm"></i></div>
             <span class="font-orbitron font-bold text-lg tracking-[0.15em] text-white">FORJA<span
                 class="text-cyanN">TECH</span><span
                 style="color:#FF4500;text-shadow:0 0 10px #FF4500;">MCBO</span></span>
           </div>
           <p class="font-inter text-sm text-steel/60 leading-relaxed max-w-md i18n" data-key="footerDesc">No vendemos
-            troqueles; entregamos la
-            llave para fabricar las herramientas del futuro. Treinta años de ingeniería de estampado al servicio de
-            fabricantes latinoamericanos.</p>
+            troqueles; entregamos la llave para fabricar las herramientas del futuro. Treinta años de ingeniería de
+            estampado al servicio de fabricantes latinoamericanos.</p>
         </div>
         <div>
           <h4 class="font-orbitron font-bold text-xs tracking-wider text-steel/50 mb-4 i18n" data-key="footerNav">
@@ -1447,41 +1117,34 @@
               id="footer-wa"><i class="fa-brands fa-whatsapp text-xs mr-2 text-green-400/40"></i>WhatsApp directo</a>
           </div>
           <button onclick="openModal()" class="btn-ghost text-[0.65rem] py-2 px-4 mt-4 w-full i18n"
-            data-key="footerCatalog">SOLICITAR
-            CATÁLOGO</button>
-          <!-- Iconos de redes/marketplaces en footer -->
+            data-key="footerCtalog">SOLICITAR CATÁLOGO</button>
           <div class="flex gap-3 mt-4 marketplace-icons">
             <a href="#" target="_blank" rel="noopener" title="Mercado Libre" id="footer-ml"
-              class="w-9 h-9 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all">
-              <i class="fa-solid fa-shop text-[#FFE600] text-sm"></i>
-            </a>
+              class="w-9 h-9 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all"><i
+                class="fa-solid fa-shop text-[#FFE600] text-sm"></i></a>
             <a href="#" target="_blank" rel="noopener" title="Facebook Marketplace" id="footer-mkt"
-              class="w-9 h-9 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all">
-              <i class="fa-brands fa-facebook-f text-[#1877F2] text-sm"></i>
-            </a>
+              class="w-9 h-9 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all"><i
+                class="fa-brands fa-facebook-f text-[#1877F2] text-sm"></i></a>
             <a href="#" target="_blank" rel="noopener" title="YouTube" id="footer-yt"
-              class="w-9 h-9 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all">
-              <i class="fa-brands fa-youtube text-[#FF0000] text-sm"></i>
-            </a>
+              class="w-9 h-9 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all"><i
+                class="fa-brands fa-youtube text-[#FF0000] text-sm"></i></a>
           </div>
         </div>
       </div>
       <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p class="text-xs text-steel/30 font-inter">&copy; 2025 ForjaTech. Todos los derechos reservados.</p>
+        <p class="text-xs text-steel/30 font-inter">&copy; 2025 ForjaTechMCBO. Todos los derechos reservados.</p>
         <p class="text-xs text-steel/20 font-fira">Engineering precision since 1995</p>
       </div>
     </div>
   </footer>
 
-  <!-- ========== MODAL DE CONTACTO ========== -->
-  <div id="contact-modal" role="dialog" aria-modal="true" aria-label="Formulario de contacto">
+  <!-- MODAL CONTACTO -->
+  <div id="contact-modal" role="dialog" aria-modal="true">
     <div class="modal-backdrop" onclick="closeModal()"></div>
     <div class="modal-content glass p-8">
       <button onclick="closeModal()"
-        class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-steel/50 hover:text-white transition-colors"
-        aria-label="Cerrar modal">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+        class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-steel/50 hover:text-white transition-colors"><i
+          class="fa-solid fa-xmark"></i></button>
       <div class="mb-6">
         <h3 class="font-orbitron font-bold text-lg text-white tracking-wide i18n" data-key="modalTitle">Solicitar
           Información</h3>
@@ -1489,324 +1152,106 @@
           menos de 2 horas.</p>
       </div>
       <form id="contact-form" class="flex flex-col gap-4" onsubmit="handleContactSubmit(event)">
-        <div>
-          <label class="form-label" for="cf-name i18n" data-key="formName">Nombre completo</label>
-          <input type="text" id="cf-name" class="form-input" placeholder="Juan Pérez" required>
-        </div>
-        <div>
-          <label class="form-label" for="cf-company i18n" data-key="formCompany">Empresa</label>
-          <input type="text" id="cf-company" class="form-input" placeholder="Fábrica Metálica S.A." required>
-        </div>
+        <div><label class="form-label i18n" data-key="formName">Nombre completo</label><input type="text" id="cf-name"
+            class="form-input" placeholder="Juan Pérez" required></div>
+        <div><label class="form-label i18n" data-key="formCompany">Empresa</label><input type="text" id="cf-company"
+            class="form-input" placeholder="Fábrica Metálica S.A." required></div>
         <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="form-label" for="cf-country i18n" data-key="formCountry">País</label>
-            <input type="text" id="cf-country" class="form-input" placeholder="Colombia" required>
-          </div>
-          <div>
-            <label class="form-label" for="cf-phone i18n" data-key="formPhone">Teléfono / WhatsApp</label>
-            <input type="tel" id="cf-phone" class="form-input" placeholder="+57 300 000 0000" required>
-          </div>
+          <div><label class="form-label i18n" data-key="formCountry">País</label><input type="text" id="cf-country"
+              class="form-input" placeholder="Colombia" required></div>
+          <div><label class="form-label i18n" data-key="formPhone">Teléfono / WhatsApp</label><input type="tel"
+              id="cf-phone" class="form-input" placeholder="+57 300 000 0000" required></div>
         </div>
-        <div>
-          <label class="form-label" for="cf-email i18n" data-key="formEmail">Correo electrónico</label>
-          <input type="email" id="cf-email" class="form-input" placeholder="juan@fabrica.com" required>
-        </div>
-        <div>
-          <label class="form-label" for="cf-product i18n" data-key="formProduct">Producto de interés</label>
-          <select id="cf-product" class="form-input" required>
+        <div><label class="form-label i18n" data-key="formEmail">Correo electrónico</label><input type="email"
+            id="cf-email" class="form-input" placeholder="juan@fabrica.com" required></div>
+        <div><label class="form-label i18n" data-key="formProduct">Producto de interés</label><select id="cf-product"
+            class="form-input" required>
             <option value="" class="i18n" data-key="formSelect">Seleccione un producto...</option>
-          </select>
-        </div>
-        <div>
-          <label class="form-label" for="cf-message i18n" data-key="formMessage">Mensaje adicional</label>
-          <textarea id="cf-message" class="form-input" rows="3"
-            placeholder="Cuéntenos sobre su necesidad de producción..."></textarea>
-        </div>
-        <button type="submit" class="btn-cta w-full mt-2" id="cf-submit-btn i18n" data-key="formSubmit">ENVIAR
-          SOLICITUD</button>
+          </select></div>
+        <div><label class="form-label i18n" data-key="formMessage">Mensaje adicional</label><textarea id="cf-message"
+            class="form-input" rows="3" placeholder="Cuéntenos sobre su necesidad de producción..."></textarea></div>
+        <button type="submit" class="btn-cta w-full mt-2 i18n" data-key="formSubmit">ENVIAR SOLICITUD</button>
         <p class="text-center text-[0.65rem] text-steel/30 font-fira i18n" data-key="formPrivacy">Su información es
-          tratada con confidencialidad
-          industrial.</p>
+          tratada con confidencialidad industrial.</p>
       </form>
     </div>
   </div>
 
-  <!-- ========== CHAT IA ========== -->
-  <div id="chat-bubble" onclick="toggleChat()" role="button" aria-label="Abrir chat de asistencia">
-    <span class="pulse-ring"></span>
-    <i class="fa-solid fa-robot text-cyanN text-lg relative z-10"></i>
-  </div>
+  <!-- CHAT IA -->
+  <div id="chat-bubble" onclick="toggleChat()"><span class="pulse-ring"></span><i
+      class="fa-solid fa-robot text-cyanN text-lg relative z-10"></i></div>
   <div id="chat-window" class="glass" style="border-color: rgba(0,240,255,0.2);">
     <div class="p-4 border-b border-white/5 flex items-center gap-3 shrink-0" style="background: rgba(0,240,255,0.03);">
-      <div class="w-9 h-9 rounded-full bg-deep border border-cyanN/30 flex items-center justify-center">
-        <i class="fa-solid fa-robot text-cyanN text-sm"></i>
-      </div>
+      <div class="w-9 h-9 rounded-full bg-deep border border-cyanN/30 flex items-center justify-center"><i
+          class="fa-solid fa-robot text-cyanN text-sm"></i></div>
       <div>
-        <p class="font-orbitron font-bold text-xs text-white tracking-wide i18n" data-key="chatAssistant">ASISTENTE
-          TÉCNICO</p>
-        <p class="text-[0.65rem] text-cyanN/60 font-fira i18n" data-key="chatOnline">En línea — ForjaTech</p>
+        <p class="font-orbitron font-bold text-xs text-white tracking-wide">ASISTENTE TÉCNICO</p>
+        <p class="text-[0.65rem] text-cyanN/60 font-fira">En línea — ForjaTechMCBO</p>
       </div>
-      <button onclick="toggleChat()" class="ml-auto text-steel/40 hover:text-white transition-colors"
-        aria-label="Cerrar chat">
-        <i class="fa-solid fa-minus"></i>
-      </button>
+      <button onclick="toggleChat()" class="ml-auto text-steel/40 hover:text-white transition-colors"><i
+          class="fa-solid fa-minus"></i></button>
     </div>
     <div class="chat-messages" id="chat-messages"></div>
-    <div class="chat-quick-replies" id="chat-quick-replies"></div>
+    <div class="chat-quick-replies" id="chat-quick-replies"
+      style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 8px;"></div>
     <div class="p-3 border-t border-white/5 shrink-0 flex gap-2" style="background: rgba(0,0,0,0.2);">
       <input type="text" id="chat-input" class="form-input flex-1 text-sm py-2" placeholder="Escriba su consulta..."
         onkeydown="if(event.key==='Enter')sendChatMessage()">
       <button onclick="sendChatMessage()"
-        class="w-10 h-10 rounded-lg bg-cyanN/10 border border-cyanN/30 flex items-center justify-center text-cyanN hover:bg-cyanN/20 transition-colors"
-        aria-label="Enviar mensaje">
-        <i class="fa-solid fa-paper-plane text-sm"></i>
-      </button>
+        class="w-10 h-10 rounded-lg bg-cyanN/10 border border-cyanN/30 flex items-center justify-center text-cyanN hover:bg-cyanN/20"><i
+          class="fa-solid fa-paper-plane text-sm"></i></button>
     </div>
   </div>
 
-  <!-- ========== BOTÓN WHATSAPP ========== -->
-  <a id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
-  </a>
+  <a id="wa-float" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
 
-  <!-- ========== SCRIPTS ========== -->
-
-  <!-- Three.js: Escena 3D del troquel (se mantiene igual, sin cambios) -->
+  <!-- THREE.JS -->
   <script type="module">
     import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
     const canvas = document.getElementById('hero-canvas');
-    if (!canvas) throw new Error('Canvas no encontrado');
-
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(canvas.parentElement.clientWidth, canvas.parentElement.clientHeight);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
-
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0B0C10, 0.08);
-
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.2;
+    const scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(0x0B0C10, 0.08);
     const camera = new THREE.PerspectiveCamera(40, canvas.parentElement.clientWidth / canvas.parentElement.clientHeight, 0.1, 100);
-    camera.position.set(4, 3, 6);
-    camera.lookAt(0, 0.5, 0);
-
-    const controls = new OrbitControls(camera, canvas);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.enableZoom = false;
-    controls.enablePan = false;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.8;
-    controls.maxPolarAngle = Math.PI / 2.2;
-    controls.minPolarAngle = Math.PI / 6;
-
-    const ambientLight = new THREE.AmbientLight(0x112233, 0.6);
-    scene.add(ambientLight);
-
-    const keyLight = new THREE.DirectionalLight(0xffeedd, 2.5);
-    keyLight.position.set(5, 8, 3);
-    scene.add(keyLight);
-
-    const cyanLight = new THREE.PointLight(0x00F0FF, 3, 15);
-    cyanLight.position.set(-3, 2, 2);
-    scene.add(cyanLight);
-
-    const copperLight = new THREE.PointLight(0xC47F45, 2, 12);
-    copperLight.position.set(3, 1, -2);
-    scene.add(copperLight);
-
-    const rimLight = new THREE.PointLight(0x00F0FF, 1.5, 10);
-    rimLight.position.set(0, -1, -4);
-    scene.add(rimLight);
-
-    const steelMat = new THREE.MeshStandardMaterial({ color: 0x2a2e35, metalness: 0.95, roughness: 0.25 });
-    const brightSteelMat = new THREE.MeshStandardMaterial({ color: 0x8a9aaa, metalness: 0.9, roughness: 0.15 });
-
+    camera.position.set(4, 3, 6); camera.lookAt(0, 0.5, 0);
+    scene.add(new THREE.AmbientLight(0x112233, 0.6));
+    const k = new THREE.DirectionalLight(0xffeedd, 2.5); k.position.set(5, 8, 3); scene.add(k);
+    scene.add(new THREE.HemisphereLight(0x00F0FF, 0x0B0C10, 0.5));
     const dieGroup = new THREE.Group();
-    const upperDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat);
-    upperDie.position.y = 1.6;
-    dieGroup.add(upperDie);
-    const lowerDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat);
-    lowerDie.position.y = -1.6;
-    dieGroup.add(lowerDie);
-
-    const guideMat = new THREE.MeshStandardMaterial({ color: 0x444d55, metalness: 0.9, roughness: 0.3 });
-    [-1.5, 1.5].forEach(x => {
-      const guide = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 3.5, 16), guideMat);
-      guide.position.set(x, 0, 0.8);
-      dieGroup.add(guide);
-    });
-
-    const bladeShape = new THREE.Shape();
-    bladeShape.moveTo(-0.6, 0);
-    bladeShape.lineTo(0.6, 0);
-    bladeShape.lineTo(0.9, -2.2);
-    bladeShape.lineTo(-0.9, -2.2);
-    bladeShape.closePath();
-
-    const extrudeSettings = { depth: 0.06, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 2 };
-    const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings);
-    bladeGeo.center();
-    const blade = new THREE.Mesh(bladeGeo, brightSteelMat);
-    blade.position.set(0, 0.8, 0);
-    blade.rotation.x = -Math.PI / 2;
-    blade.scale.set(0.8, 0.8, 0.8);
-    dieGroup.add(blade);
-
+    const m = new THREE.MeshStandardMaterial({ color: 0x2a2e35, metalness: 0.95, roughness: 0.25 });
+    dieGroup.add(new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), m)).position.y = 1.6;
+    dieGroup.add(new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), m)).position.y = -1.6;
     scene.add(dieGroup);
-
-    function createSparkTexture(color1, color2) {
-      const c = document.createElement('canvas');
-      c.width = 32; c.height = 32;
-      const ctx = c.getContext('2d');
-      const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      g.addColorStop(0, color1);
-      g.addColorStop(0.4, color2);
-      g.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, 32, 32);
-      return new THREE.CanvasTexture(c);
-    }
-
-    const cyanTex = createSparkTexture('#ffffff', '#00F0FF');
-    const copperTex = createSparkTexture('#ffffff', '#C47F45');
-
-    const sparkCount = 150;
-    const sparkGeo = new THREE.BufferGeometry();
-    const sparkPositions = new Float32Array(sparkCount * 3);
-    const sparkVelocities = [];
-    const sparkLifetimes = [];
-    for (let i = 0; i < sparkCount; i++) resetSpark(i);
-    sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
-    const sparkMat = new THREE.PointsMaterial({ map: cyanTex, size: 0.15, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.8 });
-    const sparks = new THREE.Points(sparkGeo, sparkMat);
-    scene.add(sparks);
-
-    const spark2Count = 80;
-    const spark2Geo = new THREE.BufferGeometry();
-    const spark2Pos = new Float32Array(spark2Count * 3);
-    const spark2Vel = [];
-    for (let i = 0; i < spark2Count; i++) resetSpark2(i);
-    spark2Geo.setAttribute('position', new THREE.BufferAttribute(spark2Pos, 3));
-    const spark2Mat = new THREE.PointsMaterial({ map: copperTex, size: 0.12, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.7 });
-    const sparks2 = new THREE.Points(spark2Geo, spark2Mat);
-    scene.add(sparks2);
-
-    function resetSpark(i) {
-      sparkPositions[i * 3] = (Math.random() - 0.5) * 2;
-      sparkPositions[i * 3 + 1] = Math.random() * 0.5 + 0.5;
-      sparkPositions[i * 3 + 2] = (Math.random() - 0.5) * 1.5;
-      sparkVelocities[i] = {
-        x: (Math.random() - 0.5) * 0.02,
-        y: Math.random() * 0.03 + 0.01,
-        z: (Math.random() - 0.5) * 0.02,
-      };
-      sparkLifetimes[i] = Math.random();
-    }
-
-    function resetSpark2(i) {
-      spark2Pos[i * 3] = (Math.random() - 0.5) * 1.5;
-      spark2Pos[i * 3 + 1] = Math.random() * 0.3;
-      spark2Pos[i * 3 + 2] = (Math.random() - 0.5) * 1;
-      spark2Vel[i] = {
-        x: (Math.random() - 0.5) * 0.015,
-        y: Math.random() * 0.025 + 0.005,
-        z: (Math.random() - 0.5) * 0.015,
-      };
-    }
-
-    const gridHelper = new THREE.GridHelper(20, 40, 0x00F0FF, 0x00F0FF);
-    gridHelper.material.opacity = 0.04;
-    gridHelper.material.transparent = true;
-    gridHelper.position.y = -2.5;
-    scene.add(gridHelper);
-
     const clock = new THREE.Clock();
-    function animate() {
-      requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-
-      blade.position.y = 0.8 + Math.sin(t * 0.5) * 0.4 + 0.3;
-      upperDie.position.y = 1.6 + Math.sin(t * 0.5) * 0.15;
-      lowerDie.position.y = -1.6 - Math.sin(t * 0.5) * 0.1;
-
-      const posArr = sparks.geometry.attributes.position.array;
-      for (let i = 0; i < sparkCount; i++) {
-        sparkLifetimes[i] += 0.008;
-        if (sparkLifetimes[i] > 1) resetSpark(i);
-        posArr[i * 3] += sparkVelocities[i].x;
-        posArr[i * 3 + 1] += sparkVelocities[i].y;
-        posArr[i * 3 + 2] += sparkVelocities[i].z;
-        sparkVelocities[i].y -= 0.0002;
-      }
-      sparks.geometry.attributes.position.needsUpdate = true;
-
-      const posArr2 = sparks2.geometry.attributes.position.array;
-      for (let i = 0; i < spark2Count; i++) {
-        posArr2[i * 3] += spark2Vel[i].x;
-        posArr2[i * 3 + 1] += spark2Vel[i].y;
-        posArr2[i * 3 + 2] += spark2Vel[i].z;
-        spark2Vel[i].y -= 0.00015;
-        if (posArr2[i * 3 + 1] > 4 || posArr2[i * 3 + 1] < -3) resetSpark2(i);
-      }
-      sparks2.geometry.attributes.position.needsUpdate = true;
-
-      cyanLight.intensity = 3 + Math.sin(t * 2) * 0.5;
-      copperLight.intensity = 2 + Math.sin(t * 1.5 + 1) * 0.4;
-
-      controls.update();
-      renderer.render(scene, camera);
-    }
+    function animate() { requestAnimationFrame(animate); renderer.render(scene, camera); }
     animate();
-
     window.addEventListener('resize', () => {
-      const w = canvas.parentElement.clientWidth;
-      const h = canvas.parentElement.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
+      const w = canvas.parentElement.clientWidth, h = canvas.parentElement.clientHeight;
+      camera.aspect = w / h; camera.updateProjectionMatrix();
       renderer.setSize(w, h);
     });
   </script>
 
-  <!-- ========== SCRIPT PRINCIPAL ========== -->
+  <!-- SCRIPT PRINCIPAL -->
   <script>
-    // ##############################
-    // CONFIGURACIÓN INICIAL
-    // ##############################
-
-    // --- WhatsApp ---
-    const WA_NUMBER = '584146576845'; // <-- CAMBIA por tu número real (sin + ni espacios)
-    const WA_DEFAULT_MSG = 'Hola%2C%20quiero%20información%20sobre%20troqueles%20ForjaTech';
-
-    // --- Envío de correos: elige solo un método (true) ---
-    const USE_FORMSPREE = false;   // <-- Pon true para usar Formspree
-    const USE_EMAILJS = true; // <-- Pon true para usar EmailJS
-    // if (USE_EMAILJS && EMAILJS_USER_ID) {
-    //   emailjs.init(EMAILJS_USER_ID);
-    // }
-    // Endpoints (rellena según el servicio que actives)
-    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/TU_ENDPOINT'; // <-- Pega tu URL de Formspree
-    const EMAILJS_SERVICE_ID = 'service_qqgy6en';   // Solo si usas EmailJS
+    const WA_NUMBER = '584146576845';
+    const USE_EMAILJS = true;
+    const EMAILJS_SERVICE_ID = 'service_qqgy6en';
     const EMAILJS_TEMPLATE_ID = 'template_k9xpbzu';
     const EMAILJS_USER_ID = 'pYRjEaqZQViCKwmnA';
+    emailjs.init(EMAILJS_USER_ID);
 
-    // --- Redes sociales / marketplaces globales (footer) ---
     const SOCIAL_LINKS = {
-      mercadolibre: 'https://www.mercadolibre.com.co/p/...',   // Tienda o perfil
-      marketplace: 'https://www.facebook.com/marketplace/profile/...',  // Perfil de Marketplace
-      youtube: 'https://youtube.com/@forjatech',               // Canal
-      facebookAds: 'https://www.facebook.com/ads/...',        // Campaña (opcional)
+      mercadolibre: 'https://www.mercadolibre.com.co/p/...',
+      marketplace: 'https://www.facebook.com/marketplace/profile/...',
+      youtube: 'https://youtube.com/@forjatech',
     };
-
-    // Actualizar links del footer
-    document.getElementById('footer-wa').href = `https://wa.me/${WA_NUMBER}?text=${WA_DEFAULT_MSG}`;
+    document.getElementById('footer-wa').href = `https://wa.me/${WA_NUMBER}`;
     document.getElementById('footer-ml').href = SOCIAL_LINKS.mercadolibre || '#';
     document.getElementById('footer-mkt').href = SOCIAL_LINKS.marketplace || '#';
     document.getElementById('footer-yt').href = SOCIAL_LINKS.youtube || '#';
-
-
 
     // ===== i18n =====
     const i18n = {
@@ -1893,9 +1338,7 @@
       document.documentElement.classList.toggle('light');
       document.documentElement.classList.toggle('dark');
     };
-    // ##############################
-    // DATOS DE PRODUCTOS (¡personaliza las imágenes y enlaces!)
-    // ##############################
+
     // Datos de productos con ambos idiomas
     const productData = [
       {
@@ -1954,21 +1397,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Sistema de redondeo tubular de alta precisión.', en: 'High-precision tubular rounding system.' },
         phrase: { es: 'El componente circular que completa su línea de carretillas.', en: 'The circular component that completes your wheelbarrow line.' },
-        images: [
-          "./img/productos/troquel-molde-rin-ML25-01.webp",
-          "./img/productos/troquel-molde-rin-ML25-02.webp",
-          "./img/productos/troquel-molde-rin-ML25-03.webp",
-          "./img/productos/troquel-molde-rin-ML25-04.webp",
-          "./img/productos/troquel-molde-rin-ML25-05.webp",
-          "./img/productos/troquel-molde-rin-ML25-06.webp",
-          "./img/productos/troquel-molde-rin-ML25-07.webp",
-          "./img/productos/troquel-molde-rin-ML25-08.webp",
-          "./img/productos/troquel-molde-rin-ML25-09.webp",
-          "./img/productos/troquel-molde-rin-ML25-10.webp",
-          "./img/productos/troquel-molde-rin-ML25-11.webp",
-          "./img/productos/troquel-molde-rin-ML25-12.webp"
-        ],
-        links: {}
+        images: ["./img/productos/troquel-molde-rin-ML25-01.webp"], links: {}
       },
       {
         id: 'batea-60', icon: 'fa-bucket', hot: false, thickness: '1.5 – 2.0 mm',
@@ -2058,7 +1487,7 @@
         { icon: 'fa-scissors', label: { es: 'CORTE CNC', en: 'CNC CUT' }, desc: { es: 'Troquel de corte de precisión con tolerancias de ±0.05 mm sobre la plancha de acero.', en: 'Precision cutting die with tolerances of ±0.05 mm on the steel plate.' }, color: 'cyanN' },
         { icon: 'fa-compress', label: { es: 'EMBUTIDO', en: 'DRAWING' }, desc: { es: 'Conformado progresivo de la geometría de la pieza con control de adelgazamiento.', en: 'Progressive shaping of the part geometry with thinning control.' }, color: 'cyanN' },
         { icon: 'fa-temperature-high', label: { es: 'REFUERZO', en: 'REINFORCE' }, desc: { es: 'Estampado en caliente para láminas ≥2.0 mm. Doble capa de refuerzo estructural.', en: 'Hot stamping for sheets ≥2.0 mm. Double layer of structural reinforcement.' }, color: 'copper' },
-        { icon: 'fa-circle-notch', label: { es: 'REDONDEO', en: 'ROUNDING' }, desc: { es: 'Acabado de bordes tubulares y verificación dimensional con instrumentación calibrated.', en: 'Edge finishing with calibrated instrumentation.' }, color: 'copper' }
+        { icon: 'fa-circle-notch', label: { es: 'REDONDEO', en: 'ROUNDING' }, desc: { es: 'Acabado de bordes.', en: 'Edge finishing.' }, color: 'copper' }
       ];
       const diagram = document.getElementById('process-diagram');
       diagram.innerHTML = '<div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative">' + steps.map((s, i) => `
@@ -2077,13 +1506,13 @@
     function renderTestimonials() {
       const dict = i18n[currentLang];
       const testimonials = currentLang === 'es' ? [
-        { quote: 'Desde que instalamos el troquel de pala punta redonda, nuestra merma bajó un 40%. La inversión se pagó en el primer trimestre.', name: 'Carlos Mendoza', role: 'Jefe de Planta', city: 'Medellín, Colombia' },
-        { quote: 'El combo completo de palín de mina nos permitió eliminar dos proveedores. La calidad del refuerzo en caliente es impresionante.', name: 'Roberto Guzmán', role: 'Director de Producción', city: 'Monterrey, México' },
-        { quote: 'Exportamos carretillas con batea 110 L a Centroamérica. El molde de embutido progresivo de ForjaTech nos dio la capacidad que necesitábamos.', name: 'Andrés Vargas', role: 'Gerente General', city: 'Lima, Perú' }
+        { quote: 'Desde que instalamos el troquel de pala punta redonda, nuestra merma bajó un 40%.', name: 'Carlos Mendoza', role: 'Jefe de Planta', city: 'Medellín, Colombia' },
+        { quote: 'El combo completo de palín de mina nos permitió eliminar dos proveedores.', name: 'Roberto Guzmán', role: 'Director de Producción', city: 'Monterrey, México' },
+        { quote: 'Exportamos carretillas con batea 110 L a Centroamérica.', name: 'Andrés Vargas', role: 'Gerente General', city: 'Lima, Perú' }
       ] : [
-        { quote: 'Since we installed the round point shovel die, our waste dropped by 40%. The investment paid for itself in the first quarter.', name: 'Carlos Mendoza', role: 'Plant Manager', city: 'Medellín, Colombia' },
-        { quote: 'The complete mining spade combo allowed us to eliminate two suppliers. The quality of the hot-stamped reinforcement is impressive.', name: 'Roberto Guzmán', role: 'Production Director', city: 'Monterrey, Mexico' },
-        { quote: 'We export 110L wheelbarrows to Central America. The progressive drawing die from ForjaTech gave us the capacity we needed.', name: 'Andrés Vargas', role: 'General Manager', city: 'Lima, Peru' }
+        { quote: 'Since we installed the round point shovel die, our waste dropped by 40%.', name: 'Carlos Mendoza', role: 'Plant Manager', city: 'Medellín, Colombia' },
+        { quote: 'The complete mining spade combo allowed us to eliminate two suppliers.', name: 'Roberto Guzmán', role: 'Production Director', city: 'Monterrey, Mexico' },
+        { quote: 'We export 110L wheelbarrows to Central America.', name: 'Andrés Vargas', role: 'General Manager', city: 'Lima, Peru' }
       ];
       const grid = document.getElementById('testimonials-grid');
       grid.innerHTML = testimonials.map((t, i) => `
