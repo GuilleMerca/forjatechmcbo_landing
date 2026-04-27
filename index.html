@@ -1130,7 +1130,7 @@
   <nav class="fixed top-0 left-0 right-0 z-[5000] transition-all duration-500" id="navbar">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-3 no-underline" aria-label="ForjaTech inicio">
+      <a href="#" class="flex items-center gap-3 no-underline" aria-label="ForjaTechMCBO inicio">
         <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5">
           <i class="fa-solid fa-industry text-cyanN text-sm"></i>
         </div>
@@ -1138,7 +1138,7 @@
             class="text-cyanN">TECH</span><span style="color:#FF4500;text-shadow:0 0 10px #FF4500;">MCBO</span></span>
       </a>
       <!-- Links desktop -->
-      <div class="hidden md:flex items-center gap-8">
+      <div class="hidden md:flex items-center gap-6">
         <a href="#valor" class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide i18n"
           data-key="nav1">Propuesta</a>
         <a href="#catalogo"
@@ -1151,7 +1151,6 @@
           class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide i18n"
           data-key="nav4">Confianza</a>
         <button onclick="openModal()" class="btn-ghost text-xs py-2 px-5 i18n" data-key="contactBtn">CONTACTAR</button>
-
         <div class="flex items-center gap-3 ml-2">
           <div id="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>
           </div>
@@ -1159,6 +1158,7 @@
           <div id="lang-en" class="lang-flag" onclick="switchLang('en')">🇺🇸</div>
         </div>
       </div>
+      <!-- Mobile -->
       <div class="md:hidden flex items-center gap-3">
         <div id="theme-toggle-mobile" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i><i
             class="fa-solid fa-moon"></i></div>
@@ -1198,8 +1198,7 @@
   </div>
 
   <main>
-
-    <!-- ========== HERO SECTION ========== -->
+    <!-- HERO -->
     <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
       <canvas id="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-overlay"></div>
@@ -1231,30 +1230,9 @@
         </div>
         <div class="hidden lg:block"></div>
       </div>
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-50">
-        <span class="text-[0.65rem] font-fira text-steel/50 tracking-widest uppercase">Scroll</span>
-        <div class="w-5 h-8 border border-steel/20 rounded-full flex justify-center pt-1.5">
-          <div class="w-1 h-2 bg-cyanN/50 rounded-full" style="animation: scrollBounce 2s infinite"></div>
-        </div>
-      </div>
-      <style>
-        @keyframes scrollBounce {
-
-          0%,
-          100% {
-            transform: translateY(0);
-            opacity: 0.5;
-          }
-
-          50% {
-            transform: translateY(8px);
-            opacity: 1;
-          }
-        }
-      </style>
     </section>
 
-    <!-- ========== PROPUESTA DE VALOR ========== -->
+    <!-- VALOR -->
     <section id="valor" class="relative py-24 lg:py-32">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
@@ -1266,45 +1244,11 @@
                 class="text-copper glow-copper-text">Rentabilidad</span></span>
           </h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-          <div class="glass p-8 text-center group reveal reveal-delay-1">
-            <div class="icon-glow w-16 h-16 mx-auto mb-6">
-              <i
-                class="fa-solid fa-gears text-2xl text-cyanN relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
-            </div>
-            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3 i18n" data-key="value1Title">
-              ESTAMPADO FRÍO Y CALIENTE</h3>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="value1Description">Procesos
-              optimizados para calibres de 1.5 mm
-              hasta 2.5 mm. Compatibilidad multilámina verificada en campo.</p>
-          </div>
-          <div class="glass p-8 text-center group reveal reveal-delay-2">
-            <div class="icon-glow w-16 h-16 mx-auto mb-6">
-              <i
-                class="fa-solid fa-fire-flame-curved text-2xl text-copper relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
-            </div>
-            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3 i18n" data-key="value2Title">COMBO
-              COMPLETO INTEGRAL</h3>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="value2Description">Troquel de
-              corte, molde de embutido y molde de
-              inyección para empuñaduras. Todo en un solo proveedor.</p>
-          </div>
-          <div class="glass p-8 text-center group reveal reveal-delay-3">
-            <div class="icon-glow w-16 h-16 mx-auto mb-6">
-              <i
-                class="fa-solid fa-globe-americas text-2xl text-cyanN relative z-10 group-hover:scale-110 transition-transform duration-300"></i>
-            </div>
-            <h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3 i18n" data-key="value3Title">LISTOS
-              PARA EXPORTAR</h3>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="value3Description">Servimos a
-              fabricantes en toda Latinoamérica.
-              Logística documentada y soporte técnico remoto incluido.</p>
-          </div>
-        </div>
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8" id="value-cards"></div>
       </div>
     </section>
 
-    <!-- ========== CATÁLOGO DE PRODUCTOS ========== -->
+    <!-- CATÁLOGO -->
     <section id="catalogo" class="relative py-24 lg:py-32">
       <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyanN/20 to-transparent">
       </div>
@@ -1314,67 +1258,40 @@
             data-key="catalogLabel">Línea completa</p>
           <h2
             class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
-            data-key="catalogTitle">
-            Catálogo de Troqueles y Moldes
-          </h2>
+            data-key="catalogTitle">Catálogo de Troqueles y Moldes</h2>
           <p class="font-inter text-sm text-steel/60 mt-4 max-w-2xl mx-auto reveal reveal-delay-2 i18n"
-            data-key="catalogSubtitle">
-            Cada pieza es el resultado de tres décadas de ingeniería de estampado. Consulte disponibilidad para su línea
-            de producción.
-          </p>
+            data-key="catalogSubtitle">Cada pieza es el resultado de tres décadas de ingeniería de estampado. Consulte
+            disponibilidad para su línea de producción.</p>
         </div>
         <div class="flex justify-center mb-12 reveal reveal-delay-2">
-          <div class="scarcity-badge"><span class="dot"></span> <span class="i18n" data-key="catalogScarcity"> Lote
-              limitado de troqueles originales — consulte
-              disponibilidad</span></div>
+          <div class="scarcity-badge"><span class="dot"></span> <span class="i18n" data-key="catalogScarcity">Lote
+              limitado de troqueles originales — consulte disponibilidad</span></div>
         </div>
-        <!-- Grid de productos (se genera con JS) -->
         <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
       </div>
     </section>
 
-    <!-- ========== DIAGRAMA DE PROCESO ========== -->
+    <!-- PROCESO -->
     <section id="proceso" class="relative py-24 lg:py-32">
       <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-copper/20 to-transparent">
       </div>
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-16">
-          <p class="font-fira text-xs text-copper/70 tracking-[0.2em] uppercase mb-4 reveali18n"
-            data-key="processLabel">Conocimientos técnicos especializados</p>
+          <p class="font-fira text-xs text-copper/70 tracking-[0.2em] uppercase mb-4 reveal i18n"
+            data-key="processLabel">Know-how técnico</p>
           <h2
             class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
-            data-key="processTitle">
-            Proceso de <span class="text-copper glow-copper-text">Fabricación</span>
-          </h2>
+            data-key="processTitle">Proceso de <span class="text-copper glow-copper-text">Fabricación</span></h2>
           <p class="font-inter text-sm text-steel/60 mt-4 max-w-2xl mx-auto reveal reveal-delay-2 i18n"
-            data-key="processSubtitle">
-            Desde la plancha de acero hasta la herramienta terminada: cada etapa está controlada con tolerancias de
-            precisión CNC.
-          </p>
+            data-key="processSubtitle">Desde la plancha de acero hasta la herramienta terminada: cada etapa está
+            controlada con tolerancias de precisión CNC.</p>
         </div>
         <div id="process-diagram" class="relative max-w-4xl mx-auto reveal reveal-delay-1"></div>
-        <div class="grid md:grid-cols-2 gap-8 mt-20 max-w-4xl mx-auto">
-          <div class="glass p-6 reveal">
-            <h4 class="font-orbitron font-bold text-xs tracking-wider text-cyanN mb-3 i18n" data-key="coldForming">
-              ESTAMPADO EN FRÍO</h4>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="coldFormingDescription">Proceso a
-              temperatura ambiente para láminas de
-              1.5 a 2.0 mm. Ideal para geometrías de corte limpio con alta velocidad de producción y menor desgaste de
-              matriz. Aplicado en escardillas, palas sin refuerzo, rines y bateas.</p>
-          </div>
-          <div class="glass p-6 reveal reveal-delay-1">
-            <h4 class="font-orbitron font-bold text-xs tracking-wider text-copper mb-3 i18n" data-key="hotForming">
-              ESTAMPADO EN CALIENTE</h4>
-            <p class="font-inter text-sm text-steel/80 leading-relaxed i18n" data-key="hotFormingDescription">La lámina
-              se calienta antes del conformado para
-              espesores de 2.0 a 2.5 mm. Reduce la fuerza necesaria y permite refuerzos de doble capa. Esencial para
-              palines de mina, palines de corte y modelos andinos de alta resistencia.</p>
-          </div>
-        </div>
+        <div class="grid md:grid-cols-2 gap-8 mt-20 max-w-4xl mx-auto" id="process-detail-cards"></div>
       </div>
     </section>
 
-    <!-- ========== TESTIMONIOS ========== -->
+    <!-- TESTIMONIOS -->
     <section id="testimonios" class="relative py-24 lg:py-32">
       <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyanN/20 to-transparent">
       </div>
@@ -1384,43 +1301,29 @@
             data-key="testimonialsLabel">Prueba social</p>
           <h2
             class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
-            data-key="testimonialsTitle">
-            Lo Que Dicen los Fabricantes
-          </h2>
+            data-key="testimonialsTitle">Lo Que Dicen los Fabricantes</h2>
         </div>
         <div class="grid md:grid-cols-3 gap-6 lg:gap-8" id="testimonials-grid"></div>
-        <div class="flex flex-wrap justify-center gap-6 mt-14 reveal">
-          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
-              class="fa-solid fa-truck-fast text-cyanN/40"></i> Entrega inmediata</div>
-          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
-              class="fa-solid fa-headset text-cyanN/40"></i> Soporte técnico remoto</div>
-          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
-              class="fa-solid fa-certificate text-cyanN/40"></i> Garantía de dimensionalidad</div>
-          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i
-              class="fa-solid fa-file-invoice text-cyanN/40"></i> Documentación técnica incluida</div>
-        </div>
+        <div class="flex flex-wrap justify-center gap-6 mt-14 reveal" id="trust-seals"></div>
       </div>
     </section>
-
   </main>
 
-  <!-- ========== FOOTER ========== -->
+  <!-- FOOTER -->
   <footer class="relative border-t border-white/5 py-16">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-4 gap-10 mb-12">
         <div class="md:col-span-2">
           <div class="flex items-center gap-3 mb-4">
-            <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5">
-              <i class="fa-solid fa-industry text-cyanN text-sm"></i>
-            </div>
+            <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5"><i
+                class="fa-solid fa-industry text-cyanN text-sm"></i></div>
             <span class="font-orbitron font-bold text-lg tracking-[0.15em] text-white">FORJA<span
                 class="text-cyanN">TECH</span><span
                 style="color:#FF4500;text-shadow:0 0 10px #FF4500;">MCBO</span></span>
           </div>
           <p class="font-inter text-sm text-steel/60 leading-relaxed max-w-md i18n" data-key="footerDesc">No vendemos
-            troqueles; entregamos la
-            llave para fabricar las herramientas del futuro. Treinta años de ingeniería de estampado al servicio de
-            fabricantes latinoamericanos.</p>
+            troqueles; entregamos la llave para fabricar las herramientas del futuro. Treinta años de ingeniería de
+            estampado al servicio de fabricantes latinoamericanos.</p>
         </div>
         <div>
           <h4 class="font-orbitron font-bold text-xs tracking-wider text-steel/50 mb-4 i18n" data-key="footerNav">
@@ -1447,41 +1350,34 @@
               id="footer-wa"><i class="fa-brands fa-whatsapp text-xs mr-2 text-green-400/40"></i>WhatsApp directo</a>
           </div>
           <button onclick="openModal()" class="btn-ghost text-[0.65rem] py-2 px-4 mt-4 w-full i18n"
-            data-key="footerCatalog">SOLICITAR
-            CATÁLOGO</button>
-          <!-- Iconos de redes/marketplaces en footer -->
+            data-key="footerCtalog">SOLICITAR CATÁLOGO</button>
           <div class="flex gap-3 mt-4 marketplace-icons">
             <a href="#" target="_blank" rel="noopener" title="Mercado Libre" id="footer-ml"
-              class="w-9 h-9 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all">
-              <i class="fa-solid fa-shop text-[#FFE600] text-sm"></i>
-            </a>
+              class="w-9 h-9 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all"><i
+                class="fa-solid fa-shop text-[#FFE600] text-sm"></i></a>
             <a href="#" target="_blank" rel="noopener" title="Facebook Marketplace" id="footer-mkt"
-              class="w-9 h-9 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all">
-              <i class="fa-brands fa-facebook-f text-[#1877F2] text-sm"></i>
-            </a>
+              class="w-9 h-9 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all"><i
+                class="fa-brands fa-facebook-f text-[#1877F2] text-sm"></i></a>
             <a href="#" target="_blank" rel="noopener" title="YouTube" id="footer-yt"
-              class="w-9 h-9 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all">
-              <i class="fa-brands fa-youtube text-[#FF0000] text-sm"></i>
-            </a>
+              class="w-9 h-9 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all"><i
+                class="fa-brands fa-youtube text-[#FF0000] text-sm"></i></a>
           </div>
         </div>
       </div>
       <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <p class="text-xs text-steel/30 font-inter">&copy; 2025 ForjaTech. Todos los derechos reservados.</p>
+        <p class="text-xs text-steel/30 font-inter">&copy; 2025 ForjaTechMCBO. Todos los derechos reservados.</p>
         <p class="text-xs text-steel/20 font-fira">Engineering precision since 1995</p>
       </div>
     </div>
   </footer>
 
-  <!-- ========== MODAL DE CONTACTO ========== -->
-  <div id="contact-modal" role="dialog" aria-modal="true" aria-label="Formulario de contacto">
+  <!-- MODAL CONTACTO -->
+  <div id="contact-modal" role="dialog" aria-modal="true">
     <div class="modal-backdrop" onclick="closeModal()"></div>
     <div class="modal-content glass p-8">
       <button onclick="closeModal()"
-        class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-steel/50 hover:text-white transition-colors"
-        aria-label="Cerrar modal">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
+        class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-steel/50 hover:text-white transition-colors"><i
+          class="fa-solid fa-xmark"></i></button>
       <div class="mb-6">
         <h3 class="font-orbitron font-bold text-lg text-white tracking-wide i18n" data-key="modalTitle">Solicitar
           Información</h3>
@@ -1489,324 +1385,131 @@
           menos de 2 horas.</p>
       </div>
       <form id="contact-form" class="flex flex-col gap-4" onsubmit="handleContactSubmit(event)">
-        <div>
-          <label class="form-label" for="cf-name i18n" data-key="formName">Nombre completo</label>
-          <input type="text" id="cf-name" class="form-input" placeholder="Juan Pérez" required>
-        </div>
-        <div>
-          <label class="form-label" for="cf-company i18n" data-key="formCompany">Empresa</label>
-          <input type="text" id="cf-company" class="form-input" placeholder="Fábrica Metálica S.A." required>
-        </div>
+        <div><label class="form-label i18n" data-key="formName">Nombre completo</label><input type="text" id="cf-name"
+            class="form-input" placeholder="Juan Pérez" required></div>
+        <div><label class="form-label i18n" data-key="formCompany">Empresa</label><input type="text" id="cf-company"
+            class="form-input" placeholder="Fábrica Metálica S.A." required></div>
         <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="form-label" for="cf-country i18n" data-key="formCountry">País</label>
-            <input type="text" id="cf-country" class="form-input" placeholder="Colombia" required>
-          </div>
-          <div>
-            <label class="form-label" for="cf-phone i18n" data-key="formPhone">Teléfono / WhatsApp</label>
-            <input type="tel" id="cf-phone" class="form-input" placeholder="+57 300 000 0000" required>
-          </div>
+          <div><label class="form-label i18n" data-key="formCountry">País</label><input type="text" id="cf-country"
+              class="form-input" placeholder="Colombia" required></div>
+          <div><label class="form-label i18n" data-key="formPhone">Teléfono / WhatsApp</label><input type="tel"
+              id="cf-phone" class="form-input" placeholder="+57 300 000 0000" required></div>
         </div>
-        <div>
-          <label class="form-label" for="cf-email i18n" data-key="formEmail">Correo electrónico</label>
-          <input type="email" id="cf-email" class="form-input" placeholder="juan@fabrica.com" required>
-        </div>
-        <div>
-          <label class="form-label" for="cf-product i18n" data-key="formProduct">Producto de interés</label>
-          <select id="cf-product" class="form-input" required>
+        <div><label class="form-label i18n" data-key="formEmail">Correo electrónico</label><input type="email"
+            id="cf-email" class="form-input" placeholder="juan@fabrica.com" required></div>
+        <div><label class="form-label i18n" data-key="formProduct">Producto de interés</label><select id="cf-product"
+            class="form-input" required>
             <option value="" class="i18n" data-key="formSelect">Seleccione un producto...</option>
-          </select>
-        </div>
-        <div>
-          <label class="form-label" for="cf-message i18n" data-key="formMessage">Mensaje adicional</label>
-          <textarea id="cf-message" class="form-input" rows="3"
-            placeholder="Cuéntenos sobre su necesidad de producción..."></textarea>
-        </div>
-        <button type="submit" class="btn-cta w-full mt-2" id="cf-submit-btn i18n" data-key="formSubmit">ENVIAR
-          SOLICITUD</button>
+          </select></div>
+        <div><label class="form-label i18n" data-key="formMessage">Mensaje adicional</label><textarea id="cf-message"
+            class="form-input" rows="3" placeholder="Cuéntenos sobre su necesidad de producción..."></textarea></div>
+        <button type="submit" class="btn-cta w-full mt-2 i18n" data-key="formSubmit">ENVIAR SOLICITUD</button>
         <p class="text-center text-[0.65rem] text-steel/30 font-fira i18n" data-key="formPrivacy">Su información es
-          tratada con confidencialidad
-          industrial.</p>
+          tratada con confidencialidad industrial.</p>
       </form>
     </div>
   </div>
 
-  <!-- ========== CHAT IA ========== -->
-  <div id="chat-bubble" onclick="toggleChat()" role="button" aria-label="Abrir chat de asistencia">
-    <span class="pulse-ring"></span>
-    <i class="fa-solid fa-robot text-cyanN text-lg relative z-10"></i>
-  </div>
+  <!-- CHAT IA -->
+  <div id="chat-bubble" onclick="toggleChat()"><span class="pulse-ring"></span><i
+      class="fa-solid fa-robot text-cyanN text-lg relative z-10"></i></div>
   <div id="chat-window" class="glass" style="border-color: rgba(0,240,255,0.2);">
     <div class="p-4 border-b border-white/5 flex items-center gap-3 shrink-0" style="background: rgba(0,240,255,0.03);">
-      <div class="w-9 h-9 rounded-full bg-deep border border-cyanN/30 flex items-center justify-center">
-        <i class="fa-solid fa-robot text-cyanN text-sm"></i>
-      </div>
+      <div class="w-9 h-9 rounded-full bg-deep border border-cyanN/30 flex items-center justify-center"><i
+          class="fa-solid fa-robot text-cyanN text-sm"></i></div>
       <div>
-        <p class="font-orbitron font-bold text-xs text-white tracking-wide i18n" data-key="chatAssistant">ASISTENTE
-          TÉCNICO</p>
-        <p class="text-[0.65rem] text-cyanN/60 font-fira i18n" data-key="chatOnline">En línea — ForjaTech</p>
+        <p class="font-orbitron font-bold text-xs text-white tracking-wide">ASISTENTE TÉCNICO</p>
+        <p class="text-[0.65rem] text-cyanN/60 font-fira">En línea — ForjaTechMCBO</p>
       </div>
-      <button onclick="toggleChat()" class="ml-auto text-steel/40 hover:text-white transition-colors"
-        aria-label="Cerrar chat">
-        <i class="fa-solid fa-minus"></i>
-      </button>
+      <button onclick="toggleChat()" class="ml-auto text-steel/40 hover:text-white transition-colors"><i
+          class="fa-solid fa-minus"></i></button>
     </div>
     <div class="chat-messages" id="chat-messages"></div>
-    <div class="chat-quick-replies" id="chat-quick-replies"></div>
+    <div class="chat-quick-replies" id="chat-quick-replies"
+      style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 8px;"></div>
     <div class="p-3 border-t border-white/5 shrink-0 flex gap-2" style="background: rgba(0,0,0,0.2);">
       <input type="text" id="chat-input" class="form-input flex-1 text-sm py-2" placeholder="Escriba su consulta..."
         onkeydown="if(event.key==='Enter')sendChatMessage()">
       <button onclick="sendChatMessage()"
-        class="w-10 h-10 rounded-lg bg-cyanN/10 border border-cyanN/30 flex items-center justify-center text-cyanN hover:bg-cyanN/20 transition-colors"
-        aria-label="Enviar mensaje">
-        <i class="fa-solid fa-paper-plane text-sm"></i>
-      </button>
+        class="w-10 h-10 rounded-lg bg-cyanN/10 border border-cyanN/30 flex items-center justify-center text-cyanN hover:bg-cyanN/20"><i
+          class="fa-solid fa-paper-plane text-sm"></i></button>
     </div>
   </div>
 
-  <!-- ========== BOTÓN WHATSAPP ========== -->
-  <a id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
-  </a>
+  <a id="wa-float" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
 
-  <!-- ========== SCRIPTS ========== -->
-
-  <!-- Three.js: Escena 3D del troquel (se mantiene igual, sin cambios) -->
+  <!-- THREE.JS -->
   <script type="module">
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
     const canvas = document.getElementById('hero-canvas');
-    if (!canvas) throw new Error('Canvas no encontrado');
-
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(canvas.parentElement.clientWidth, canvas.parentElement.clientHeight);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
-
-    const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0B0C10, 0.08);
-
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.2;
+    const scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(0x0B0C10, 0.08);
     const camera = new THREE.PerspectiveCamera(40, canvas.parentElement.clientWidth / canvas.parentElement.clientHeight, 0.1, 100);
-    camera.position.set(4, 3, 6);
-    camera.lookAt(0, 0.5, 0);
-
-    const controls = new OrbitControls(camera, canvas);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.enableZoom = false;
-    controls.enablePan = false;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.8;
-    controls.maxPolarAngle = Math.PI / 2.2;
-    controls.minPolarAngle = Math.PI / 6;
-
-    const ambientLight = new THREE.AmbientLight(0x112233, 0.6);
-    scene.add(ambientLight);
-
-    const keyLight = new THREE.DirectionalLight(0xffeedd, 2.5);
-    keyLight.position.set(5, 8, 3);
-    scene.add(keyLight);
-
-    const cyanLight = new THREE.PointLight(0x00F0FF, 3, 15);
-    cyanLight.position.set(-3, 2, 2);
-    scene.add(cyanLight);
-
-    const copperLight = new THREE.PointLight(0xC47F45, 2, 12);
-    copperLight.position.set(3, 1, -2);
-    scene.add(copperLight);
-
-    const rimLight = new THREE.PointLight(0x00F0FF, 1.5, 10);
-    rimLight.position.set(0, -1, -4);
-    scene.add(rimLight);
-
+    camera.position.set(4, 3, 6); camera.lookAt(0, 0.5, 0);
+    const controls = new OrbitControls(camera, canvas); controls.enableDamping = true; controls.dampingFactor = 0.05; controls.enableZoom = false; controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 0.8; controls.maxPolarAngle = Math.PI / 2.2; controls.minPolarAngle = Math.PI / 6;
+    const ambientLight = new THREE.AmbientLight(0x112233, 0.6); scene.add(ambientLight);
+    const keyLight = new THREE.DirectionalLight(0xffeedd, 2.5); keyLight.position.set(5, 8, 3); scene.add(keyLight);
+    const cyanLight = new THREE.PointLight(0x00F0FF, 3, 15); cyanLight.position.set(-3, 2, 2); scene.add(cyanLight);
+    const copperLight = new THREE.PointLight(0xC47F45, 2, 12); copperLight.position.set(3, 1, -2); scene.add(copperLight);
+    const rimLight = new THREE.PointLight(0x00F0FF, 1.5, 10); rimLight.position.set(0, -1, -4); scene.add(rimLight);
     const steelMat = new THREE.MeshStandardMaterial({ color: 0x2a2e35, metalness: 0.95, roughness: 0.25 });
     const brightSteelMat = new THREE.MeshStandardMaterial({ color: 0x8a9aaa, metalness: 0.9, roughness: 0.15 });
-
     const dieGroup = new THREE.Group();
-    const upperDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat);
-    upperDie.position.y = 1.6;
-    dieGroup.add(upperDie);
-    const lowerDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat);
-    lowerDie.position.y = -1.6;
-    dieGroup.add(lowerDie);
-
+    const upperDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat); upperDie.position.y = 1.6; dieGroup.add(upperDie);
+    const lowerDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat); lowerDie.position.y = -1.6; dieGroup.add(lowerDie);
     const guideMat = new THREE.MeshStandardMaterial({ color: 0x444d55, metalness: 0.9, roughness: 0.3 });
-    [-1.5, 1.5].forEach(x => {
-      const guide = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 3.5, 16), guideMat);
-      guide.position.set(x, 0, 0.8);
-      dieGroup.add(guide);
-    });
-
-    const bladeShape = new THREE.Shape();
-    bladeShape.moveTo(-0.6, 0);
-    bladeShape.lineTo(0.6, 0);
-    bladeShape.lineTo(0.9, -2.2);
-    bladeShape.lineTo(-0.9, -2.2);
-    bladeShape.closePath();
-
+    [-1.5, 1.5].forEach(x => { const guide = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 3.5, 16), guideMat); guide.position.set(x, 0, 0.8); dieGroup.add(guide); });
+    const bladeShape = new THREE.Shape(); bladeShape.moveTo(-0.6, 0); bladeShape.lineTo(0.6, 0); bladeShape.lineTo(0.9, -2.2); bladeShape.lineTo(-0.9, -2.2); bladeShape.closePath();
     const extrudeSettings = { depth: 0.06, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 2 };
-    const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings);
-    bladeGeo.center();
-    const blade = new THREE.Mesh(bladeGeo, brightSteelMat);
-    blade.position.set(0, 0.8, 0);
-    blade.rotation.x = -Math.PI / 2;
-    blade.scale.set(0.8, 0.8, 0.8);
-    dieGroup.add(blade);
-
+    const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings); bladeGeo.center();
+    const blade = new THREE.Mesh(bladeGeo, brightSteelMat); blade.position.set(0, 0.8, 0); blade.rotation.x = -Math.PI / 2; blade.scale.set(0.8, 0.8, 0.8); dieGroup.add(blade);
     scene.add(dieGroup);
-
-    function createSparkTexture(color1, color2) {
-      const c = document.createElement('canvas');
-      c.width = 32; c.height = 32;
-      const ctx = c.getContext('2d');
-      const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      g.addColorStop(0, color1);
-      g.addColorStop(0.4, color2);
-      g.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, 32, 32);
-      return new THREE.CanvasTexture(c);
-    }
-
-    const cyanTex = createSparkTexture('#ffffff', '#00F0FF');
-    const copperTex = createSparkTexture('#ffffff', '#C47F45');
-
-    const sparkCount = 150;
-    const sparkGeo = new THREE.BufferGeometry();
-    const sparkPositions = new Float32Array(sparkCount * 3);
-    const sparkVelocities = [];
-    const sparkLifetimes = [];
-    for (let i = 0; i < sparkCount; i++) resetSpark(i);
-    sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
-    const sparkMat = new THREE.PointsMaterial({ map: cyanTex, size: 0.15, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.8 });
-    const sparks = new THREE.Points(sparkGeo, sparkMat);
-    scene.add(sparks);
-
-    const spark2Count = 80;
-    const spark2Geo = new THREE.BufferGeometry();
-    const spark2Pos = new Float32Array(spark2Count * 3);
-    const spark2Vel = [];
-    for (let i = 0; i < spark2Count; i++) resetSpark2(i);
-    spark2Geo.setAttribute('position', new THREE.BufferAttribute(spark2Pos, 3));
-    const spark2Mat = new THREE.PointsMaterial({ map: copperTex, size: 0.12, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.7 });
-    const sparks2 = new THREE.Points(spark2Geo, spark2Mat);
-    scene.add(sparks2);
-
-    function resetSpark(i) {
-      sparkPositions[i * 3] = (Math.random() - 0.5) * 2;
-      sparkPositions[i * 3 + 1] = Math.random() * 0.5 + 0.5;
-      sparkPositions[i * 3 + 2] = (Math.random() - 0.5) * 1.5;
-      sparkVelocities[i] = {
-        x: (Math.random() - 0.5) * 0.02,
-        y: Math.random() * 0.03 + 0.01,
-        z: (Math.random() - 0.5) * 0.02,
-      };
-      sparkLifetimes[i] = Math.random();
-    }
-
-    function resetSpark2(i) {
-      spark2Pos[i * 3] = (Math.random() - 0.5) * 1.5;
-      spark2Pos[i * 3 + 1] = Math.random() * 0.3;
-      spark2Pos[i * 3 + 2] = (Math.random() - 0.5) * 1;
-      spark2Vel[i] = {
-        x: (Math.random() - 0.5) * 0.015,
-        y: Math.random() * 0.025 + 0.005,
-        z: (Math.random() - 0.5) * 0.015,
-      };
-    }
-
-    const gridHelper = new THREE.GridHelper(20, 40, 0x00F0FF, 0x00F0FF);
-    gridHelper.material.opacity = 0.04;
-    gridHelper.material.transparent = true;
-    gridHelper.position.y = -2.5;
-    scene.add(gridHelper);
-
+    function createSparkTexture(c1, c2) { const c = document.createElement('canvas'); c.width = 32; c.height = 32; const ctx = c.getContext('2d'); const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16); g.addColorStop(0, c1); g.addColorStop(0.4, c2); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); }
+    const cyanTex = createSparkTexture('#ffffff', '#00F0FF'); const copperTex = createSparkTexture('#ffffff', '#C47F45');
+    const sparkCount = 150; const sparkGeo = new THREE.BufferGeometry(); const sparkPositions = new Float32Array(sparkCount * 3); const sparkVelocities = []; const sparkLifetimes = [];
+    for (let i = 0; i < sparkCount; i++) resetSpark(i); sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
+    const sparks = new THREE.Points(sparkGeo, new THREE.PointsMaterial({ map: cyanTex, size: 0.15, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.8 })); scene.add(sparks);
+    const spark2Count = 80; const spark2Geo = new THREE.BufferGeometry(); const spark2Pos = new Float32Array(spark2Count * 3); const spark2Vel = [];
+    for (let i = 0; i < spark2Count; i++) resetSpark2(i); spark2Geo.setAttribute('position', new THREE.BufferAttribute(spark2Pos, 3));
+    const sparks2 = new THREE.Points(spark2Geo, new THREE.PointsMaterial({ map: copperTex, size: 0.12, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.7 })); scene.add(sparks2);
+    function resetSpark(i) { sparkPositions[i * 3] = (Math.random() - 0.5) * 2; sparkPositions[i * 3 + 1] = Math.random() * 0.5 + 0.5; sparkPositions[i * 3 + 2] = (Math.random() - 0.5) * 1.5; sparkVelocities[i] = { x: (Math.random() - 0.5) * 0.02, y: Math.random() * 0.03 + 0.01, z: (Math.random() - 0.5) * 0.02 }; sparkLifetimes[i] = Math.random(); }
+    function resetSpark2(i) { spark2Pos[i * 3] = (Math.random() - 0.5) * 1.5; spark2Pos[i * 3 + 1] = Math.random() * 0.3; spark2Pos[i * 3 + 2] = (Math.random() - 0.5) * 1; spark2Vel[i] = { x: (Math.random() - 0.5) * 0.015, y: Math.random() * 0.025 + 0.005, z: (Math.random() - 0.5) * 0.015 }; }
+    const gridHelper = new THREE.GridHelper(20, 40, 0x00F0FF, 0x00F0FF); gridHelper.material.opacity = 0.04; gridHelper.material.transparent = true; gridHelper.position.y = -2.5; scene.add(gridHelper);
     const clock = new THREE.Clock();
     function animate() {
-      requestAnimationFrame(animate);
-      const t = clock.getElapsedTime();
-
-      blade.position.y = 0.8 + Math.sin(t * 0.5) * 0.4 + 0.3;
-      upperDie.position.y = 1.6 + Math.sin(t * 0.5) * 0.15;
-      lowerDie.position.y = -1.6 - Math.sin(t * 0.5) * 0.1;
-
-      const posArr = sparks.geometry.attributes.position.array;
-      for (let i = 0; i < sparkCount; i++) {
-        sparkLifetimes[i] += 0.008;
-        if (sparkLifetimes[i] > 1) resetSpark(i);
-        posArr[i * 3] += sparkVelocities[i].x;
-        posArr[i * 3 + 1] += sparkVelocities[i].y;
-        posArr[i * 3 + 2] += sparkVelocities[i].z;
-        sparkVelocities[i].y -= 0.0002;
-      }
-      sparks.geometry.attributes.position.needsUpdate = true;
-
-      const posArr2 = sparks2.geometry.attributes.position.array;
-      for (let i = 0; i < spark2Count; i++) {
-        posArr2[i * 3] += spark2Vel[i].x;
-        posArr2[i * 3 + 1] += spark2Vel[i].y;
-        posArr2[i * 3 + 2] += spark2Vel[i].z;
-        spark2Vel[i].y -= 0.00015;
-        if (posArr2[i * 3 + 1] > 4 || posArr2[i * 3 + 1] < -3) resetSpark2(i);
-      }
-      sparks2.geometry.attributes.position.needsUpdate = true;
-
-      cyanLight.intensity = 3 + Math.sin(t * 2) * 0.5;
-      copperLight.intensity = 2 + Math.sin(t * 1.5 + 1) * 0.4;
-
-      controls.update();
-      renderer.render(scene, camera);
+      requestAnimationFrame(animate); const t = clock.getElapsedTime();
+      blade.position.y = 0.8 + Math.sin(t * 0.5) * 0.4 + 0.3; upperDie.position.y = 1.6 + Math.sin(t * 0.5) * 0.15; lowerDie.position.y = -1.6 - Math.sin(t * 0.5) * 0.1;
+      const posArr = sparks.geometry.attributes.position.array; for (let i = 0; i < sparkCount; i++) { sparkLifetimes[i] += 0.008; if (sparkLifetimes[i] > 1) resetSpark(i); posArr[i * 3] += sparkVelocities[i].x; posArr[i * 3 + 1] += sparkVelocities[i].y; posArr[i * 3 + 2] += sparkVelocities[i].z; sparkVelocities[i].y -= 0.0002; } sparks.geometry.attributes.position.needsUpdate = true;
+      const posArr2 = sparks2.geometry.attributes.position.array; for (let i = 0; i < spark2Count; i++) { posArr2[i * 3] += spark2Vel[i].x; posArr2[i * 3 + 1] += spark2Vel[i].y; posArr2[i * 3 + 2] += spark2Vel[i].z; spark2Vel[i].y -= 0.00015; if (posArr2[i * 3 + 1] > 4 || posArr2[i * 3 + 1] < -3) resetSpark2(i); } sparks2.geometry.attributes.position.needsUpdate = true;
+      cyanLight.intensity = 3 + Math.sin(t * 2) * 0.5; copperLight.intensity = 2 + Math.sin(t * 1.5 + 1) * 0.4;
+      controls.update(); renderer.render(scene, camera);
     }
     animate();
-
-    window.addEventListener('resize', () => {
-      const w = canvas.parentElement.clientWidth;
-      const h = canvas.parentElement.clientHeight;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    });
+    window.addEventListener('resize', () => { const w = canvas.parentElement.clientWidth, h = canvas.parentElement.clientHeight; camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h); });
   </script>
 
-  <!-- ========== SCRIPT PRINCIPAL ========== -->
+  <!-- SCRIPT PRINCIPAL -->
   <script>
-    // ##############################
-    // CONFIGURACIÓN INICIAL
-    // ##############################
-
-    // --- WhatsApp ---
-    const WA_NUMBER = '584146576845'; // <-- CAMBIA por tu número real (sin + ni espacios)
-    const WA_DEFAULT_MSG = 'Hola%2C%20quiero%20información%20sobre%20troqueles%20ForjaTech';
-
-    // --- Envío de correos: elige solo un método (true) ---
-    const USE_FORMSPREE = false;   // <-- Pon true para usar Formspree
-    const USE_EMAILJS = true; // <-- Pon true para usar EmailJS
-    // if (USE_EMAILJS && EMAILJS_USER_ID) {
-    //   emailjs.init(EMAILJS_USER_ID);
-    // }
-    // Endpoints (rellena según el servicio que actives)
-    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/TU_ENDPOINT'; // <-- Pega tu URL de Formspree
-    const EMAILJS_SERVICE_ID = 'service_qqgy6en';   // Solo si usas EmailJS
+    const WA_NUMBER = '584146576845';
+    const USE_EMAILJS = true;
+    const EMAILJS_SERVICE_ID = 'service_qqgy6en';
     const EMAILJS_TEMPLATE_ID = 'template_k9xpbzu';
     const EMAILJS_USER_ID = 'pYRjEaqZQViCKwmnA';
+    emailjs.init(EMAILJS_USER_ID);
 
-    // --- Redes sociales / marketplaces globales (footer) ---
     const SOCIAL_LINKS = {
-      mercadolibre: 'https://www.mercadolibre.com.co/p/...',   // Tienda o perfil
-      marketplace: 'https://www.facebook.com/marketplace/profile/...',  // Perfil de Marketplace
-      youtube: 'https://youtube.com/@forjatech',               // Canal
-      facebookAds: 'https://www.facebook.com/ads/...',        // Campaña (opcional)
+      mercadolibre: 'https://www.mercadolibre.com.co/p/...',
+      marketplace: 'https://www.facebook.com/marketplace/profile/...',
+      youtube: 'https://youtube.com/@forjatech',
     };
-
-    // Actualizar links del footer
-    document.getElementById('footer-wa').href = `https://wa.me/${WA_NUMBER}?text=${WA_DEFAULT_MSG}`;
+    document.getElementById('footer-wa').href = `https://wa.me/${WA_NUMBER}`;
     document.getElementById('footer-ml').href = SOCIAL_LINKS.mercadolibre || '#';
     document.getElementById('footer-mkt').href = SOCIAL_LINKS.marketplace || '#';
     document.getElementById('footer-yt').href = SOCIAL_LINKS.youtube || '#';
-
-
 
     // ===== i18n =====
     const i18n = {
@@ -1865,7 +1568,7 @@
     };
 
     let currentLang = 'es';
-    let products = []; // Se llenará dinámicamente
+    window.products = [];
 
     function translatePage() {
       const dict = i18n[currentLang];
@@ -1886,17 +1589,14 @@
       renderProducts();
       renderProcess();
       renderTestimonials();
-      renderProductSelect();
     };
 
     window.toggleTheme = function () {
       document.documentElement.classList.toggle('light');
       document.documentElement.classList.toggle('dark');
     };
-    // ##############################
-    // DATOS DE PRODUCTOS (¡personaliza las imágenes y enlaces!)
-    // ##############################
-    // Datos de productos con ambos idiomas
+
+    // Datos de productos bilingües
     const productData = [
       {
         id: 'escardilla', icon: 'fa-seedling', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1912,8 +1612,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Diseño simplificado de 3 estaciones.', en: 'Simplified 3-station design.' },
         phrase: { es: 'Pala de albañil de geometría exacta con mínimo retrabajo.', en: 'Mason shovel with exact geometry and minimal rework.' },
-        images: ["./img/productos/pala-cuadrada-01.webp", "./img/productos/pala-cuadrada-02.webp", "./img/productos/pala-cuadrada-03.webp", "./img/productos/pala-cuadrada-04.webp"],
-        links: {}
+        images: ["./img/productos/pala-cuadrada-01.webp", "./img/productos/pala-cuadrada-02.webp", "./img/productos/pala-cuadrada-03.webp", "./img/productos/pala-cuadrada-04.webp"], links: {}
       },
       {
         id: 'pala-redonda', icon: 'fa-circle', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1921,8 +1620,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Incluye molde redondeador tubular para cabo.', en: 'Includes tubular rounding mold for handle.' },
         phrase: { es: 'Ergonomía estructural para palas de uso mixto.', en: 'Structural ergonomics for mixed-use shovels.' },
-        images: ["./img/productos/pala-redonda-01.webp", "./img/productos/pala-redonda-02.webp", "./img/productos/pala-redonda-03.webp", "./img/productos/pala-redonda-04.webp"],
-        links: {}
+        images: ["./img/productos/pala-redonda-01.webp", "./img/productos/pala-redonda-02.webp", "./img/productos/pala-redonda-03.webp", "./img/productos/pala-redonda-04.webp"], links: {}
       },
       {
         id: 'palin-mina', icon: 'fa-mountain', hot: true, thickness: '≥ 2.5 mm',
@@ -1954,21 +1652,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Sistema de redondeo tubular de alta precisión.', en: 'High-precision tubular rounding system.' },
         phrase: { es: 'El componente circular que completa su línea de carretillas.', en: 'The circular component that completes your wheelbarrow line.' },
-        images: [
-          "./img/productos/troquel-molde-rin-ML25-01.webp",
-          "./img/productos/troquel-molde-rin-ML25-02.webp",
-          "./img/productos/troquel-molde-rin-ML25-03.webp",
-          "./img/productos/troquel-molde-rin-ML25-04.webp",
-          "./img/productos/troquel-molde-rin-ML25-05.webp",
-          "./img/productos/troquel-molde-rin-ML25-06.webp",
-          "./img/productos/troquel-molde-rin-ML25-07.webp",
-          "./img/productos/troquel-molde-rin-ML25-08.webp",
-          "./img/productos/troquel-molde-rin-ML25-09.webp",
-          "./img/productos/troquel-molde-rin-ML25-10.webp",
-          "./img/productos/troquel-molde-rin-ML25-11.webp",
-          "./img/productos/troquel-molde-rin-ML25-12.webp"
-        ],
-        links: {}
+        images: ["./img/productos/troquel-molde-rin-ML25-01.webp", "./img/productos/troquel-molde-rin-ML25-02.webp", "./img/productos/troquel-molde-rin-ML25-03.webp", "./img/productos/troquel-molde-rin-ML25-04.webp", "./img/productos/troquel-molde-rin-ML25-05.webp", "./img/productos/troquel-molde-rin-ML25-06.webp", "./img/productos/troquel-molde-rin-ML25-07.webp", "./img/productos/troquel-molde-rin-ML25-08.webp", "./img/productos/troquel-molde-rin-ML25-09.webp", "./img/productos/troquel-molde-rin-ML25-10.webp", "./img/productos/troquel-molde-rin-ML25-11.webp", "./img/productos/troquel-molde-rin-ML25-12.webp"], links: {}
       },
       {
         id: 'batea-60', icon: 'fa-bucket', hot: false, thickness: '1.5 – 2.0 mm',
@@ -2021,16 +1705,16 @@
     }
 
     function renderProducts() {
-      products = getProducts();
+      window.products = getProducts();
       const grid = document.getElementById('product-grid');
       const select = document.getElementById('cf-product');
       grid.innerHTML = '';
-      select.innerHTML = '<option value="" class="i18n" data-key="formSelect">' + i18n[currentLang].formSelect + '</option>';
-      products.forEach((p, idx) => {
+      select.innerHTML = '<option value="">' + i18n[currentLang].formSelect + '</option>';
+      window.products.forEach((p, idx) => {
         const card = document.createElement('div');
         card.className = 'product-card glass p-5 flex flex-col reveal';
         card.style.transitionDelay = `${(idx % 4) * 0.08}s`;
-        let carouselHTML = p.images?.length ?
+        let carouselHTML = p.images.length ?
           `<div class="product-carousel aspect-[4/3]">${p.images.map((src, i) => `<img src="${src}" class="carousel-img ${i === 0 ? 'active' : ''}" alt="${p.name}" loading="${i === 0 ? 'eager' : 'lazy'}">`).join('')}<div class="carousel-dots">${p.images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`).join('')}</div></div>` :
           `<div class="product-carousel aspect-[4/3] flex items-center justify-center"><i class="fa-solid ${p.icon} text-7xl text-cyanN/20"></i></div>`;
         card.innerHTML = `<div class="card-glow"></div>${carouselHTML}
@@ -2058,12 +1742,11 @@
         { icon: 'fa-scissors', label: { es: 'CORTE CNC', en: 'CNC CUT' }, desc: { es: 'Troquel de corte de precisión con tolerancias de ±0.05 mm sobre la plancha de acero.', en: 'Precision cutting die with tolerances of ±0.05 mm on the steel plate.' }, color: 'cyanN' },
         { icon: 'fa-compress', label: { es: 'EMBUTIDO', en: 'DRAWING' }, desc: { es: 'Conformado progresivo de la geometría de la pieza con control de adelgazamiento.', en: 'Progressive shaping of the part geometry with thinning control.' }, color: 'cyanN' },
         { icon: 'fa-temperature-high', label: { es: 'REFUERZO', en: 'REINFORCE' }, desc: { es: 'Estampado en caliente para láminas ≥2.0 mm. Doble capa de refuerzo estructural.', en: 'Hot stamping for sheets ≥2.0 mm. Double layer of structural reinforcement.' }, color: 'copper' },
-        { icon: 'fa-circle-notch', label: { es: 'REDONDEO', en: 'ROUNDING' }, desc: { es: 'Acabado de bordes tubulares y verificación dimensional con instrumentación calibrated.', en: 'Edge finishing with calibrated instrumentation.' }, color: 'copper' }
+        { icon: 'fa-circle-notch', label: { es: 'REDONDEO', en: 'ROUNDING' }, desc: { es: 'Acabado de bordes tubulares y verificación dimensional con instrumentación calibrada.', en: 'Tubular edge finishing and dimensional verification with calibrated instrumentation.' }, color: 'copper' }
       ];
-      const diagram = document.getElementById('process-diagram');
-      diagram.innerHTML = '<div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative">' + steps.map((s, i) => `
+      document.getElementById('process-diagram').innerHTML = '<div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative">' + steps.map((s, i) => `
         <div class="process-step flex flex-col items-center text-center relative z-10">
-          <div class="tooltip-content glass px-4 py-3 text-xs font-inter text-steel/80">${s.desc[currentLang]}</div>
+          <div class="tooltip-content glass px-4 py-3 text-xs font-inter text-steel/80" style="white-space:normal;">${s.desc[currentLang]}</div>
           <div class="step-icon w-16 h-16 rounded-xl border ${s.color === 'copper' ? 'text-copper border-copper/30' : 'text-cyanN border-cyanN/30'} flex items-center justify-center mb-4" style="background: rgba(${s.color === 'copper' ? '196,127,69' : '0,240,255'},0.06);"><i class="fa-solid ${s.icon} text-xl ${s.color === 'copper' ? 'text-copper' : 'text-cyanN'}"></i></div>
           <span class="step-label font-orbitron font-bold text-[0.65rem] tracking-wider text-steel/70">${s.label[currentLang]}</span>
           <span class="font-fira text-[0.55rem] text-steel/30 mt-1">${currentLang === 'es' ? 'PASO' : 'STEP'} ${i + 1}</span>
@@ -2085,8 +1768,7 @@
         { quote: 'The complete mining spade combo allowed us to eliminate two suppliers. The quality of the hot-stamped reinforcement is impressive.', name: 'Roberto Guzmán', role: 'Production Director', city: 'Monterrey, Mexico' },
         { quote: 'We export 110L wheelbarrows to Central America. The progressive drawing die from ForjaTech gave us the capacity we needed.', name: 'Andrés Vargas', role: 'General Manager', city: 'Lima, Peru' }
       ];
-      const grid = document.getElementById('testimonials-grid');
-      grid.innerHTML = testimonials.map((t, i) => `
+      document.getElementById('testimonials-grid').innerHTML = testimonials.map((t, i) => `
         <div class="testimonial-card glass p-6 reveal reveal-delay-${i + 1}">
           <p class="font-inter text-sm text-steel/80 leading-relaxed mb-6 relative z-10">${t.quote}</p>
           <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-cyanN/10 border border-cyanN/20 flex items-center justify-center font-orbitron font-bold text-xs text-cyanN">${t.name.split(' ').map(n => n[0]).join('')}</div><div><p class="font-inter text-sm font-medium text-white/90">${t.name}</p><p class="text-xs text-steel/50">${t.role} — ${t.city}</p></div></div>
@@ -2099,24 +1781,12 @@
       `;
     }
 
-    function renderProductSelect() {
-      const select = document.getElementById('cf-product');
-      select.innerHTML = '<option value="" class="i18n" data-key="formSelect">' + i18n[currentLang].formSelect + '</option>';
-      products.forEach((p, idx) => {
-        const opt = document.createElement('option'); opt.value = idx; opt.textContent = p.name; select.appendChild(opt);
-      });
-    }
-
     // Inicialización
-    function initAll() {
-      translatePage();
-      renderValueCards();
-      renderProducts();
-      renderProcess();
-      renderTestimonials();
-      renderProductSelect();
-    }
-    initAll();
+    translatePage();
+    renderValueCards();
+    renderProducts();
+    renderProcess();
+    renderTestimonials();
 
     // Carruseles
     function initCarousels() {
@@ -2128,27 +1798,29 @@
         function goTo(i) { imgs[current].classList.remove('active'); dots[current].classList.remove('active'); imgs[i].classList.add('active'); dots[i].classList.add('active'); current = i; }
         function next() { goTo((current + 1) % imgs.length); }
         new IntersectionObserver(entries => { if (entries[0].isIntersecting) interval = setInterval(next, 3500); else clearInterval(interval); }, { threshold: 0.3 }).observe(carousel);
-        dots.forEach((d, i) => d.addEventListener('click', e => { e.stopPropagation(); clearInterval(interval); goTo(i); interval = setInterval(next, 3500); }));
+        dots.forEach((d, i) => { d.style.cursor = 'pointer'; d.addEventListener('click', e => { e.stopPropagation(); clearInterval(interval); goTo(i); interval = setInterval(next, 3500); }); });
       });
     }
 
-    // Scroll reveal, navbar, cursor
-    new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }).observe(document.body);
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('reveal'));
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+    // Navbar
+    const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      const nav = document.getElementById('navbar');
-      if (window.scrollY > 80) { nav.style.background = 'var(--bg)'; nav.style.backdropFilter = 'blur(16px)'; nav.style.borderBottom = '1px solid var(--card-border)'; }
-      else { nav.style.background = 'transparent'; nav.style.backdropFilter = 'none'; nav.style.borderBottom = 'none'; }
+      if (window.scrollY > 80) { navbar.style.background = 'var(--bg)'; navbar.style.backdropFilter = 'blur(16px)'; navbar.style.borderBottom = '1px solid var(--card-border)'; }
+      else { navbar.style.background = 'transparent'; navbar.style.backdropFilter = 'none'; navbar.style.borderBottom = 'none'; }
     });
 
+    // Cursor
     const cursorDot = document.getElementById('cursor-dot'), cursorRing = document.getElementById('cursor-ring');
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursorDot.style.transform = `translate(${mx - 3}px,${my - 3}px)`; });
-    function animCursor() { rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15; cursorRing.style.transform = `translate(${rx - 18}px,${ry - 18}px)`; requestAnimationFrame(animCursor); }
-    animCursor();
+    (function animCursor() { rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15; cursorRing.style.transform = `translate(${rx - 18}px,${ry - 18}px)`; requestAnimationFrame(animCursor); })();
     document.querySelectorAll('a,button,.product-card,.quick-reply,input,select,textarea').forEach(el => { el.addEventListener('mouseenter', () => cursorRing.classList.add('hover')); el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover')); });
 
+    // Mobile menu
     const mobileMenu = document.getElementById('mobile-menu'), mobileOverlay = document.getElementById('mobile-overlay');
     document.getElementById('hamburger').addEventListener('click', () => { mobileMenu.classList.toggle('open'); mobileOverlay.classList.toggle('open'); });
     window.closeMobileMenu = () => { mobileMenu.classList.remove('open'); mobileOverlay.classList.remove('open'); };
@@ -2158,36 +1830,44 @@
     window.openModal = () => { contactModal.classList.add('open'); document.body.style.overflow = 'hidden'; };
     window.openModalWithProduct = idx => { openModal(); document.getElementById('cf-product').value = idx; };
     window.closeModal = () => { contactModal.classList.remove('open'); document.body.style.overflow = ''; };
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); if (document.getElementById('chat-window').classList.contains('open')) toggleChat(); } });
 
-    // EmailJS
+    // Envío de correo
     async function sendEmail(data) {
       if (USE_EMAILJS && typeof emailjs !== 'undefined') {
         try { await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data, EMAILJS_USER_ID); return true; }
-        catch (e) { console.error(e); return false; }
+        catch (e) { console.error('Error EmailJS:', e); return false; }
       }
       return false;
     }
+
     window.handleContactSubmit = async function (e) {
       e.preventDefault();
-      const btn = document.getElementById('cf-submit-btn'); btn.textContent = '...'; btn.disabled = true;
+      const btn = document.getElementById('cf-submit-btn'); btn.textContent = 'ENVIANDO...'; btn.disabled = true;
       const data = {
-        name: document.getElementById('cf-name').value, company: document.getElementById('cf-company').value,
-        country: document.getElementById('cf-country').value, phone: document.getElementById('cf-phone').value,
+        name: document.getElementById('cf-name').value,
+        company: document.getElementById('cf-company').value,
+        country: document.getElementById('cf-country').value,
+        phone: document.getElementById('cf-phone').value,
         email: document.getElementById('cf-email').value,
-        product: products[document.getElementById('cf-product').value]?.name || 'General',
+        product: window.products[document.getElementById('cf-product').value]?.name || 'General',
         message: document.getElementById('cf-message').value,
         _subject: `Nuevo lead: ${document.getElementById('cf-name').value} - ${document.getElementById('cf-company').value}`
       };
       const ok = await sendEmail(data);
-      btn.textContent = ok ? '✓ ENVIADO' : 'ERROR'; btn.style.background = ok ? 'rgba(0,240,255,0.15)' : 'rgba(255,80,80,0.3)';
-      showToast(ok ? (currentLang === 'es' ? 'Solicitud enviada' : 'Request sent') : (currentLang === 'es' ? 'Error al enviar' : 'Send error'), ok ? 'success' : 'info');
-      setTimeout(() => { btn.textContent = 'ENVIAR'; btn.disabled = false; btn.style.background = ''; }, 3000);
+      btn.textContent = ok ? '✓ ENVIADO' : 'ERROR';
+      btn.style.background = ok ? 'rgba(0,240,255,0.15)' : 'rgba(255,80,80,0.3)';
+      showToast(ok ? (currentLang === 'es' ? 'Solicitud enviada. Un especialista le contactará en breve.' : 'Request sent. A specialist will contact you shortly.') : (currentLang === 'es' ? 'No se pudo enviar. Intente de nuevo o contáctenos por WhatsApp.' : 'Could not send. Try again or contact us on WhatsApp.'), ok ? 'success' : 'info');
+      setTimeout(() => { btn.textContent = currentLang === 'es' ? 'ENVIAR SOLICITUD' : 'SEND REQUEST'; btn.disabled = false; btn.style.background = ''; }, 3000);
     };
 
     function showToast(msg, type = 'success') {
-      const t = document.createElement('div'); t.className = `toast ${type}`; t.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-info'} mr-2"></i>${msg}`;
-      document.getElementById('toast-container').appendChild(t); setTimeout(() => t.remove(), 4200);
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-info'} mr-2"></i>${msg}`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4200);
     }
 
     // Chatbot
@@ -2196,7 +1876,7 @@
     const chatInput = document.getElementById('chat-input');
     let chatOpen = false, chatState = 'IDLE', chatLead = {};
 
-    window.toggleChat = () => {
+    window.toggleChat = function () {
       chatOpen = !chatOpen;
       chatWindow.classList.toggle('open', chatOpen);
       if (chatOpen && chatMessages.children.length === 0) startChat();
@@ -2215,29 +1895,33 @@
 
     function startChat() {
       chatState = 'GREETING'; chatLead = {};
-      addBotMsg(currentLang === 'es' ? 'Bienvenido al Asistente Técnico de ForjaTechMCBO.' : 'Welcome to the ForjaTechMCBO Technical Assistant.');
+      addBotMsg(currentLang === 'es' ? 'Bienvenido al Asistente Técnico de ForjaTechMCBO. Soy su primer punto de contacto para consultas sobre troqueles y moldes de estampado.' : 'Welcome to the ForjaTechMCBO Technical Assistant. I am your first point of contact for queries about stamping dies and molds.');
       setTimeout(() => {
         addBotMsg(currentLang === 'es' ? '¿En qué puedo ayudarle hoy?' : 'How can I help you today?');
-        setQuickReplies([
-          { label: currentLang === 'es' ? 'Ver productos' : 'View products', action: showProductList },
-          { label: currentLang === 'es' ? 'Consultar precio' : 'Check price', action: () => startLeadCapture('pricing') },
-          { label: currentLang === 'es' ? 'Soporte técnico' : 'Technical support', action: startTechSupport },
-          { label: currentLang === 'es' ? 'Hablar con especialista' : 'Talk to a specialist', action: () => startLeadCapture('general') },
-        ]);
-      }, 1200);
+        setTimeout(() => {
+          setQuickReplies([
+            { label: currentLang === 'es' ? 'Ver productos' : 'View products', action: showProductList },
+            { label: currentLang === 'es' ? 'Consultar precio' : 'Check price', action: () => startLeadCapture('pricing') },
+            { label: currentLang === 'es' ? 'Soporte técnico' : 'Technical support', action: startTechSupport },
+            { label: currentLang === 'es' ? 'Hablar con especialista' : 'Talk to a specialist', action: () => startLeadCapture('general') },
+          ]);
+        }, 1200);
+      }, 1400);
     }
 
     function showProductList() {
       chatState = 'PRODUCT_LIST';
-      const names = products.map(p => p.name);
-      const replies = names.slice(0, 5).map(n => ({ label: n, action: () => { chatLead.product = n; showProductDetail(n); } }));
-      if (names.length > 5) replies.push({ label: currentLang === 'es' ? 'Ver más...' : 'More...', action: () => showMoreProducts(names.slice(5)) });
-      addBotMsg(currentLang === 'es' ? 'Nuestra línea de troqueles:' : 'Our die line:');
+      const names = window.products.map(p => p.name);
+      const first = names.slice(0, 5);
+      const rest = names.slice(5);
+      const replies = first.map(n => ({ label: n, action: () => { chatLead.product = n; showProductDetail(n); } }));
+      if (rest.length > 0) replies.push({ label: currentLang === 'es' ? 'Ver más...' : 'More...', action: () => showMoreProducts(rest) });
+      addBotMsg(currentLang === 'es' ? 'Contamos con la siguiente línea de troqueles y moldes:' : 'We have the following line of dies and molds:');
       setTimeout(() => setQuickReplies(replies), 1000);
     }
     function showMoreProducts(rest) { setQuickReplies(rest.map(n => ({ label: n, action: () => { chatLead.product = n; showProductDetail(n); } }))); }
     function showProductDetail(name) {
-      const p = products.find(pr => pr.name === name);
+      const p = window.products.find(pr => pr.name === name);
       if (!p) return;
       addBotMsg(`${p.name}. ${p.process}. ${p.desc}`);
       setTimeout(() => setQuickReplies([{ label: currentLang === 'es' ? 'Sí, consultar precio' : 'Yes, check price', action: () => startLeadCapture('pricing') }]), 1000);
@@ -2249,27 +1933,38 @@
     }
     function processLeadField(text) {
       switch (chatState) {
-        case 'LEAD_CAPTURE_NAME': chatLead.name = text; addBotMsg(currentLang === 'es' ? `Gracias, ${text}. ¿Empresa?` : `Thanks, ${text}. Company?`); chatState = 'LEAD_CAPTURE_COMPANY'; break;
-        case 'LEAD_CAPTURE_COMPANY': chatLead.company = text; addBotMsg(currentLang === 'es' ? '¿País?' : 'Country?'); chatState = 'LEAD_CAPTURE_COUNTRY'; break;
-        case 'LEAD_CAPTURE_COUNTRY': chatLead.country = text; addBotMsg(currentLang === 'es' ? '¿WhatsApp?' : 'WhatsApp number?'); chatState = 'LEAD_CAPTURE_PHONE'; break;
-        case 'LEAD_CAPTURE_PHONE': chatLead.phone = text; addBotMsg(currentLang === 'es' ? '¿Correo electrónico?' : 'Email?'); chatState = 'LEAD_CAPTURE_EMAIL'; break;
+        case 'LEAD_CAPTURE_NAME': chatLead.name = text; addBotMsg(currentLang === 'es' ? `Gracias, ${text}. ¿Cuál es el nombre de su empresa?` : `Thanks, ${text}. What is your company name?`); chatState = 'LEAD_CAPTURE_COMPANY'; break;
+        case 'LEAD_CAPTURE_COMPANY': chatLead.company = text; addBotMsg(currentLang === 'es' ? '¿Desde qué país nos escribe?' : 'Which country are you writing from?'); chatState = 'LEAD_CAPTURE_COUNTRY'; break;
+        case 'LEAD_CAPTURE_COUNTRY': chatLead.country = text; addBotMsg(currentLang === 'es' ? '¿Cuál es su número de WhatsApp? (incluya código de país)' : 'What is your WhatsApp number? (include country code)'); chatState = 'LEAD_CAPTURE_PHONE'; break;
+        case 'LEAD_CAPTURE_PHONE': chatLead.phone = text; addBotMsg(currentLang === 'es' ? '¿Y su correo electrónico?' : 'And your email?'); chatState = 'LEAD_CAPTURE_EMAIL'; break;
         case 'LEAD_CAPTURE_EMAIL': chatLead.email = text; finalizeLead(); break;
       }
     }
     async function finalizeLead() {
       chatState = 'TRANSFER';
-      await sendEmail({ name: chatLead.name, company: chatLead.company, country: chatLead.country, phone: chatLead.phone, email: chatLead.email, product: chatLead.product || 'General', message: '', _subject: `Chatbot Lead: ${chatLead.name}` });
-      addBotMsg(currentLang === 'es' ? 'Registrado. Le contactaremos en breve.' : 'Registered. We will contact you shortly.');
+      await sendEmail({ name: chatLead.name, company: chatLead.company, country: chatLead.country, phone: chatLead.phone, email: chatLead.email, product: chatLead.product || 'General', message: '', _subject: `Lead Chatbot: ${chatLead.name} - ${chatLead.company}` });
+      addBotMsg(currentLang === 'es' ? 'Perfecto. He registrado su solicitud y enviado un resumen a nuestro equipo de ingeniería.' : 'Perfect. I have registered your request and sent a summary to our engineering team.');
+      setTimeout(() => {
+        addBotMsg(currentLang === 'es' ? `Un especialista le contactará por WhatsApp en menos de 2 horas al número ${chatLead.phone}.` : `A specialist will contact you via WhatsApp in less than 2 hours at ${chatLead.phone}.`);
+        setTimeout(() => {
+          setQuickReplies([{
+            label: currentLang === 'es' ? 'Ir a WhatsApp ahora' : 'Go to WhatsApp now',
+            action: () => { const msg = encodeURIComponent(`Hola, soy ${chatLead.name} de ${chatLead.company} (${chatLead.country}). Consulto sobre: ${chatLead.product || 'troqueles ForjaTech'}.`); window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank'); }
+          }, { label: currentLang === 'es' ? 'Nueva consulta' : 'New query', action: startChat }]);
+        }, 1000);
+      }, 1200);
     }
-    window.sendChatMessage = () => {
+    window.sendChatMessage = function () {
       const text = chatInput.value.trim();
       if (!text) return;
       chatInput.value = ''; addUserMsg(text); chatQuickReplies.innerHTML = '';
       if (['LEAD_CAPTURE_NAME', 'LEAD_CAPTURE_COMPANY', 'LEAD_CAPTURE_COUNTRY', 'LEAD_CAPTURE_PHONE', 'LEAD_CAPTURE_EMAIL'].includes(chatState)) processLeadField(text);
+      else if (chatState === 'TECH_SUPPORT_INPUT') { chatLead.message = text; addBotMsg(currentLang === 'es' ? 'Gracias por su consulta. ¿Desea dejar sus datos para que le contactemos?' : 'Thanks for your query. Would you like to leave your data so we can contact you?'); chatState = 'TECH_SUPPORT_ASK_LEAD'; setTimeout(() => setQuickReplies([{ label: currentLang === 'es' ? 'Sí, dejar mis datos' : 'Yes, leave my data', action: () => startLeadCapture('tech') }, { label: currentLang === 'es' ? 'No, gracias' : 'No, thanks', action: () => { addBotMsg(currentLang === 'es' ? 'Entendido. Estoy aquí si me necesita.' : 'Understood. I am here if you need me.'); chatState = 'IDLE'; } }]), 1000); }
+      else if (chatState === 'TECH_SUPPORT_ASK_LEAD') { if (text.toLowerCase().includes('sí') || text.toLowerCase().includes('yes')) startLeadCapture('tech'); else { addBotMsg(currentLang === 'es' ? 'Entendido. Estoy aquí si me necesita.' : 'Understood. I am here if you need me.'); chatState = 'IDLE'; } }
       else startChat();
     };
 
-    // Final init
+    // Init
     window.addEventListener('load', () => {
       setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2200);
       document.getElementById('wa-float').href = `https://wa.me/${WA_NUMBER}`;
