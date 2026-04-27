@@ -1192,6 +1192,97 @@
     #mobile-menu button {
       color: var(--fg) !important;
     }
+
+    /* ===== LIGHTBOX ===== */
+    #product-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    #product-lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #product-lightbox .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #product-lightbox .lightbox-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+      transition: opacity 0.5s;
+    }
+
+    #product-lightbox .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg);
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: 0.2s;
+    }
+
+    #product-lightbox .lightbox-close:hover {
+      background: rgba(255, 100, 80, 0.15);
+      border-color: var(--cta);
+    }
+
+    /* Dots del lightbox */
+    .lightbox-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .lightbox-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .lightbox-dots .dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .lightbox-dots .dot:hover {
+      transform: scale(1.3);
+    }
   </style>
 </head>
 
@@ -1882,11 +1973,162 @@
         if (!imgs.length) return;
         const dots = carousel.querySelectorAll('.dot');
         let current = 0, interval;
-        function goTo(i) { imgs[current].classList.remove('active'); dots[current].classList.remove('active'); imgs[i].classList.add('active'); dots[i].classList.add('active'); current = i; }
+        let isHovering = false;
+
+        function goTo(index) {
+          imgs[current].classList.remove('active');
+          dots[current].classList.remove('active');
+          imgs[index].classList.add('active');
+          dots[index].classList.add('active');
+          current = index;
+        }
         function next() { goTo((current + 1) % imgs.length); }
-        new IntersectionObserver(entries => { if (entries[0].isIntersecting) interval = setInterval(next, 3500); else clearInterval(interval); }, { threshold: 0.3 }).observe(carousel);
-        dots.forEach((d, i) => { d.style.cursor = 'pointer'; d.addEventListener('click', e => { e.stopPropagation(); clearInterval(interval); goTo(i); interval = setInterval(next, 3500); }); });
+
+        function startAuto() {
+          if (interval) clearInterval(interval);
+          // Solo inicia si el carrusel está visible Y no hay hover
+          const rect = carousel.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          if (isVisible && !isHovering) {
+            interval = setInterval(next, 3500);
+          }
+        }
+
+        // Observer para visibilidad
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (!isHovering) interval = setInterval(next, 3500);
+            } else {
+              clearInterval(interval);
+            }
+          });
+        }, { threshold: 0.3 });
+        observer.observe(carousel);
+
+        // Pausa al hacer hover sobre la imagen
+        carousel.addEventListener('mouseenter', () => {
+          isHovering = true;
+          clearInterval(interval);
+        });
+        carousel.addEventListener('mouseleave', () => {
+          isHovering = false;
+          startAuto();
+        });
+
+        // Navegación por dots
+        dots.forEach((dot, i) => {
+          dot.style.cursor = 'pointer';
+          dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearInterval(interval);
+            goTo(i);
+            startAuto();
+          });
+        });
+
+        // CLIC PARA ABRIR LIGHTBOX
+        carousel.style.cursor = 'pointer';
+        carousel.addEventListener('click', (e) => {
+          // Evitar que se abra si el clic fue en un dot
+          if (e.target.classList.contains('dot')) return;
+          openLightbox(carousel);
+        });
+
+        // Guardar referencias
+        carousel._interval = interval;
+        carousel._observer = observer;
       });
+    }
+    // ===== LIGHTBOX =====
+    let lightboxElement = null;
+    let lightboxCarousel = null;
+    let lightboxCurrent = 0;
+    let lightboxInterval = null;
+    let lightboxHover = false;
+
+    function createLightboxElement() {
+      if (lightboxElement) return lightboxElement;
+      const lb = document.createElement('div');
+      lb.id = 'product-lightbox';
+      lb.innerHTML = `
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Producto" />
+      <div class="lightbox-dots" id="lightbox-dots"></div>
+    </div>
+    <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+  `;
+      document.body.appendChild(lb);
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLightbox();
+      });
+      // Pausa automática al hacer hover
+      lb.querySelector('.lightbox-content').addEventListener('mouseenter', () => {
+        lightboxHover = true;
+        clearInterval(lightboxInterval);
+      });
+      lb.querySelector('.lightbox-content').addEventListener('mouseleave', () => {
+        lightboxHover = false;
+        startLightboxAuto();
+      });
+      lightboxElement = lb;
+      return lb;
+    }
+
+    function openLightbox(carouselElement) {
+      const images = carouselElement.querySelectorAll('.carousel-img');
+      if (!images.length) return;
+      lightboxCarousel = images;
+      lightboxCurrent = Array.from(images).findIndex(img => img.classList.contains('active'));
+      if (lightboxCurrent === -1) lightboxCurrent = 0;
+      createLightboxElement();
+      updateLightboxImage();
+      updateLightboxDots();
+      document.getElementById('product-lightbox').classList.add('open');
+      startLightboxAuto();
+    }
+
+    function closeLightbox() {
+      clearInterval(lightboxInterval);
+      document.getElementById('product-lightbox').classList.remove('open');
+    }
+
+    function updateLightboxImage() {
+      const img = document.getElementById('lightbox-img');
+      img.src = lightboxCarousel[lightboxCurrent].src;
+      img.alt = lightboxCarousel[lightboxCurrent].alt;
+    }
+
+    function updateLightboxDots() {
+      const dotsContainer = document.getElementById('lightbox-dots');
+      dotsContainer.innerHTML = '';
+      lightboxCarousel.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = `dot ${i === lightboxCurrent ? 'active' : ''}`;
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          lightboxCurrent = i;
+          updateLightboxImage();
+          updateLightboxDots();
+          clearInterval(lightboxInterval);
+          startLightboxAuto();
+        });
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function startLightboxAuto() {
+      clearInterval(lightboxInterval);
+      if (lightboxHover) return;
+      lightboxInterval = setInterval(() => {
+        lightboxCurrent = (lightboxCurrent + 1) % lightboxCarousel.length;
+        updateLightboxImage();
+        updateLightboxDots();
+      }, 3500);
+    }
+
+    function stopLightboxAuto() {
+      clearInterval(lightboxInterval);
     }
 
     // Scroll reveal
@@ -1917,7 +2159,15 @@
     window.openModal = () => { contactModal.classList.add('open'); document.body.style.overflow = 'hidden'; };
     window.openModalWithProduct = idx => { openModal(); document.getElementById('cf-product').value = idx; };
     window.closeModal = () => { contactModal.classList.remove('open'); document.body.style.overflow = ''; };
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); if (document.getElementById('chat-window').classList.contains('open')) toggleChat(); } });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeModal(); if (document.getElementById('chat-window').classList.contains('open')) toggleChat(); if (e.key === 'Escape') {
+          closeModal();
+          closeLightbox();  // <-- añadir esta línea
+          if (document.getElementById('chat-window').classList.contains('open')) toggleChat();
+        }
+      }
+    });
 
     // Envío de correo
     async function sendEmail(data) {
