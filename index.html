@@ -46,13 +46,13 @@
 
   <!-- Three.js Import Map -->
   <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
       }
-    }
-  </script>
+    </script>
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
@@ -1652,6 +1652,26 @@
 
   <a id="wa-float" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
 
+  <!-- ========== CONTROLES FLOTANTES MÓVIL (tema + idiomas) ========== -->
+  <div id="mobile-controls" class="fixed md:hidden flex flex-col items-center gap-3"
+    style="bottom: 140px; right: 24px; z-index: 6500;">
+    <!-- Toggle tema -->
+    <div id="theme-toggle-float" onclick="toggleTheme()"
+      class="w-11 h-11 rounded-full flex items-center justify-center cursor-pointer bg-deep border border-cyanN/30 text-white text-lg shadow-lg">
+      <i class="fa-solid fa-sun hidden"></i>
+      <i class="fa-solid fa-moon"></i>
+    </div>
+    <!-- Idioma español -->
+    <div id="lang-es-float" class="lang-flag active" onclick="switchLang('es')"
+      style="width: 38px; height: 38px; font-size: 1.2rem;">🇻🇪</div>
+    <!-- Idioma inglés -->
+    <div id="lang-en-float" class="lang-flag" onclick="switchLang('en')"
+      style="width: 38px; height: 38px; font-size: 1.2rem;">🇺🇸</div>
+  </div>
+
+
+
+
   <!-- THREE.JS -->
   <script type="module">
     import * as THREE from 'three';
@@ -1708,7 +1728,7 @@
 
   <!-- SCRIPT PRINCIPAL -->
   <script>
-    const WA_NUMBER = '584146576845';
+    const WA_NUMBER = '584246555157';
     const USE_EMAILJS = true;
     const EMAILJS_SERVICE_ID = 'service_qqgy6en';
     const EMAILJS_TEMPLATE_ID = 'template_k9xpbzu';
@@ -1927,10 +1947,10 @@
       const container = document.getElementById('value-cards');
       const dict = i18n[currentLang];
       container.innerHTML = `
-        <div class="glass p-8 text-center group reveal reveal-delay-1"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-gears text-2xl text-cyanN relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard1Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard1Desc}</p></div>
-        <div class="glass p-8 text-center group reveal reveal-delay-2"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-fire-flame-curved text-2xl text-copper relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard2Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard2Desc}</p></div>
-        <div class="glass p-8 text-center group reveal reveal-delay-3"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-globe-americas text-2xl text-cyanN relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard3Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard3Desc}</p></div>
-      `;
+          <div class="glass p-8 text-center group reveal reveal-delay-1"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-gears text-2xl text-cyanN relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard1Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard1Desc}</p></div>
+          <div class="glass p-8 text-center group reveal reveal-delay-2"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-fire-flame-curved text-2xl text-copper relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard2Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard2Desc}</p></div>
+          <div class="glass p-8 text-center group reveal reveal-delay-3"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-globe-americas text-2xl text-cyanN relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard3Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard3Desc}</p></div>
+        `;
     }
 
     function renderProducts() {
@@ -1947,17 +1967,17 @@
           `<div class="product-carousel aspect-[4/3]">${p.images.map((src, i) => `<img src="${src}" class="carousel-img ${i === 0 ? 'active' : ''}" alt="${p.name}" loading="${i === 0 ? 'eager' : 'lazy'}">`).join('')}<div class="carousel-dots">${p.images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`).join('')}</div></div>` :
           `<div class="product-carousel aspect-[4/3] flex items-center justify-center"><i class="fa-solid ${p.icon} text-7xl text-cyanN/20"></i></div>`;
         card.innerHTML = `<div class="card-glow"></div>${carouselHTML}
-          <div class="flex items-start justify-between mb-2">${p.hot ? '<span class="text-[0.6rem] font-orbitron font-bold tracking-wider px-2 py-0.5 rounded bg-burnt/15 text-burnt border border-burnt/30">HOT</span>' : '<span class="text-[0.6rem] font-orbitron font-bold tracking-wider px-2 py-0.5 rounded bg-cyanN/8 text-cyanN/60 border border-cyanN/15">STD</span>'}<span class="font-fira text-[0.6rem] text-steel/40">${p.thickness}</span></div>
-          <h3 class="font-orbitron font-bold text-xs tracking-wide text-white leading-snug mb-2">${p.name.toUpperCase()}</h3>
-          <div class="flex items-center gap-2 mb-3"><i class="fa-solid ${p.process.toLowerCase().includes('caliente') || p.process.toLowerCase().includes('hot') ? 'fa-fire text-copper/70' : 'fa-snowflake text-cyanN/50'} text-[0.6rem]"></i><span class="font-fira text-[0.65rem] ${p.process.toLowerCase().includes('caliente') || p.process.toLowerCase().includes('hot') ? 'text-copper/70' : 'text-cyanN/50'}">${p.process}</span></div>
-          <p class="font-inter text-xs text-steel/60 leading-relaxed mb-3 flex-1">${p.desc}</p>
-          <p class="font-inter text-[0.7rem] text-white/40 italic mb-4 border-t border-white/5 pt-3">${p.phrase}</p>
-          <button onclick="openModalWithProduct(${idx})" class="btn-ghost text-[0.6rem] py-2 px-3 w-full">${currentLang === 'es' ? 'CONSULTAR DISPONIBILIDAD' : 'CHECK AVAILABILITY'}</button>
-          <div class="flex items-center justify-center gap-3 mt-4 pt-3 border-t border-white/5 marketplace-icons">
-            <a href="${p.links.mercadolibre || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all" title="Mercado Libre" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Próximamente en Mercado Libre':'Coming soon on Mercado Libre','info');}"><i class="fa-solid fa-shop text-[#FFE600] text-xs"></i></a>
-            <a href="${p.links.marketplace || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all" title="Facebook Marketplace" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Próximamente en Marketplace':'Coming soon on Marketplace','info');}"><i class="fa-brands fa-facebook-f text-[#1877F2] text-xs"></i></a>
-            <a href="${p.links.youtube || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all" title="YouTube" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Video próximamente':'Video coming soon','info');}"><i class="fa-brands fa-youtube text-[#FF0000] text-xs"></i></a>
-          </div>`;
+            <div class="flex items-start justify-between mb-2">${p.hot ? '<span class="text-[0.6rem] font-orbitron font-bold tracking-wider px-2 py-0.5 rounded bg-burnt/15 text-burnt border border-burnt/30">HOT</span>' : '<span class="text-[0.6rem] font-orbitron font-bold tracking-wider px-2 py-0.5 rounded bg-cyanN/8 text-cyanN/60 border border-cyanN/15">STD</span>'}<span class="font-fira text-[0.6rem] text-steel/40">${p.thickness}</span></div>
+            <h3 class="font-orbitron font-bold text-xs tracking-wide text-white leading-snug mb-2">${p.name.toUpperCase()}</h3>
+            <div class="flex items-center gap-2 mb-3"><i class="fa-solid ${p.process.toLowerCase().includes('caliente') || p.process.toLowerCase().includes('hot') ? 'fa-fire text-copper/70' : 'fa-snowflake text-cyanN/50'} text-[0.6rem]"></i><span class="font-fira text-[0.65rem] ${p.process.toLowerCase().includes('caliente') || p.process.toLowerCase().includes('hot') ? 'text-copper/70' : 'text-cyanN/50'}">${p.process}</span></div>
+            <p class="font-inter text-xs text-steel/60 leading-relaxed mb-3 flex-1">${p.desc}</p>
+            <p class="font-inter text-[0.7rem] text-white/40 italic mb-4 border-t border-white/5 pt-3">${p.phrase}</p>
+            <button onclick="openModalWithProduct(${idx})" class="btn-ghost text-[0.6rem] py-2 px-3 w-full">${currentLang === 'es' ? 'CONSULTAR DISPONIBILIDAD' : 'CHECK AVAILABILITY'}</button>
+            <div class="flex items-center justify-center gap-3 mt-4 pt-3 border-t border-white/5 marketplace-icons">
+              <a href="${p.links.mercadolibre || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all" title="Mercado Libre" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Próximamente en Mercado Libre':'Coming soon on Mercado Libre','info');}"><i class="fa-solid fa-shop text-[#FFE600] text-xs"></i></a>
+              <a href="${p.links.marketplace || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all" title="Facebook Marketplace" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Próximamente en Marketplace':'Coming soon on Marketplace','info');}"><i class="fa-brands fa-facebook-f text-[#1877F2] text-xs"></i></a>
+              <a href="${p.links.youtube || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all" title="YouTube" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Video próximamente':'Video coming soon','info');}"><i class="fa-brands fa-youtube text-[#FF0000] text-xs"></i></a>
+            </div>`;
         card.addEventListener('mousemove', e => { const rect = card.getBoundingClientRect(); card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%'); card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%'); });
         grid.appendChild(card);
         const opt = document.createElement('option'); opt.value = idx; opt.textContent = p.name; select.appendChild(opt);
@@ -1974,16 +1994,16 @@
         { icon: 'fa-circle-notch', label: { es: 'REDONDEO', en: 'ROUNDING' }, desc: { es: 'Acabado de bordes tubulares y verificación dimensional con instrumentación calibrada.', en: 'Tubular edge finishing and dimensional verification with calibrated instrumentation.' }, color: 'copper' }
       ];
       document.getElementById('process-diagram').innerHTML = '<div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative">' + steps.map((s, i) => `
-        <div class="process-step flex flex-col items-center text-center relative z-10">
-          <div class="tooltip-content glass px-4 py-3 text-xs font-inter text-steel/80" style="white-space:normal;">${s.desc[currentLang]}</div>
-          <div class="step-icon w-16 h-16 rounded-xl border ${s.color === 'copper' ? 'text-copper border-copper/30' : 'text-cyanN border-cyanN/30'} flex items-center justify-center mb-4" style="background: rgba(${s.color === 'copper' ? '196,127,69' : '0,240,255'},0.06);"><i class="fa-solid ${s.icon} text-xl ${s.color === 'copper' ? 'text-copper' : 'text-cyanN'}"></i></div>
-          <span class="step-label font-orbitron font-bold text-[0.65rem] tracking-wider text-steel/70">${s.label[currentLang]}</span>
-          <span class="font-fira text-[0.55rem] text-steel/30 mt-1">${currentLang === 'es' ? 'PASO' : 'STEP'} ${i + 1}</span>
-        </div>`).join('') + '</div>';
+          <div class="process-step flex flex-col items-center text-center relative z-10">
+            <div class="tooltip-content glass px-4 py-3 text-xs font-inter text-steel/80" style="white-space:normal;">${s.desc[currentLang]}</div>
+            <div class="step-icon w-16 h-16 rounded-xl border ${s.color === 'copper' ? 'text-copper border-copper/30' : 'text-cyanN border-cyanN/30'} flex items-center justify-center mb-4" style="background: rgba(${s.color === 'copper' ? '196,127,69' : '0,240,255'},0.06);"><i class="fa-solid ${s.icon} text-xl ${s.color === 'copper' ? 'text-copper' : 'text-cyanN'}"></i></div>
+            <span class="step-label font-orbitron font-bold text-[0.65rem] tracking-wider text-steel/70">${s.label[currentLang]}</span>
+            <span class="font-fira text-[0.55rem] text-steel/30 mt-1">${currentLang === 'es' ? 'PASO' : 'STEP'} ${i + 1}</span>
+          </div>`).join('') + '</div>';
       document.getElementById('process-detail-cards').innerHTML = `
-        <div class="glass p-6 reveal"><h4 class="font-orbitron font-bold text-xs tracking-wider text-cyanN mb-3">${dict.processColdTitle}</h4><p class="font-inter text-sm text-steel/80">${dict.processColdDesc}</p></div>
-        <div class="glass p-6 reveal reveal-delay-1"><h4 class="font-orbitron font-bold text-xs tracking-wider text-copper mb-3">${dict.processHotTitle}</h4><p class="font-inter text-sm text-steel/80">${dict.processHotDesc}</p></div>
-      `;
+          <div class="glass p-6 reveal"><h4 class="font-orbitron font-bold text-xs tracking-wider text-cyanN mb-3">${dict.processColdTitle}</h4><p class="font-inter text-sm text-steel/80">${dict.processColdDesc}</p></div>
+          <div class="glass p-6 reveal reveal-delay-1"><h4 class="font-orbitron font-bold text-xs tracking-wider text-copper mb-3">${dict.processHotTitle}</h4><p class="font-inter text-sm text-steel/80">${dict.processHotDesc}</p></div>
+        `;
     }
 
     function renderTestimonials() {
@@ -1998,16 +2018,16 @@
         { quote: 'We export 110L wheelbarrows to Central America. The progressive drawing die from ForjaTech gave us the capacity we needed.', name: 'Andrés Vargas', role: 'General Manager', city: 'Lima, Peru' }
       ];
       document.getElementById('testimonials-grid').innerHTML = testimonials.map((t, i) => `
-        <div class="testimonial-card glass p-6 reveal reveal-delay-${i + 1}">
-          <p class="font-inter text-sm text-steel/80 leading-relaxed mb-6 relative z-10">${t.quote}</p>
-          <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-cyanN/10 border border-cyanN/20 flex items-center justify-center font-orbitron font-bold text-xs text-cyanN">${t.name.split(' ').map(n => n[0]).join('')}</div><div><p class="font-inter text-sm font-medium text-white/90">${t.name}</p><p class="text-xs text-steel/50">${t.role} — ${t.city}</p></div></div>
-        </div>`).join('');
+          <div class="testimonial-card glass p-6 reveal reveal-delay-${i + 1}">
+            <p class="font-inter text-sm text-steel/80 leading-relaxed mb-6 relative z-10">${t.quote}</p>
+            <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-cyanN/10 border border-cyanN/20 flex items-center justify-center font-orbitron font-bold text-xs text-cyanN">${t.name.split(' ').map(n => n[0]).join('')}</div><div><p class="font-inter text-sm font-medium text-white/90">${t.name}</p><p class="text-xs text-steel/50">${t.role} — ${t.city}</p></div></div>
+          </div>`).join('');
       document.getElementById('trust-seals').innerHTML = `
-        <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-truck-fast text-cyanN/40"></i> ${dict.trustSeal1}</div>
-        <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-headset text-cyanN/40"></i> ${dict.trustSeal2}</div>
-        <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-certificate text-cyanN/40"></i> ${dict.trustSeal3}</div>
-        <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-file-invoice text-cyanN/40"></i> ${dict.trustSeal4}</div>
-      `;
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-truck-fast text-cyanN/40"></i> ${dict.trustSeal1}</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-headset text-cyanN/40"></i> ${dict.trustSeal2}</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-certificate text-cyanN/40"></i> ${dict.trustSeal3}</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-file-invoice text-cyanN/40"></i> ${dict.trustSeal4}</div>
+        `;
     }
 
     // Inicialización
@@ -2103,12 +2123,12 @@
       const lb = document.createElement('div');
       lb.id = 'product-lightbox';
       lb.innerHTML = `
-    <div class="lightbox-content">
-      <img id="lightbox-img" src="" alt="Producto" />
-      <div class="lightbox-dots" id="lightbox-dots"></div>
-    </div>
-    <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
-  `;
+      <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="Producto" />
+        <div class="lightbox-dots" id="lightbox-dots"></div>
+      </div>
+      <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+    `;
       document.body.appendChild(lb);
       lb.addEventListener('click', (e) => {
         if (e.target === lb) closeLightbox();
@@ -2263,12 +2283,60 @@
     const chatMessages = document.getElementById('chat-messages'), chatQuickReplies = document.getElementById('chat-quick-replies');
     const chatInput = document.getElementById('chat-input');
     let chatOpen = false, chatState = 'IDLE', chatLead = {};
+    // ---- Control de visibilidad de los controles flotantes móviles (por actividad y chat) ----
+    const mobileControls = document.getElementById('mobile-controls');
+    let hideControlsTimer = null;
+
+    function showControls() {
+      if (chatOpen) return;         // no mostrar si el chat está abierto
+      if (!mobileControls) return;
+      mobileControls.style.opacity = '1';
+      mobileControls.style.pointerEvents = 'auto';
+      resetControlsTimer();
+    }
+
+    function hideControls() {
+      if (!mobileControls) return;
+      mobileControls.style.opacity = '0';
+      mobileControls.style.pointerEvents = 'none';
+    }
+
+    function resetControlsTimer() {
+      clearTimeout(hideControlsTimer);
+      hideControlsTimer = setTimeout(hideControls, 5000); // 5 segundos
+    }
+
+    // Inicialmente ocultos
+    hideControls();
+
+    // Mostrar al detectar cualquier interacción (scroll, toque, clic), solo si el chat no está abierto
+    ['scroll', 'touchstart', 'click'].forEach(eventType => {
+      window.addEventListener(eventType, () => {
+        if (chatOpen) return;
+        showControls();
+      });
+    });
+
 
     window.toggleChat = function () {
       chatOpen = !chatOpen;
       chatWindow.classList.toggle('open', chatOpen);
       if (chatOpen && chatMessages.children.length === 0) startChat();
+
+      // --- Control de los botones flotantes ---
+      if (mobileControls) {
+        if (chatOpen) {
+          // Chat abierto → forzar ocultación, cancelar cualquier temporizador
+          hideControls();
+          clearTimeout(hideControlsTimer);
+        } else {
+          // Chat cerrado → mostrar y activar el temporizador de 10 segundos
+          showControls();      // showControls() ya verifica que chatOpen sea false, así que aquí se mostrará
+        }
+      }
     };
+
+
 
     function addBotMsg(text) {
       const t = document.createElement('div'); t.className = 'chat-msg bot typing-indicator'; t.innerHTML = '<span></span><span></span><span></span>';
@@ -2368,22 +2436,7 @@
       document.getElementById('wa-float').href = `https://wa.me/${WA_NUMBER}`;
     });
   </script>
-  <!-- ========== CONTROLES FLOTANTES MÓVIL (tema + idiomas) ========== -->
-  <div id="mobile-controls" class="fixed md:hidden flex flex-col items-center gap-3"
-    style="bottom: 140px; right: 24px; z-index: 6500;">
-    <!-- Toggle tema -->
-    <div id="theme-toggle-float" onclick="toggleTheme()"
-      class="w-11 h-11 rounded-full flex items-center justify-center cursor-pointer bg-deep border border-cyanN/30 text-white text-lg shadow-lg">
-      <i class="fa-solid fa-sun hidden"></i>
-      <i class="fa-solid fa-moon"></i>
-    </div>
-    <!-- Idioma español -->
-    <div id="lang-es-float" class="lang-flag active" onclick="switchLang('es')"
-      style="width: 38px; height: 38px; font-size: 1.2rem;">🇻🇪</div>
-    <!-- Idioma inglés -->
-    <div id="lang-en-float" class="lang-flag" onclick="switchLang('en')"
-      style="width: 38px; height: 38px; font-size: 1.2rem;">🇺🇸</div>
-  </div>
+
 </body>
 
 </html>
