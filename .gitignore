@@ -1,0 +1,11 @@
+# Ignorar la carpeta de productos png
+img/productos/png/
+
+# Ignorar otras carpetas (ejemplos comunes)
+/node_modules/
+/dist/
+/.env
+
+# Ignorar archivos específicos
+*.log
+.DS_Store

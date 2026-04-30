@@ -54,7 +54,7 @@
       }
     </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
 
   <style>
     /* ========== VARIABLES DE TEMA (OSCURO POR DEFECTO) ========== */
@@ -1745,6 +1745,16 @@
     document.getElementById('footer-mkt').href = SOCIAL_LINKS.marketplace || '#';
     document.getElementById('footer-yt').href = SOCIAL_LINKS.youtube || '#';
 
+    // ===== Scroll reveal =====
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1, rootMargin: '0px 0px 80px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    function observeNewReveals() {
+      document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
+        revealObserver.observe(el);
+        el.classList.add('observed');
+      });
+    }
     // ===== i18n =====
     const i18n = {
       es: {
@@ -1853,7 +1863,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Incluye molde de formado cóncavo para jardinería profesional.', en: 'Includes concave forming mold for professional gardening.' },
         phrase: { es: 'El complemento que faltaba en su catálogo de herramientas de jardín.', en: 'The missing piece in your garden tool catalog.' },
-        images: [], links: { mercadolibre: '', marketplace: '', youtube: '', facebookAds: '' }
+        images: ["./img/productos/troquel_escardilla-01.webp", "./img/productos/troquel_escardilla-02.webp", "./img/productos/troquel_escardilla-03.webp", "./img/productos/troquel_escardilla-04.webp", "./img/productos/escardilla-01.webp", "./img/productos/escardilla-02.webp", "./img/productos/escardilla-03.webp", "./img/productos/escardilla-04.webp"], links: { mercadolibre: '', marketplace: '', youtube: '', facebookAds: '' }
       },
       {
         id: 'pala-cuadrada', icon: 'fa-square', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1885,7 +1895,7 @@
         process: { es: 'Estampado en caliente', en: 'Hot stamping' },
         desc: { es: 'Lógica de corte lateral con bisel incluido en el embutido.', en: 'Lateral cutting logic with bevel included in the drawing.' },
         phrase: { es: 'Filo industrial que multiplica la productividad en campo.', en: 'Industrial edge that multiplies field productivity.' },
-        images: [], links: {}
+        images: ["./img/productos/troquel-estampa-frio-palin-corte-01.webp", "./img/productos/troquel-estampa-frio-palin-corte-02.webp", "./img/productos/troquel-estampa-frio-palin-corte-03.webp", "./img/productos/troquel-estampa-frio-palin-corte-04.webp"], links: {}
       },
       {
         id: 'palin-andino', icon: 'fa-wheat-awn', hot: true, thickness: '≥ 2.0 mm',
@@ -1893,7 +1903,7 @@
         process: { es: 'Estampado en caliente', en: 'Hot stamping' },
         desc: { es: 'Diseño regional optimizado para agricultura de altura.', en: 'Regional design optimized for high-altitude agriculture.' },
         phrase: { es: 'Tradición forjada con tecnología moderna.', en: 'Tradition forged with modern technology.' },
-        images: [], links: {}
+        images: ["./img/productos/troquel-cuello-embuticion-estampado-caliente-01.webp", "./img/productos/troquel-cuello-embuticion-estampado-caliente-02.webp", "./img/productos/troquel-cuello-embuticion-estampado-caliente-03.webp"], links: {}
       },
       {
         id: 'rin-ml25', icon: 'fa-circle-notch', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1901,7 +1911,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Sistema de redondeo tubular de alta precisión.', en: 'High-precision tubular rounding system.' },
         phrase: { es: 'El componente circular que completa su línea de carretillas.', en: 'The circular component that completes your wheelbarrow line.' },
-        images: ["./img/productos/troquel-molde-rin-ML25-01.webp", "./img/productos/troquel-molde-rin-ML25-02.webp", "./img/productos/troquel-molde-rin-ML25-03.webp", "./img/productos/troquel-molde-rin-ML25-04.webp", "./img/productos/troquel-molde-rin-ML25-05.webp", "./img/productos/troquel-molde-rin-ML25-06.webp", "./img/productos/troquel-molde-rin-ML25-07.webp", "./img/productos/troquel-molde-rin-ML25-08.webp", "./img/productos/troquel-molde-rin-ML25-09.webp", "./img/productos/troquel-molde-rin-ML25-10.webp", "./img/productos/troquel-molde-rin-ML25-11.webp", "./img/productos/troquel-molde-rin-ML25-12.webp"], links: {}
+        images: ["./img/productos/troquel-molde-rin-ML25-01.webp", "./img/productos/troquel-molde-rin-ML25-02.webp", "./img/productos/troquel-molde-rin-ML25-03.webp", "./img/productos/troquel-molde-rin-ML25-04.webp", "./img/productos/troquel-molde-rin-ML25-05.webp", "./img/productos/troquel-molde-rin-ML25-06.webp", "./img/productos/troquel-molde-rin-ML25-07.webp", "./img/productos/troquel-molde-rin-ML25-08.webp", "./img/productos/troquel-molde-rin-ML25-09.webp", "./img/productos/troquel-molde-rin-ML25-10.webp", "./img/productos/troquel-molde-rin-ML25-11.webp", "./img/productos/troquel-molde-rin-ML25-12.webp", "./img/productos/ML25-rin-chapa-eje-01.webp", "./img/productos/ML25-rin-chapa-eje-02.webp", "./img/productos/ML25-rin-chapa-eje-03.webp", "./img/productos/ML25-rin-chapa-eje-04.webp", "./img/productos/ML25-rin-chapa-eje-05.webp", "./img/productos/ML25-rin-chapa-eje-06.webp", "./img/productos/ML25-rin-chapa-eje-07.webp", "./img/productos/ML25-rin-chapa-eje-08.webp", "./img/productos/ML25-rin-chapa-eje-09.webp", "./img/productos/ML25-rin-chapa-eje-10.webp", "./img/productos/ML25-rin-chapa-eje-11.webp", "./img/productos/ML25-rin-chapa-eje-12.webp"], links: {}
       },
       {
         id: 'batea-60', icon: 'fa-bucket', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1909,7 +1919,7 @@
         process: { es: 'Corte + Embutido', en: 'Cut + Drawing' },
         desc: { es: 'Conjunto de corte y embutido para carretilla de 60 litros.', en: 'Cut and drawing set for 60-liter wheelbarrow.' },
         phrase: { es: 'Solidez volumétrica para carretillas de uso diario.', en: 'Volumetric solidity for daily-use wheelbarrows.' },
-        images: [], links: {}
+        images: ["./img/productos/molde-embuticion-batea-carretilla-110-01.webp", "./img/productos/molde-embuticion-batea-carretilla-110-02.webp", "./img/productos/molde-embuticion-batea-carretilla-110-03.webp", "./img/productos/molde-embuticion-batea-carretilla-110-04.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", "./img/productos/molde-embuticion-batea-110-01.webp", "./img/productos/molde-embuticion-batea-110-02.webp", "./img/productos/molde-embuticion-batea-110-03.webp", "./img/productos/molde-embuticion-batea-110-04.webp", "./img/productos/troquel-corte-lamina-embutir-01.webp", "./img/productos/troquel-corte-lamina-embutir-02.webp", "./img/productos/troquel-corte-lamina-embutir-03.webp", "./img/productos/troquel-corte-lamina-embutir-04.webp", "./img/productos/troquel-refuerzos-lateral-Batea-01.webp", "./img/productos/troquel-refuerzos-lateral-Batea-02.webp", "./img/productos/troquel-refuerzos-lateral-Batea-03.webp", "./img/productos/troquel-refuerzos-lateral-Batea-04.webp", "./img/productos/carretilla-60-01.webp", "./img/productos/carretilla-60-02.webp", "./img/productos/carretilla-60-03.webp", "./img/productos/carretilla-60-04.webp"], links: {}
       },
       {
         id: 'batea-80', icon: 'fa-bucket', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1917,7 +1927,7 @@
         process: { es: 'Corte + Embutido', en: 'Cut + Drawing' },
         desc: { es: 'Troquel de corte y molde de embutido profundo.', en: 'Cutting die and deep drawing mold.' },
         phrase: { es: 'El equilibrio perfecto entre capacidad y maniobrabilidad.', en: 'The perfect balance between capacity and maneuverability.' },
-        images: [], links: {}
+        images: ["./img/productos/molde-embuticion-batea-carretilla-110-01.webp", "./img/productos/molde-embuticion-batea-carretilla-110-02.webp", "./img/productos/molde-embuticion-batea-carretilla-110-03.webp", "./img/productos/molde-embuticion-batea-carretilla-110-04.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", "./img/productos/molde-embuticion-batea-110-01.webp", "./img/productos/molde-embuticion-batea-110-02.webp", "./img/productos/molde-embuticion-batea-110-03.webp", "./img/productos/molde-embuticion-batea-110-04.webp", "./img/productos/troquel-corte-lamina-embutir-01.webp", "./img/productos/troquel-corte-lamina-embutir-02.webp", "./img/productos/troquel-corte-lamina-embutir-03.webp", "./img/productos/troquel-corte-lamina-embutir-04.webp", "./img/productos/troquel-refuerzos-lateral-Batea-01.webp", "./img/productos/troquel-refuerzos-lateral-Batea-02.webp", "./img/productos/troquel-refuerzos-lateral-Batea-03.webp", "./img/productos/troquel-refuerzos-lateral-Batea-04.webp", "./img/productos/carretilla-80-01.webp", "./img/productos/carretilla-80-02.webp", "./img/productos/carretilla-80-03.webp", "./img/productos/carretilla-80-04.webp"], links: {}
       },
       {
         id: 'batea-110', icon: 'fa-boxes-stacked', hot: true, thickness: '1.5 – 2.0 mm',
@@ -1925,7 +1935,7 @@
         process: { es: 'Embutido progresivo', en: 'Progressive drawing' },
         desc: { es: 'Sistema de gran formato con estampado en frío y embutido progresivo.', en: 'Large format system with cold stamping and progressive drawing.' },
         phrase: { es: 'Máxima carga volumétrica. Ingeniería para grandes volúmenes.', en: 'Maximum volumetric load. Engineering for large volumes.' },
-        images: [], links: {}
+        images: ["./img/productos/molde-embuticion-batea-carretilla-110-01.webp", "./img/productos/molde-embuticion-batea-carretilla-110-02.webp", "./img/productos/molde-embuticion-batea-carretilla-110-03.webp", "./img/productos/molde-embuticion-batea-carretilla-110-04.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", "./img/productos/molde-embuticion-batea-110-01.webp", "./img/productos/molde-embuticion-batea-110-02.webp", "./img/productos/molde-embuticion-batea-110-03.webp", "./img/productos/molde-embuticion-batea-110-04.webp", "./img/productos/troquel-corte-lamina-embutir-01.webp", "./img/productos/troquel-corte-lamina-embutir-02.webp", "./img/productos/troquel-corte-lamina-embutir-03.webp", "./img/productos/troquel-corte-lamina-embutir-04.webp", "./img/productos/troquel-refuerzos-lateral-Batea-01.webp", "./img/productos/troquel-refuerzos-lateral-Batea-02.webp", "./img/productos/troquel-refuerzos-lateral-Batea-03.webp", "./img/productos/troquel-refuerzos-lateral-Batea-04.webp", "./img/productos/carretilla-110-01.webp", "./img/productos/carretilla-110-02.webp", "./img/productos/carretilla-110-03.webp", "./img/productos/carretilla-110-04.webp"], links: {}
       },
     ];
 
@@ -1950,7 +1960,8 @@
           <div class="glass p-8 text-center group reveal reveal-delay-1"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-gears text-2xl text-cyanN relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard1Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard1Desc}</p></div>
           <div class="glass p-8 text-center group reveal reveal-delay-2"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-fire-flame-curved text-2xl text-copper relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard2Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard2Desc}</p></div>
           <div class="glass p-8 text-center group reveal reveal-delay-3"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-globe-americas text-2xl text-cyanN relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard3Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard3Desc}</p></div>
-        `;
+         `;
+      observeNewReveals();
     }
 
     function renderProducts() {
@@ -1983,6 +1994,7 @@
         const opt = document.createElement('option'); opt.value = idx; opt.textContent = p.name; select.appendChild(opt);
       });
       initCarousels();
+      observeNewReveals();
     }
 
     function renderProcess() {
@@ -2004,6 +2016,7 @@
           <div class="glass p-6 reveal"><h4 class="font-orbitron font-bold text-xs tracking-wider text-cyanN mb-3">${dict.processColdTitle}</h4><p class="font-inter text-sm text-steel/80">${dict.processColdDesc}</p></div>
           <div class="glass p-6 reveal reveal-delay-1"><h4 class="font-orbitron font-bold text-xs tracking-wider text-copper mb-3">${dict.processHotTitle}</h4><p class="font-inter text-sm text-steel/80">${dict.processHotDesc}</p></div>
         `;
+      observeNewReveals();
     }
 
     function renderTestimonials() {
@@ -2028,6 +2041,7 @@
           <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-certificate text-cyanN/40"></i> ${dict.trustSeal3}</div>
           <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-file-invoice text-cyanN/40"></i> ${dict.trustSeal4}</div>
         `;
+      observeNewReveals();
     }
 
     // Inicialización
@@ -2202,9 +2216,7 @@
       clearInterval(lightboxInterval);
     }
 
-    // Scroll reveal
-    const revealObserver = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
 
     // Navbar
     const navbar = document.getElementById('navbar');
@@ -2229,6 +2241,7 @@
     const contactModal = document.getElementById('contact-modal');
     window.openModal = () => { contactModal.classList.add('open'); document.body.style.overflow = 'hidden'; };
     window.openModalWithProduct = idx => { openModal(); document.getElementById('cf-product').value = idx; };
+
     window.closeModal = () => { contactModal.classList.remove('open'); document.body.style.overflow = ''; };
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
