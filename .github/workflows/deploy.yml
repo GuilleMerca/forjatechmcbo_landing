@@ -1,0 +1,47 @@
+# .github/workflows/deploy.yml
+name: Desplegar a GitHub Pages con Secretos
+
+on:
+  # Se ejecuta cuando haces push a la rama main
+  push:
+    branches: ["main"]
+  # Te permite ejecutar este flujo manualmente desde la pestaña 'Actions'
+  workflow_dispatch:
+
+# Configura permisos para el despliegue
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 1. Obtener el código
+        uses: actions/checkout@v4
+
+      - name: 2. Generar archivo de secretos
+        run: |
+          echo "// Archivo autogenerado - NO SUBIR AL REPOSITORIO" > env.js
+          echo "const WA_NUMBER = '${{ secrets.WA_NUMBER }}';" >> env.js
+          echo "const EMAILJS_USER_ID = '${{ secrets.EMAILJS_USER_ID }}';" >> env.js
+          echo "const EMAILJS_SERVICE_ID = '${{ secrets.EMAILJS_SERVICE_ID }}';" >> env.js
+          echo "const EMAILJS_TEMPLATE_ID = '${{ secrets.EMAILJS_TEMPLATE_ID }}';" >> env.js
+          echo "const MERCADOLIBRE_LINK = '${{ secrets.MERCADOLIBRE_LINK }}';" >> env.js
+
+      - name: 3. Configurar GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: 4. Publicar sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./"
+
+      - name: 5. Activar GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

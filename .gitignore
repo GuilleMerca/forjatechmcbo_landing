@@ -5,6 +5,7 @@ img/productos/png/
 /node_modules/
 /dist/
 /.env
+/.env.js
 
 # Ignorar archivos específicos
 *.log

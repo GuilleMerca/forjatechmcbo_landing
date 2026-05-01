@@ -14,7 +14,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400&display=swap"
     rel="stylesheet">
-
+  <script src="env.js"></script>
   <!-- Tailwind CSS -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1728,20 +1728,17 @@
 
   <!-- SCRIPT PRINCIPAL -->
   <script>
-    const WA_NUMBER = '584246555157';
-    const USE_EMAILJS = true;
-    const EMAILJS_SERVICE_ID = 'service_qqgy6en';
-    const EMAILJS_TEMPLATE_ID = 'template_k9xpbzu';
-    const EMAILJS_USER_ID = 'pYRjEaqZQViCKwmnA';
+    // const USE_EMAILJS = true;
+    // emailjs.init(EMAILJS_USER_ID);
     emailjs.init(EMAILJS_USER_ID);
 
     const SOCIAL_LINKS = {
-      mercadolibre: 'https://www.mercadolibre.com.co/p/...',
+      // mercadolibre: 'https://www.mercadolibre.com.co/p/...',
       marketplace: 'https://www.facebook.com/marketplace/profile/...',
       youtube: 'https://youtube.com/@forjatech',
     };
     document.getElementById('footer-wa').href = `https://wa.me/${WA_NUMBER}`;
-    document.getElementById('footer-ml').href = SOCIAL_LINKS.mercadolibre || '#';
+    document.getElementById('footer-ml').href = MERCADOLIBRE_LINK || '#';
     document.getElementById('footer-mkt').href = SOCIAL_LINKS.marketplace || '#';
     document.getElementById('footer-yt').href = SOCIAL_LINKS.youtube || '#';
 
@@ -1854,7 +1851,7 @@
         floatToggle.querySelector('.fa-moon').style.display = isLight ? 'inline-block' : 'none';
       }
     };
-
+    const IMG_BASE = "https://cdn.jsdelivr.net/gh/GuilleMerca/forjatech-cdn@main/";
     // Datos de productos bilingües
     const productData = [
       {
@@ -1863,7 +1860,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Incluye molde de formado cóncavo para jardinería profesional.', en: 'Includes concave forming mold for professional gardening.' },
         phrase: { es: 'El complemento que faltaba en su catálogo de herramientas de jardín.', en: 'The missing piece in your garden tool catalog.' },
-        images: ["./img/productos/troquel_escardilla-01.webp", "./img/productos/troquel_escardilla-02.webp", "./img/productos/troquel_escardilla-03.webp", "./img/productos/troquel_escardilla-04.webp", "./img/productos/escardilla-01.webp", "./img/productos/escardilla-02.webp", "./img/productos/escardilla-03.webp", "./img/productos/escardilla-04.webp"], links: { mercadolibre: '', marketplace: '', youtube: '', facebookAds: '' }
+        images: [IMG_BASE + "img/productos/troquel_escardilla-01.webp", IMG_BASE + "img/productos/troquel_escardilla-02.webp", IMG_BASE + "img/productos/troquel_escardilla-03.webp", IMG_BASE + "img/productos/troquel_escardilla-04.webp", IMG_BASE + "img/productos/escardilla-01.webp", IMG_BASE + "img/productos/escardilla-02.webp", IMG_BASE + "img/productos/escardilla-03.webp", IMG_BASE + "img/productos/escardilla-04.webp"], links: { mercadolibre: '', marketplace: '', youtube: '', facebookAds: '' }
       },
       {
         id: 'pala-cuadrada', icon: 'fa-square', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1871,7 +1868,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Diseño simplificado de 3 estaciones.', en: 'Simplified 3-station design.' },
         phrase: { es: 'Pala de albañil de geometría exacta con mínimo retrabajo.', en: 'Mason shovel with exact geometry and minimal rework.' },
-        images: ["./img/productos/pala-cuadrada-01.webp", "./img/productos/pala-cuadrada-02.webp", "./img/productos/pala-cuadrada-03.webp", "./img/productos/pala-cuadrada-04.webp", "./img/productos/pala-cuadrada-cabo-corto-01.webp", "./img/productos/pala-cuadrada-cabo-corto-02.webp", "./img/productos/pala-cuadrada-cabo-corto-03.webp", "./img/productos/pala-cuadrada-cabo-largo-01.webp", "./img/productos/pala-cuadrada-cabo-largo-02.webp", "./img/productos/pala-cuadrada-cabo-largo-03.webp"], links: {}
+        images: [IMG_BASE + "img/productos/pala-cuadrada-01.webp", IMG_BASE + "img/productos/pala-cuadrada-02.webp", IMG_BASE + "img/productos/pala-cuadrada-03.webp", IMG_BASE + "img/productos/pala-cuadrada-04.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-corto-01.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-corto-02.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-corto-03.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-largo-01.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-largo-02.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-largo-03.webp"], links: {}
       },
       {
         id: 'pala-redonda', icon: 'fa-circle', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1879,7 +1876,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Incluye molde redondeador tubular para cabo.', en: 'Includes tubular rounding mold for handle.' },
         phrase: { es: 'Ergonomía estructural para palas de uso mixto.', en: 'Structural ergonomics for mixed-use shovels.' },
-        images: ["./img/productos/pala-redonda-01.webp", "./img/productos/pala-redonda-02.webp", "./img/productos/pala-redonda-03.webp", "./img/productos/pala-redonda-04.webp", "./img/productos/pala-redonda-cabo-corto-01.webp", "./img/productos/pala-redonda-cabo-corto-02.webp", "./img/productos/pala-redonda-cabo-corto-03.webp", "./img/productos/pala-redonda-cabo-largo-01.webp", "./img/productos/pala-redonda-cabo-largo-02.webp", "./img/productos/pala-redonda-cabo-largo-03.webp"], links: {}
+        images: [IMG_BASE + "img/productos/pala-redonda-01.webp", IMG_BASE + "img/productos/pala-redonda-02.webp", IMG_BASE + "img/productos/pala-redonda-03.webp", IMG_BASE + "img/productos/pala-redonda-04.webp", IMG_BASE + "img/productos/pala-redonda-cabo-corto-01.webp", IMG_BASE + "img/productos/pala-redonda-cabo-corto-02.webp", IMG_BASE + "img/productos/pala-redonda-cabo-corto-03.webp", IMG_BASE + "img/productos/pala-redonda-cabo-largo-01.webp", IMG_BASE + "img/productos/pala-redonda-cabo-largo-02.webp", IMG_BASE + "img/productos/pala-redonda-cabo-largo-03.webp"], links: {}
       },
       {
         id: 'palin-mina', icon: 'fa-mountain', hot: true, thickness: '≥ 2.5 mm',
@@ -1895,7 +1892,7 @@
         process: { es: 'Estampado en caliente', en: 'Hot stamping' },
         desc: { es: 'Lógica de corte lateral con bisel incluido en el embutido.', en: 'Lateral cutting logic with bevel included in the drawing.' },
         phrase: { es: 'Filo industrial que multiplica la productividad en campo.', en: 'Industrial edge that multiplies field productivity.' },
-        images: ["./img/productos/troquel-estampa-frio-palin-corte-01.webp", "./img/productos/troquel-estampa-frio-palin-corte-02.webp", "./img/productos/troquel-estampa-frio-palin-corte-03.webp", "./img/productos/troquel-estampa-frio-palin-corte-04.webp"], links: {}
+        images: [IMG_BASE + "img/productos/troquel-estampa-frio-palin-corte-01.webp", IMG_BASE + "img/productos/troquel-estampa-frio-palin-corte-02.webp", IMG_BASE + "img/productos/troquel-estampa-frio-palin-corte-03.webp", IMG_BASE + "img/productos/troquel-estampa-frio-palin-corte-04.webp"], links: {}
       },
       {
         id: 'palin-andino', icon: 'fa-wheat-awn', hot: true, thickness: '≥ 2.0 mm',
@@ -1903,7 +1900,7 @@
         process: { es: 'Estampado en caliente', en: 'Hot stamping' },
         desc: { es: 'Diseño regional optimizado para agricultura de altura.', en: 'Regional design optimized for high-altitude agriculture.' },
         phrase: { es: 'Tradición forjada con tecnología moderna.', en: 'Tradition forged with modern technology.' },
-        images: ["./img/productos/troquel-cuello-embuticion-estampado-caliente-01.webp", "./img/productos/troquel-cuello-embuticion-estampado-caliente-02.webp", "./img/productos/troquel-cuello-embuticion-estampado-caliente-03.webp"], links: {}
+        images: [IMG_BASE + "img/productos/troquel-cuello-embuticion-estampado-caliente-01.webp", IMG_BASE + "img/productos/troquel-cuello-embuticion-estampado-caliente-02.webp", IMG_BASE + "img/productos/troquel-cuello-embuticion-estampado-caliente-03.webp"], links: {}
       },
       {
         id: 'rin-ml25', icon: 'fa-circle-notch', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1911,7 +1908,7 @@
         process: { es: 'Estampado en frío', en: 'Cold stamping' },
         desc: { es: 'Sistema de redondeo tubular de alta precisión.', en: 'High-precision tubular rounding system.' },
         phrase: { es: 'El componente circular que completa su línea de carretillas.', en: 'The circular component that completes your wheelbarrow line.' },
-        images: ["./img/productos/troquel-molde-rin-ML25-01.webp", "./img/productos/troquel-molde-rin-ML25-02.webp", "./img/productos/troquel-molde-rin-ML25-03.webp", "./img/productos/troquel-molde-rin-ML25-04.webp", "./img/productos/troquel-molde-rin-ML25-05.webp", "./img/productos/troquel-molde-rin-ML25-06.webp", "./img/productos/troquel-molde-rin-ML25-07.webp", "./img/productos/troquel-molde-rin-ML25-08.webp", "./img/productos/troquel-molde-rin-ML25-09.webp", "./img/productos/troquel-molde-rin-ML25-10.webp", "./img/productos/troquel-molde-rin-ML25-11.webp", "./img/productos/troquel-molde-rin-ML25-12.webp", "./img/productos/ML25-rin-chapa-eje-01.webp", "./img/productos/ML25-rin-chapa-eje-02.webp", "./img/productos/ML25-rin-chapa-eje-03.webp", "./img/productos/ML25-rin-chapa-eje-04.webp", "./img/productos/ML25-rin-chapa-eje-05.webp", "./img/productos/ML25-rin-chapa-eje-06.webp", "./img/productos/ML25-rin-chapa-eje-07.webp", "./img/productos/ML25-rin-chapa-eje-08.webp", "./img/productos/ML25-rin-chapa-eje-09.webp", "./img/productos/ML25-rin-chapa-eje-10.webp", "./img/productos/ML25-rin-chapa-eje-11.webp", "./img/productos/ML25-rin-chapa-eje-12.webp"], links: {}
+        images: [IMG_BASE + "img/productos/troquel-molde-rin-ML25-01.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-02.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-03.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-04.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-05.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-06.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-07.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-08.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-09.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-10.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-11.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-12.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-01.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-02.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-03.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-04.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-05.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-06.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-07.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-08.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-09.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-10.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-11.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-12.webp"], links: {}
       },
       {
         id: 'batea-60', icon: 'fa-bucket', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1919,7 +1916,7 @@
         process: { es: 'Corte + Embutido', en: 'Cut + Drawing' },
         desc: { es: 'Conjunto de corte y embutido para carretilla de 60 litros.', en: 'Cut and drawing set for 60-liter wheelbarrow.' },
         phrase: { es: 'Solidez volumétrica para carretillas de uso diario.', en: 'Volumetric solidity for daily-use wheelbarrows.' },
-        images: ["./img/productos/molde-embuticion-batea-carretilla-110-01.webp", "./img/productos/molde-embuticion-batea-carretilla-110-02.webp", "./img/productos/molde-embuticion-batea-carretilla-110-03.webp", "./img/productos/molde-embuticion-batea-carretilla-110-04.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", "./img/productos/molde-embuticion-batea-110-01.webp", "./img/productos/molde-embuticion-batea-110-02.webp", "./img/productos/molde-embuticion-batea-110-03.webp", "./img/productos/molde-embuticion-batea-110-04.webp", "./img/productos/troquel-corte-lamina-embutir-01.webp", "./img/productos/troquel-corte-lamina-embutir-02.webp", "./img/productos/troquel-corte-lamina-embutir-03.webp", "./img/productos/troquel-corte-lamina-embutir-04.webp", "./img/productos/troquel-refuerzos-lateral-Batea-01.webp", "./img/productos/troquel-refuerzos-lateral-Batea-02.webp", "./img/productos/troquel-refuerzos-lateral-Batea-03.webp", "./img/productos/troquel-refuerzos-lateral-Batea-04.webp", "./img/productos/carretilla-60-01.webp", "./img/productos/carretilla-60-02.webp", "./img/productos/carretilla-60-03.webp", "./img/productos/carretilla-60-04.webp"], links: {}
+        images: [IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-04.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-04.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-01.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-02.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-03.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-04.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-01.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-02.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-03.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-04.webp", IMG_BASE + "img/productos/carretilla-60-01.webp", IMG_BASE + "img/productos/carretilla-60-02.webp", IMG_BASE + "img/productos/carretilla-60-03.webp", IMG_BASE + "img/productos/carretilla-60-04.webp"], links: {}
       },
       {
         id: 'batea-80', icon: 'fa-bucket', hot: false, thickness: '1.5 – 2.0 mm',
@@ -1927,7 +1924,7 @@
         process: { es: 'Corte + Embutido', en: 'Cut + Drawing' },
         desc: { es: 'Troquel de corte y molde de embutido profundo.', en: 'Cutting die and deep drawing mold.' },
         phrase: { es: 'El equilibrio perfecto entre capacidad y maniobrabilidad.', en: 'The perfect balance between capacity and maneuverability.' },
-        images: ["./img/productos/molde-embuticion-batea-carretilla-110-01.webp", "./img/productos/molde-embuticion-batea-carretilla-110-02.webp", "./img/productos/molde-embuticion-batea-carretilla-110-03.webp", "./img/productos/molde-embuticion-batea-carretilla-110-04.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", "./img/productos/molde-embuticion-batea-110-01.webp", "./img/productos/molde-embuticion-batea-110-02.webp", "./img/productos/molde-embuticion-batea-110-03.webp", "./img/productos/molde-embuticion-batea-110-04.webp", "./img/productos/troquel-corte-lamina-embutir-01.webp", "./img/productos/troquel-corte-lamina-embutir-02.webp", "./img/productos/troquel-corte-lamina-embutir-03.webp", "./img/productos/troquel-corte-lamina-embutir-04.webp", "./img/productos/troquel-refuerzos-lateral-Batea-01.webp", "./img/productos/troquel-refuerzos-lateral-Batea-02.webp", "./img/productos/troquel-refuerzos-lateral-Batea-03.webp", "./img/productos/troquel-refuerzos-lateral-Batea-04.webp", "./img/productos/carretilla-80-01.webp", "./img/productos/carretilla-80-02.webp", "./img/productos/carretilla-80-03.webp", "./img/productos/carretilla-80-04.webp"], links: {}
+        images: [IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-04.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-04.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-01.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-02.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-03.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-04.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-01.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-02.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-03.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-04.webp", IMG_BASE + "img/productos/carretilla-80-01.webp", IMG_BASE + "img/productos/carretilla-80-02.webp", IMG_BASE + "img/productos/carretilla-80-03.webp", IMG_BASE + "img/productos/carretilla-80-04.webp"], links: {}
       },
       {
         id: 'batea-110', icon: 'fa-boxes-stacked', hot: true, thickness: '1.5 – 2.0 mm',
@@ -1935,7 +1932,7 @@
         process: { es: 'Embutido progresivo', en: 'Progressive drawing' },
         desc: { es: 'Sistema de gran formato con estampado en frío y embutido progresivo.', en: 'Large format system with cold stamping and progressive drawing.' },
         phrase: { es: 'Máxima carga volumétrica. Ingeniería para grandes volúmenes.', en: 'Maximum volumetric load. Engineering for large volumes.' },
-        images: ["./img/productos/molde-embuticion-batea-carretilla-110-01.webp", "./img/productos/molde-embuticion-batea-carretilla-110-02.webp", "./img/productos/molde-embuticion-batea-carretilla-110-03.webp", "./img/productos/molde-embuticion-batea-carretilla-110-04.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", "./img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", "./img/productos/molde-embuticion-batea-110-01.webp", "./img/productos/molde-embuticion-batea-110-02.webp", "./img/productos/molde-embuticion-batea-110-03.webp", "./img/productos/molde-embuticion-batea-110-04.webp", "./img/productos/troquel-corte-lamina-embutir-01.webp", "./img/productos/troquel-corte-lamina-embutir-02.webp", "./img/productos/troquel-corte-lamina-embutir-03.webp", "./img/productos/troquel-corte-lamina-embutir-04.webp", "./img/productos/troquel-refuerzos-lateral-Batea-01.webp", "./img/productos/troquel-refuerzos-lateral-Batea-02.webp", "./img/productos/troquel-refuerzos-lateral-Batea-03.webp", "./img/productos/troquel-refuerzos-lateral-Batea-04.webp", "./img/productos/carretilla-110-01.webp", "./img/productos/carretilla-110-02.webp", "./img/productos/carretilla-110-03.webp", "./img/productos/carretilla-110-04.webp"], links: {}
+        images: [IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-04.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-04.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-01.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-02.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-03.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-04.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-01.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-02.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-03.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-04.webp", IMG_BASE + "img/productos/carretilla-110-01.webp", IMG_BASE + "img/productos/carretilla-110-02.webp", IMG_BASE + "img/productos/carretilla-110-03.webp", IMG_BASE + "img/productos/carretilla-110-04.webp"], links: {}
       },
     ];
 
