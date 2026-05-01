@@ -1,0 +1,2457 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ForjaTechMCBO — Troqueles de Precisión Industrial</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0B0C10">
+  <meta name="description"
+    content="Troqueles de estampado en frío y caliente para palas, palines y carretillas. Ingeniería de precisión con disponibilidad inmediata.">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400&display=swap"
+    rel="stylesheet">
+  <script src="env.js"></script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            deep: '#0B0C10',
+            petrol: '#111A28',
+            cyanN: '#00F0FF',
+            copper: '#C47F45',
+            steel: '#C5C6C7',
+            burnt: '#FF6B35',
+            neonM: '#FF4500'
+          },
+          fontFamily: {
+            orbitron: ['Orbitron', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+            fira: ['Fira Code', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Three.js Import Map -->
+  <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+
+
+
+  <style>
+    /* ========== VARIABLES DE TEMA (OSCURO POR DEFECTO) ========== */
+    :root,
+    .dark {
+      --bg: #0B0C10;
+      --bg-alt: #111A28;
+      --fg: #C5C6C7;
+      --fg-bright: #E8E9EA;
+      --muted: #667788;
+      --accent: #00F0FF;
+      --accent2: #C47F45;
+      --cta: #FF6B35;
+      --card: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(0, 240, 255, 0.12);
+      --glow: 0 0 20px rgba(0, 240, 255, 0.15), 0 0 60px rgba(0, 240, 255, 0.05);
+      --glow-strong: 0 0 30px rgba(0, 240, 255, 0.3), 0 0 80px rgba(0, 240, 255, 0.1);
+      --glow-copper: 0 0 20px rgba(196, 127, 69, 0.2), 0 0 60px rgba(196, 127, 69, 0.05);
+      --bg-grid: rgba(0, 240, 255, 0.03);
+      --border-light: rgba(0, 240, 255, 0.12);
+      --text-muted: #667788;
+      --hero-overlay: linear-gradient(180deg, rgba(11, 12, 16, 0.5) 0%, rgba(11, 12, 16, 0.8) 60%, rgba(11, 12, 16, 1) 100%);
+    }
+
+    /* TEMA CLARO */
+    .light {
+      --bg: #F5F7FA;
+      --bg-alt: #E2E8F0;
+      --fg: #2D3748;
+      --fg-bright: #1A202C;
+      --muted: #4A5568;
+      --accent: #0B7285;
+      --accent2: #9C4221;
+      --cta: #C05621;
+      --card: rgba(255, 255, 255, 0.9);
+      --card-border: rgba(11, 114, 133, 0.2);
+      --glow: 0 0 20px rgba(11, 114, 133, 0.1), 0 0 60px rgba(11, 114, 133, 0.03);
+      --glow-strong: 0 0 30px rgba(11, 114, 133, 0.2), 0 0 80px rgba(11, 114, 133, 0.07);
+      --glow-copper: 0 0 20px rgba(156, 66, 33, 0.15), 0 0 60px rgba(156, 66, 33, 0.05);
+      --bg-grid: rgba(11, 114, 133, 0.03);
+      --border-light: rgba(11, 114, 133, 0.12);
+      --text-muted: #718096;
+      --hero-overlay: linear-gradient(180deg, rgba(245, 247, 250, 0.5) 0%, rgba(245, 247, 250, 0.8) 60%, rgba(245, 247, 250, 1) 100%);
+    }
+
+    /* ========== RESET Y BASE ========== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+      cursor: none;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    ::selection {
+      background: rgba(0, 240, 255, 0.3);
+      color: #fff;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 240, 255, 0.3);
+      border-radius: 3px;
+    }
+
+    /* === CURSOR PERSONALIZADO === */
+    #cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.1s;
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    #cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(0, 240, 255, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transition: width 0.3s, height 0.3s, border-color 0.3s;
+    }
+
+    #cursor-ring.hover {
+      width: 52px;
+      height: 52px;
+      border-color: var(--accent2);
+    }
+
+    @media (max-width: 768px) {
+
+      #cursor-dot,
+      #cursor-ring {
+        display: none;
+      }
+
+      body {
+        cursor: auto;
+      }
+    }
+
+    /* === PRELOADER === */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s, visibility 0.8s;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #preloader .brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 0.3em;
+      margin-bottom: 2rem;
+    }
+
+    #preloader .bar-track {
+      width: 200px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    #preloader .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 1px;
+      animation: loadBar 1.8s ease-out forwards;
+    }
+
+    @keyframes loadBar {
+      to {
+        width: 100%;
+      }
+    }
+
+    /* === GLASSMORPHISM === */
+    .glass {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+    }
+
+    .glass:hover {
+      border-color: rgba(0, 240, 255, 0.3);
+      box-shadow: var(--glow);
+    }
+
+    /* === ANIMACIONES DE SCROLL === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    /* === GLOW TEXT === */
+    .glow-text {
+      text-shadow: 0 0 20px var(--accent), 0 0 60px var(--accent);
+    }
+
+    .glow-copper-text {
+      text-shadow: 0 0 20px var(--accent2), 0 0 60px var(--accent2);
+    }
+
+    /* === BOTON CTA PRINCIPAL === */
+    .btn-cta {
+      background: var(--cta);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(255, 107, 53, 0.4), 0 8px 32px rgba(255, 107, 53, 0.2);
+    }
+
+    .btn-cta::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.15) 50%, transparent 60%);
+      animation: btnShine 3s infinite;
+    }
+
+    @keyframes btnShine {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--accent);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 10px 24px;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(0, 240, 255, 0.08);
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    /* === HERO === */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: var(--hero-overlay);
+      z-index: 1;
+    }
+
+    /* === TARJETAS DE PRODUCTO === */
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card .card-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .product-card:hover .card-glow {
+      opacity: 1;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* === CARRUSEL DE IMÁGENES === */
+    .product-carousel {
+      position: relative;
+      background: var(--bg-alt);
+      overflow: hidden;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .product-carousel .carousel-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: opacity;
+    }
+
+    .product-carousel .carousel-img:not(.active) {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .carousel-dots .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: background 0.3s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .carousel-dots .dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .carousel-dots .dot:hover {
+      transform: scale(1.3);
+    }
+
+    /* Fallback cuando no hay imágenes (icono grande) */
+    .product-fallback-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      color: rgba(0, 240, 255, 0.2);
+      pointer-events: none;
+    }
+
+    /* === ICONOS DE MARKETPLACE === */
+    .marketplace-icons a {
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+    }
+
+    .marketplace-icons a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 12px currentColor;
+    }
+
+    /* === DIAGRAMA DE PROCESO === */
+    .process-step {
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .process-step:hover .step-icon {
+      box-shadow: var(--glow-strong);
+      border-color: var(--accent);
+    }
+
+    .process-step:hover .step-label {
+      color: var(--accent);
+    }
+
+    .step-connector {
+      position: absolute;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0, 240, 255, 0.1), rgba(0, 240, 255, 0.4), rgba(0, 240, 255, 0.1));
+      z-index: 0;
+    }
+
+    .step-connector::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 30px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--accent);
+      animation: connectorPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes connectorPulse {
+      0% {
+        left: -30px;
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+      }
+
+      100% {
+        left: calc(100% + 30px);
+        opacity: 0;
+      }
+    }
+
+    /* === TOOLTIP === */
+    .tooltip-content {
+      position: absolute;
+      bottom: calc(100% + 16px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
+      white-space: nowrap;
+      z-index: 50;
+    }
+
+    .process-step:hover .tooltip-content {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* === MODAL === */
+    #contact-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 8000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s;
+    }
+
+    #contact-modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #contact-modal .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+    }
+
+    #contact-modal .modal-content {
+      position: relative;
+      max-width: 520px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #contact-modal.open .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    /* === CHAT === */
+    #chat-bubble {
+      position: fixed;
+      bottom: 100px;
+      right: 24px;
+      z-index: 7000;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0B0C10, #1a2a3a);
+      border: 1.5px solid rgba(0, 240, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: var(--glow);
+    }
+
+    #chat-bubble:hover {
+      border-color: var(--accent);
+      transform: scale(1.1);
+      box-shadow: var(--glow-strong);
+    }
+
+    #chat-bubble .pulse-ring {
+      position: absolute;
+      inset: -6px;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 50%;
+      animation: chatPulse 2s ease-out infinite;
+    }
+
+    @keyframes chatPulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+    }
+
+    #chat-window {
+      position: fixed;
+      bottom: 175px;
+      right: 24px;
+      z-index: 7000;
+      width: 380px;
+      max-width: calc(100vw - 48px);
+      height: 520px;
+      max-height: calc(100vh - 220px);
+      border-radius: 16px;
+      overflow: hidden;
+      transform: scale(0.8) translateY(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: bottom right;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chat-window.open {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: rgba(0, 240, 255, 0.2);
+      border-radius: 2px;
+    }
+
+    .chat-msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      animation: msgIn 0.3s ease-out;
+    }
+
+    @keyframes msgIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .chat-msg.bot {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.1);
+      color: var(--fg-bright);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      color: var(--fg-bright);
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 16px 8px;
+    }
+
+    .quick-reply {
+      background: rgba(0, 240, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      color: var(--accent);
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .quick-reply:hover {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: var(--accent);
+    }
+
+    .typing-indicator span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin: 0 2px;
+      animation: typing 1.2s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.4;
+      }
+
+      30% {
+        transform: translateY(-6px);
+        opacity: 1;
+      }
+    }
+
+    /* === WHATSAPP FLOTANTE === */
+    #wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      z-index: 6000;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      text-decoration: none;
+    }
+
+    #wa-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+    }
+
+    /* === TOAST === */
+    #toast-container {
+      position: fixed;
+      top: 80px;
+      right: 24px;
+      z-index: 9500;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      animation: toastIn 0.4s ease-out, toastOut 0.4s ease-in 3.6s forwards;
+      max-width: 340px;
+    }
+
+    .toast.success {
+      background: rgba(0, 240, 255, 0.12);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--accent);
+    }
+
+    .toast.info {
+      background: rgba(196, 127, 69, 0.12);
+      border: 1px solid rgba(196, 127, 69, 0.3);
+      color: var(--accent2);
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes toastOut {
+      to {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+    }
+
+    /* === BADGE DE ESCASEZ === */
+    .scarcity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      color: var(--cta);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .scarcity-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--cta);
+      border-radius: 50%;
+      animation: scarcityBlink 1.5s infinite;
+    }
+
+    @keyframes scarcityBlink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    /* === AUTHORITY SEAL === */
+    .authority-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 240, 255, 0.06);
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-family: 'Fira Code', monospace;
+      padding: 6px 14px;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* === FONDO CON TEXTURA === */
+    .bg-grid {
+      background-image:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* === FORM INPUTS === */
+    .form-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--fg-bright);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--muted);
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--fg);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    select.form-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300F0FF' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    select.form-input option {
+      background: #111A28;
+      color: #C5C6C7;
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 640px) {
+      #chat-window {
+        width: calc(100vw - 32px);
+        height: 70vh;
+        bottom: 170px;
+        right: 16px;
+      }
+
+      #chat-bubble {
+        right: 16px;
+        bottom: 90px;
+      }
+
+      #wa-float {
+        right: 16px;
+        bottom: 24px;
+      }
+    }
+
+    /* === REDUCIR MOVIMIENTO === */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* === ICONO ANIMADO CON LINEA DE LUZ === */
+    .icon-glow {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-glow::before {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, transparent 70%);
+      animation: iconPulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes iconPulseGlow {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+    }
+
+    /* === TESTIMONIO CARD === */
+    .testimonial-card {
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      font-size: 4rem;
+      color: rgba(0, 240, 255, 0.08);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    /* === NAVBAR MOBILE === */
+    #mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 280px;
+      height: 100vh;
+      background: var(--bg);
+      backdrop-filter: blur(20px);
+      z-index: 5500;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 80px 32px 32px;
+      border-left: 1px solid var(--card-border);
+    }
+
+    #mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    #mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 5400;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    #mobile-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #theme-toggle,
+    #theme-toggle-mobile {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: var(--bg-alt);
+      border: 1px solid var(--card-border);
+      color: var(--fg);
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+
+    #theme-toggle:hover,
+    #theme-toggle-mobile:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .light #theme-toggle .fa-moon,
+    .light #theme-toggle-mobile .fa-moon {
+      display: none;
+    }
+
+    .dark #theme-toggle .fa-sun,
+    .dark #theme-toggle-mobile .fa-sun {
+      display: none;
+    }
+
+    .lang-flag {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.3rem;
+      background: var(--bg-alt);
+      border: 2px solid transparent;
+      transition: 0.3s;
+    }
+
+    .lang-flag.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .lang-flag:hover {
+      transform: scale(1.1);
+    }
+
+    /* texto "blanco" (en realidad, color de primer plano brillante) */
+    .text-white,
+    .text-white\/90,
+    .text-white\/80,
+    .text-white\/70,
+    .text-white\/60,
+    .text-white\/50,
+    .text-white\/40,
+    .text-white\/30,
+    .text-white\/20,
+    .text-white\/10,
+    h1.text-white,
+    h2.text-white,
+    h3.text-white,
+    h4.text-white,
+    span.text-white,
+    p.text-white,
+    a.text-white {
+      color: var(--fg-bright) !important;
+    }
+
+    /* texto "steel" y similares (color de primer plano general) */
+    .text-steel,
+    .text-steel\/80,
+    .text-steel\/70,
+    .text-steel\/60,
+    .text-steel\/50,
+    .text-steel\/40,
+    .text-steel\/30,
+    .text-steel\/20,
+    .text-steel\/10,
+    .text-steel\/90,
+    a.text-steel\/80,
+    a.text-steel\/60 {
+      color: var(--fg) !important;
+    }
+
+    /* texto "muted" y "steel" tenues */
+    .text-muted,
+    .text-steel\/40,
+    .text-steel\/30,
+    .text-steel\/20,
+    .text-steel\/10,
+    .text-steel\/50 {
+      color: var(--muted) !important;
+    }
+
+    /* fondos que se usan como "glass" o tarjetas – que ya tienen variable, pero por seguridad */
+    .glass,
+    .bg-deep,
+    .bg-petrol,
+    .bg-cyanN\/10,
+    .bg-cyanN\/5,
+    .bg-burnt\/15,
+    .bg-burnt\/10 {
+      background-color: var(--card) !important;
+      border-color: var(--card-border) !important;
+    }
+
+    /* Botones fantasma (ghost) y CTA – mantener legibilidad */
+    .btn-ghost {
+      color: var(--accent) !important;
+      border-color: var(--accent) !important;
+    }
+
+    .btn-cta {
+      background-color: var(--cta) !important;
+      color: white !important;
+      /* el texto del botón CTA siempre blanco, porque el fondo es naranja intenso */
+    }
+
+    .quick-reply {
+      color: var(--accent) !important;
+      border-color: var(--accent) !important;
+      background-color: rgba(0, 240, 255, 0.06) !important;
+    }
+
+    #mobile-menu {
+      background: var(--bg) !important;
+    }
+
+    #mobile-menu a,
+    #mobile-menu button {
+      color: var(--fg) !important;
+    }
+
+    /* ===== LIGHTBOX ===== */
+    #product-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    #product-lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #product-lightbox .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #product-lightbox .lightbox-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+      transition: opacity 0.5s;
+    }
+
+    #product-lightbox .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg);
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: 0.2s;
+    }
+
+    #product-lightbox .lightbox-close:hover {
+      background: rgba(255, 100, 80, 0.15);
+      border-color: var(--cta);
+    }
+
+    /* Dots del lightbox */
+    .lightbox-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .lightbox-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .lightbox-dots .dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .lightbox-dots .dot:hover {
+      transform: scale(1.3);
+    }
+
+    /* Preloader más pequeño en móvil */
+    @media (max-width: 640px) {
+      #preloader .brand {
+        font-size: 1.25rem;
+        /* era 2rem */
+        letter-spacing: 0.15em;
+      }
+    }
+
+    /* Controles flotantes móviles */
+    #mobile-controls {
+      transition: opacity 0.3s;
+    }
+
+    .light #theme-toggle-float {
+      background: var(--bg-alt);
+      color: var(--fg);
+    }
+
+    @media (max-width: 640px) {
+      #mobile-controls {
+        bottom: 200px;
+        /* ← antes 140px, ahora más cerca del robot */
+        right: 16px;
+      }
+
+      #chat-bubble {
+        bottom: 90px;
+      }
+
+      #wa-float {
+        bottom: 24px;
+      }
+
+      #mobile-controls {
+        /* subir el z-index por encima del bubble (7000) */
+        z-index: 7001 !important;
+        /* asegurar que estén más arriba, sin tocar el bubble */
+        bottom: 170px !important;
+        /* antes estaba en 180px */
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-grid">
+
+  <!-- Cursor personalizado -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="brand">FORJATECH<span style="color:#FF4500;text-shadow:0 0 12px #FF4500;">MCBO</span></div>
+    <div class="bar-track">
+      <div class="bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container"></div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="fixed top-0 left-0 right-0 z-[5000] transition-all duration-500" id="navbar">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-3 no-underline" aria-label="ForjaTechMCBO inicio">
+        <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5">
+          <i class="fa-solid fa-industry text-cyanN text-sm"></i>
+        </div>
+        <span class="font-orbitron font-bold text-lg tracking-[0.15em] text-white">FORJA<span
+            class="text-cyanN">TECH</span><span style="color:#FF4500;text-shadow:0 0 10px #FF4500;">MCBO</span></span>
+      </a>
+      <!-- Links desktop -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#valor" class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide i18n"
+          data-key="nav1">Propuesta</a>
+        <a href="#catalogo"
+          class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide i18n"
+          data-key="nav2">Catálogo</a>
+        <a href="#proceso"
+          class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide i18n"
+          data-key="nav3">Proceso</a>
+        <a href="#testimonios"
+          class="text-sm text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide i18n"
+          data-key="nav4">Confianza</a>
+        <button onclick="openModal()" class="btn-ghost text-xs py-2 px-5 i18n" data-key="contactBtn">CONTACTAR</button>
+        <div class="flex items-center gap-3 ml-2">
+          <div id="theme-toggle" onclick="toggleTheme()"><i class="fa-solid fa-sun"></i><i class="fa-solid fa-moon"></i>
+          </div>
+          <div id="lang-es" class="lang-flag active flex-shrink-0" onclick="switchLang('es')">🇻🇪</div>
+          <div id="lang-en" class="lang-flag flex-shrink-0" onclick="switchLang('en')">🇺🇸</div>
+        </div>
+      </div>
+      <!-- Mobile -->
+      <div class="md:hidden flex items-center gap-3">
+        <button id="hamburger" class="flex flex-col gap-1.5 p-2" aria-label="Abrir menú">
+          <span class="block w-5 h-0.5 bg-steel transition-all duration-300" id="ham1"></span>
+          <span class="block w-5 h-0.5 bg-steel transition-all duration-300" id="ham2"></span>
+          <span class="block w-3.5 h-0.5 bg-steel transition-all duration-300 ml-auto" id="ham3"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-overlay" onclick="closeMobileMenu()"></div>
+  <div id="mobile-menu">
+    <div class="flex flex-col gap-6">
+      <a href="#valor" onclick="closeMobileMenu()"
+        class="text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide text-lg i18n"
+        data-key="nav1">Propuesta</a>
+      <a href="#catalogo" onclick="closeMobileMenu()"
+        class="text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide text-lg i18n"
+        data-key="nav2">Catálogo</a>
+      <a href="#proceso" onclick="closeMobileMenu()"
+        class="text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide text-lg i18n"
+        data-key="nav3">Proceso</a>
+      <a href="#testimonios" onclick="closeMobileMenu()"
+        class="text-steel/80 hover:text-cyanN transition-colors font-inter tracking-wide text-lg i18n"
+        data-key="nav4">Confianza</a>
+      <hr class="border-white/5">
+      <button onclick="closeMobileMenu(); openModal();" class="btn-cta text-xs py-3 w-full i18n"
+        data-key="contactBtn">CONTACTAR AHORA</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-overlay"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-2 gap-12 items-center w-full">
+        <div>
+          <div class="flex flex-wrap gap-3 mb-8 reveal">
+            <div class="authority-seal"><i class="fa-solid fa-shield-halved text-xs"></i> <span class="i18n"
+                data-key="authoritySeal">Ingeniería de estampado — 30 años</span></div>
+            <div class="scarcity-badge"><span class="dot"></span> <span class="i18n" data-key="scarcityBadge">Lote
+                limitado — consulte disponibilidad</span></div>
+          </div>
+          <h1
+            class="font-orbitron font-black text-3xl sm:text-4xl lg:text-5xl xl:text-[3.4rem] leading-[1.1] tracking-tight text-white mb-6 reveal reveal-delay-1">
+            <span class="i18n" data-key="heroTitle">Troqueles de Precisión Que <span class="text-cyanN glow-text">Forjan
+                Líderes</span> en Ferretería</span>
+          </h1>
+          <p class="font-inter text-base sm:text-lg text-steel/90 leading-relaxed max-w-xl mb-10 reveal reveal-delay-2">
+            <span class="i18n" data-key="heroSubtitle">Aumente su capacidad de producción con moldes de estampado en
+              frío y caliente. Equipamiento original para palas, palines y carretillas. Disponibilidad inmediata.</span>
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 items-start reveal reveal-delay-3">
+            <button onclick="openModal()" class="btn-cta i18n" data-key="ctaCatalog">SOLICITAR CATÁLOGO TÉCNICO</button>
+            <a href="#catalogo" class="btn-ghost flex items-center gap-2 i18n" data-key="seeProducts"><i
+                class="fa-solid fa-grid-2 text-xs"></i> VER PRODUCTOS</a>
+          </div>
+          <p class="font-fira text-[0.7rem] text-muted mt-4 tracking-wide reveal reveal-delay-3 i18n"
+            data-key="responseTime"><i class="fa-solid fa-bolt text-cyanN/60 mr-1"></i> Respuesta en menos de 2 horas
+            por nuestro equipo de ingeniería.</p>
+        </div>
+        <div class="hidden lg:block"></div>
+      </div>
+    </section>
+
+    <!-- VALOR -->
+    <section id="valor" class="relative py-24 lg:py-32">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <p class="font-fira text-xs text-cyanN/70 tracking-[0.2em] uppercase mb-4 reveal i18n" data-key="valueWhy">Por
+            qué ForjaTech</p>
+          <h2
+            class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1">
+            <span class="i18n" data-key="valueTitle">Ingeniería Que Se Traduce en <span
+                class="text-copper glow-copper-text">Rentabilidad</span></span>
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8" id="value-cards"></div>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" class="relative py-24 lg:py-32">
+      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyanN/20 to-transparent">
+      </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-6">
+          <p class="font-fira text-xs text-cyanN/70 tracking-[0.2em] uppercase mb-4 reveal i18n"
+            data-key="catalogLabel">Línea completa</p>
+          <h2
+            class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
+            data-key="catalogTitle">Catálogo de Troqueles y Moldes</h2>
+          <p class="font-inter text-sm text-steel/60 mt-4 max-w-2xl mx-auto reveal reveal-delay-2 i18n"
+            data-key="catalogSubtitle">Cada pieza es el resultado de tres décadas de ingeniería de estampado. Consulte
+            disponibilidad para su línea de producción.</p>
+        </div>
+        <div class="flex justify-center mb-12 reveal reveal-delay-2">
+          <div class="scarcity-badge"><span class="dot"></span> <span class="i18n" data-key="catalogScarcity">Lote
+              limitado de troqueles originales — consulte disponibilidad</span></div>
+        </div>
+        <div id="product-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+      </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section id="proceso" class="relative py-24 lg:py-32">
+      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-copper/20 to-transparent">
+      </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <p class="font-fira text-xs text-copper/70 tracking-[0.2em] uppercase mb-4 reveal i18n"
+            data-key="processLabel">Know-how técnico</p>
+          <h2
+            class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
+            data-key="processTitle">Proceso de <span class="text-copper glow-copper-text">Fabricación</span></h2>
+          <p class="font-inter text-sm text-steel/60 mt-4 max-w-2xl mx-auto reveal reveal-delay-2 i18n"
+            data-key="processSubtitle">Desde la plancha de acero hasta la herramienta terminada: cada etapa está
+            controlada con tolerancias de precisión CNC.</p>
+        </div>
+        <div id="process-diagram" class="relative max-w-4xl mx-auto reveal reveal-delay-1"></div>
+        <div class="grid md:grid-cols-2 gap-8 mt-20 max-w-4xl mx-auto" id="process-detail-cards"></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios" class="relative py-24 lg:py-32">
+      <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyanN/20 to-transparent">
+      </div>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <p class="font-fira text-xs text-cyanN/70 tracking-[0.2em] uppercase mb-4 reveal i18n"
+            data-key="testimonialsLabel">Prueba social</p>
+          <h2
+            class="font-orbitron font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight reveal reveal-delay-1 i18n"
+            data-key="testimonialsTitle">Lo Que Dicen los Fabricantes</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8" id="testimonials-grid"></div>
+        <div class="flex flex-wrap justify-center gap-6 mt-14 reveal" id="trust-seals"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative border-t border-white/5 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-10 mb-12">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-9 h-9 rounded-md border border-cyanN/30 flex items-center justify-center bg-cyanN/5"><i
+                class="fa-solid fa-industry text-cyanN text-sm"></i></div>
+            <span class="font-orbitron font-bold text-lg tracking-[0.15em] text-white">FORJA<span
+                class="text-cyanN">TECH</span><span
+                style="color:#FF4500;text-shadow:0 0 10px #FF4500;">MCBO</span></span>
+          </div>
+          <p class="font-inter text-sm text-steel/60 leading-relaxed max-w-md i18n" data-key="footerDesc">No vendemos
+            troqueles; entregamos la llave para fabricar las herramientas del futuro. Treinta años de ingeniería de
+            estampado al servicio de fabricantes latinoamericanos.</p>
+        </div>
+        <div>
+          <h4 class="font-orbitron font-bold text-xs tracking-wider text-steel/50 mb-4 i18n" data-key="footerNav">
+            NAVEGACIÓN</h4>
+          <div class="flex flex-col gap-2">
+            <a href="#valor" class="text-sm text-steel/60 hover:text-cyanN transition-colors i18n"
+              data-key="nav1">Propuesta de valor</a>
+            <a href="#catalogo" class="text-sm text-steel/60 hover:text-cyanN transition-colors i18n"
+              data-key="nav2">Catálogo de productos</a>
+            <a href="#proceso" class="text-sm text-steel/60 hover:text-cyanN transition-colors i18n"
+              data-key="nav3">Proceso de fabricación</a>
+            <a href="#testimonios" class="text-sm text-steel/60 hover:text-cyanN transition-colors i18n"
+              data-key="nav4">Testimonios</a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-orbitron font-bold text-xs tracking-wider text-steel/50 mb-4 i18n" data-key="footerContact">
+            CONTACTO</h4>
+          <div class="flex flex-col gap-2">
+            <a href="mailto:ingenieria@forjatech.com"
+              class="text-sm text-steel/60 hover:text-cyanN transition-colors"><i
+                class="fa-solid fa-envelope text-xs mr-2 text-cyanN/40"></i>ingenieria@forjatech.com</a>
+            <a href="#" target="_blank" rel="noopener" class="text-sm text-steel/60 hover:text-cyanN transition-colors"
+              id="footer-wa"><i class="fa-brands fa-whatsapp text-xs mr-2 text-green-400/40"></i>WhatsApp directo</a>
+          </div>
+          <button onclick="openModal()" class="btn-ghost text-[0.65rem] py-2 px-4 mt-4 w-full i18n"
+            data-key="footerCtalog">SOLICITAR CATÁLOGO</button>
+          <div class="flex gap-3 mt-4 marketplace-icons">
+            <a href="#" target="_blank" rel="noopener" title="Mercado Libre" id="footer-ml"
+              class="w-9 h-9 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all"><i
+                class="fa-solid fa-shop text-[#FFE600] text-sm"></i></a>
+            <a href="#" target="_blank" rel="noopener" title="Facebook Marketplace" id="footer-mkt"
+              class="w-9 h-9 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all"><i
+                class="fa-brands fa-facebook-f text-[#1877F2] text-sm"></i></a>
+            <a href="#" target="_blank" rel="noopener" title="YouTube" id="footer-yt"
+              class="w-9 h-9 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all"><i
+                class="fa-brands fa-youtube text-[#FF0000] text-sm"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-white/5 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-xs text-steel/30 font-inter">&copy; 2025 ForjaTechMCBO. Todos los derechos reservados.</p>
+        <p class="text-xs text-steel/20 font-fira">Engineering precision since 1995</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL CONTACTO -->
+  <div id="contact-modal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" onclick="closeModal()"></div>
+    <div class="modal-content glass p-8">
+      <button onclick="closeModal()"
+        class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-steel/50 hover:text-white transition-colors"><i
+          class="fa-solid fa-xmark"></i></button>
+      <div class="mb-6">
+        <h3 class="font-orbitron font-bold text-lg text-white tracking-wide i18n" data-key="modalTitle">Solicitar
+          Información</h3>
+        <p class="font-inter text-xs text-steel/60 mt-1 i18n" data-key="modalSubtitle">Un especialista le responderá en
+          menos de 2 horas.</p>
+      </div>
+      <form id="contact-form" class="flex flex-col gap-4" onsubmit="handleContactSubmit(event)">
+        <div><label class="form-label i18n" data-key="formName">Nombre completo</label><input type="text" id="cf-name"
+            class="form-input" placeholder="Juan Pérez" required></div>
+        <div><label class="form-label i18n" data-key="formCompany">Empresa</label><input type="text" id="cf-company"
+            class="form-input" placeholder="Fábrica Metálica S.A." required></div>
+        <div class="grid grid-cols-2 gap-4">
+          <div><label class="form-label i18n" data-key="formCountry">País</label><input type="text" id="cf-country"
+              class="form-input" placeholder="Colombia" required></div>
+          <div><label class="form-label i18n" data-key="formPhone">Teléfono / WhatsApp</label><input type="tel"
+              id="cf-phone" class="form-input" placeholder="+57 300 000 0000" required></div>
+        </div>
+        <div><label class="form-label i18n" data-key="formEmail">Correo electrónico</label><input type="email"
+            id="cf-email" class="form-input" placeholder="juan@fabrica.com" required></div>
+        <div><label class="form-label i18n" data-key="formProduct">Producto de interés</label><select id="cf-product"
+            class="form-input" required>
+            <option value="" class="i18n" data-key="formSelect">Seleccione un producto...</option>
+          </select></div>
+        <div><label class="form-label i18n" data-key="formMessage">Mensaje adicional</label><textarea id="cf-message"
+            class="form-input" rows="3" placeholder="Cuéntenos sobre su necesidad de producción..."></textarea></div>
+        <button type="submit" class="btn-cta w-full mt-2 i18n" data-key="formSubmit">ENVIAR SOLICITUD</button>
+        <p class="text-center text-[0.65rem] text-steel/30 font-fira i18n" data-key="formPrivacy">Su información es
+          tratada con confidencialidad industrial.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- CHAT IA -->
+  <div id="chat-bubble" onclick="toggleChat()"><span class="pulse-ring"></span><i
+      class="fa-solid fa-robot text-cyanN text-lg relative z-10"></i></div>
+  <div id="chat-window" class="glass" style="border-color: rgba(0,240,255,0.2);">
+    <div class="p-4 border-b border-white/5 flex items-center gap-3 shrink-0" style="background: rgba(0,240,255,0.03);">
+      <div class="w-9 h-9 rounded-full bg-deep border border-cyanN/30 flex items-center justify-center"><i
+          class="fa-solid fa-robot text-cyanN text-sm"></i></div>
+      <div>
+        <p class="font-orbitron font-bold text-xs text-white tracking-wide">ASISTENTE TÉCNICO</p>
+        <p class="text-[0.65rem] text-cyanN/60 font-fira">En línea — ForjaTechMCBO</p>
+      </div>
+      <button onclick="toggleChat()" class="ml-auto text-steel/40 hover:text-white transition-colors"><i
+          class="fa-solid fa-minus"></i></button>
+    </div>
+    <div class="chat-messages" id="chat-messages"></div>
+    <div class="chat-quick-replies" id="chat-quick-replies"
+      style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 8px;"></div>
+    <div class="p-3 border-t border-white/5 shrink-0 flex gap-2" style="background: rgba(0,0,0,0.2);">
+      <input type="text" id="chat-input" class="form-input flex-1 text-sm py-2" placeholder="Escriba su consulta..."
+        onkeydown="if(event.key==='Enter')sendChatMessage()">
+      <button onclick="sendChatMessage()"
+        class="w-10 h-10 rounded-lg bg-cyanN/10 border border-cyanN/30 flex items-center justify-center text-cyanN hover:bg-cyanN/20"><i
+          class="fa-solid fa-paper-plane text-sm"></i></button>
+    </div>
+  </div>
+
+  <a id="wa-float" href="#" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i></a>
+
+  <!-- ========== CONTROLES FLOTANTES MÓVIL (tema + idiomas) ========== -->
+  <div id="mobile-controls" class="fixed md:hidden flex flex-col items-center gap-3"
+    style="bottom: 140px; right: 24px; z-index: 6500;">
+    <!-- Toggle tema -->
+    <div id="theme-toggle-float" onclick="toggleTheme()"
+      class="w-11 h-11 rounded-full flex items-center justify-center cursor-pointer bg-deep border border-cyanN/30 text-white text-lg shadow-lg">
+      <i class="fa-solid fa-sun hidden"></i>
+      <i class="fa-solid fa-moon"></i>
+    </div>
+    <!-- Idioma español -->
+    <div id="lang-es-float" class="lang-flag active" onclick="switchLang('es')"
+      style="width: 38px; height: 38px; font-size: 1.2rem;">🇻🇪</div>
+    <!-- Idioma inglés -->
+    <div id="lang-en-float" class="lang-flag" onclick="switchLang('en')"
+      style="width: 38px; height: 38px; font-size: 1.2rem;">🇺🇸</div>
+  </div>
+
+
+
+
+  <!-- THREE.JS -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    const canvas = document.getElementById('hero-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(canvas.parentElement.clientWidth, canvas.parentElement.clientHeight);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.2;
+    const scene = new THREE.Scene(); scene.fog = new THREE.FogExp2(0x0B0C10, 0.08);
+    const camera = new THREE.PerspectiveCamera(40, canvas.parentElement.clientWidth / canvas.parentElement.clientHeight, 0.1, 100);
+    camera.position.set(4, 3, 6); camera.lookAt(0, 0.5, 0);
+    const controls = new OrbitControls(camera, canvas); controls.enableDamping = true; controls.dampingFactor = 0.05; controls.enableZoom = false; controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 0.8; controls.maxPolarAngle = Math.PI / 2.2; controls.minPolarAngle = Math.PI / 6;
+    const ambientLight = new THREE.AmbientLight(0x112233, 0.6); scene.add(ambientLight);
+    const keyLight = new THREE.DirectionalLight(0xffeedd, 2.5); keyLight.position.set(5, 8, 3); scene.add(keyLight);
+    const cyanLight = new THREE.PointLight(0x00F0FF, 3, 15); cyanLight.position.set(-3, 2, 2); scene.add(cyanLight);
+    const copperLight = new THREE.PointLight(0xC47F45, 2, 12); copperLight.position.set(3, 1, -2); scene.add(copperLight);
+    const rimLight = new THREE.PointLight(0x00F0FF, 1.5, 10); rimLight.position.set(0, -1, -4); scene.add(rimLight);
+    const steelMat = new THREE.MeshStandardMaterial({ color: 0x2a2e35, metalness: 0.95, roughness: 0.25 });
+    const brightSteelMat = new THREE.MeshStandardMaterial({ color: 0x8a9aaa, metalness: 0.9, roughness: 0.15 });
+    const dieGroup = new THREE.Group();
+    const upperDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat); upperDie.position.y = 1.6; dieGroup.add(upperDie);
+    const lowerDie = new THREE.Mesh(new THREE.BoxGeometry(3, 1.2, 2.2), steelMat); lowerDie.position.y = -1.6; dieGroup.add(lowerDie);
+    const guideMat = new THREE.MeshStandardMaterial({ color: 0x444d55, metalness: 0.9, roughness: 0.3 });
+    [-1.5, 1.5].forEach(x => { const guide = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 3.5, 16), guideMat); guide.position.set(x, 0, 0.8); dieGroup.add(guide); });
+    const bladeShape = new THREE.Shape(); bladeShape.moveTo(-0.6, 0); bladeShape.lineTo(0.6, 0); bladeShape.lineTo(0.9, -2.2); bladeShape.lineTo(-0.9, -2.2); bladeShape.closePath();
+    const extrudeSettings = { depth: 0.06, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 2 };
+    const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings); bladeGeo.center();
+    const blade = new THREE.Mesh(bladeGeo, brightSteelMat); blade.position.set(0, 0.8, 0); blade.rotation.x = -Math.PI / 2; blade.scale.set(0.8, 0.8, 0.8); dieGroup.add(blade);
+    scene.add(dieGroup);
+    function createSparkTexture(c1, c2) { const c = document.createElement('canvas'); c.width = 32; c.height = 32; const ctx = c.getContext('2d'); const g = ctx.createRadialGradient(16, 16, 0, 16, 16, 16); g.addColorStop(0, c1); g.addColorStop(0.4, c2); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, 32, 32); return new THREE.CanvasTexture(c); }
+    const cyanTex = createSparkTexture('#ffffff', '#00F0FF'); const copperTex = createSparkTexture('#ffffff', '#C47F45');
+    const sparkCount = 150; const sparkGeo = new THREE.BufferGeometry(); const sparkPositions = new Float32Array(sparkCount * 3); const sparkVelocities = []; const sparkLifetimes = [];
+    for (let i = 0; i < sparkCount; i++) resetSpark(i); sparkGeo.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
+    const sparks = new THREE.Points(sparkGeo, new THREE.PointsMaterial({ map: cyanTex, size: 0.15, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.8 })); scene.add(sparks);
+    const spark2Count = 80; const spark2Geo = new THREE.BufferGeometry(); const spark2Pos = new Float32Array(spark2Count * 3); const spark2Vel = [];
+    for (let i = 0; i < spark2Count; i++) resetSpark2(i); spark2Geo.setAttribute('position', new THREE.BufferAttribute(spark2Pos, 3));
+    const sparks2 = new THREE.Points(spark2Geo, new THREE.PointsMaterial({ map: copperTex, size: 0.12, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.7 })); scene.add(sparks2);
+    function resetSpark(i) { sparkPositions[i * 3] = (Math.random() - 0.5) * 2; sparkPositions[i * 3 + 1] = Math.random() * 0.5 + 0.5; sparkPositions[i * 3 + 2] = (Math.random() - 0.5) * 1.5; sparkVelocities[i] = { x: (Math.random() - 0.5) * 0.02, y: Math.random() * 0.03 + 0.01, z: (Math.random() - 0.5) * 0.02 }; sparkLifetimes[i] = Math.random(); }
+    function resetSpark2(i) { spark2Pos[i * 3] = (Math.random() - 0.5) * 1.5; spark2Pos[i * 3 + 1] = Math.random() * 0.3; spark2Pos[i * 3 + 2] = (Math.random() - 0.5) * 1; spark2Vel[i] = { x: (Math.random() - 0.5) * 0.015, y: Math.random() * 0.025 + 0.005, z: (Math.random() - 0.5) * 0.015 }; }
+    const gridHelper = new THREE.GridHelper(20, 40, 0x00F0FF, 0x00F0FF); gridHelper.material.opacity = 0.04; gridHelper.material.transparent = true; gridHelper.position.y = -2.5; scene.add(gridHelper);
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate); const t = clock.getElapsedTime();
+      blade.position.y = 0.8 + Math.sin(t * 0.5) * 0.4 + 0.3; upperDie.position.y = 1.6 + Math.sin(t * 0.5) * 0.15; lowerDie.position.y = -1.6 - Math.sin(t * 0.5) * 0.1;
+      const posArr = sparks.geometry.attributes.position.array; for (let i = 0; i < sparkCount; i++) { sparkLifetimes[i] += 0.008; if (sparkLifetimes[i] > 1) resetSpark(i); posArr[i * 3] += sparkVelocities[i].x; posArr[i * 3 + 1] += sparkVelocities[i].y; posArr[i * 3 + 2] += sparkVelocities[i].z; sparkVelocities[i].y -= 0.0002; } sparks.geometry.attributes.position.needsUpdate = true;
+      const posArr2 = sparks2.geometry.attributes.position.array; for (let i = 0; i < spark2Count; i++) { posArr2[i * 3] += spark2Vel[i].x; posArr2[i * 3 + 1] += spark2Vel[i].y; posArr2[i * 3 + 2] += spark2Vel[i].z; spark2Vel[i].y -= 0.00015; if (posArr2[i * 3 + 1] > 4 || posArr2[i * 3 + 1] < -3) resetSpark2(i); } sparks2.geometry.attributes.position.needsUpdate = true;
+      cyanLight.intensity = 3 + Math.sin(t * 2) * 0.5; copperLight.intensity = 2 + Math.sin(t * 1.5 + 1) * 0.4;
+      controls.update(); renderer.render(scene, camera);
+    }
+    animate();
+    window.addEventListener('resize', () => { const w = canvas.parentElement.clientWidth, h = canvas.parentElement.clientHeight; camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h); });
+  </script>
+
+  <!-- SCRIPT PRINCIPAL -->
+  <script>
+    // const USE_EMAILJS = true;
+    // emailjs.init(EMAILJS_USER_ID);
+    emailjs.init(EMAILJS_USER_ID);
+
+    const SOCIAL_LINKS = {
+      // mercadolibre: 'https://www.mercadolibre.com.co/p/...',
+      marketplace: 'https://www.facebook.com/marketplace/profile/...',
+      youtube: 'https://youtube.com/@forjatech',
+    };
+    document.getElementById('footer-wa').href = `https://wa.me/${WA_NUMBER}`;
+    document.getElementById('footer-ml').href = MERCADOLIBRE_LINK || '#';
+    document.getElementById('footer-mkt').href = SOCIAL_LINKS.marketplace || '#';
+    document.getElementById('footer-yt').href = SOCIAL_LINKS.youtube || '#';
+
+    // ===== Scroll reveal =====
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1, rootMargin: '0px 0px 80px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    function observeNewReveals() {
+      document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
+        revealObserver.observe(el);
+        el.classList.add('observed');
+      });
+    }
+    // ===== i18n =====
+    const i18n = {
+      es: {
+        nav1: 'Propuesta', nav2: 'Catálogo', nav3: 'Proceso', nav4: 'Confianza', contactBtn: 'CONTACTAR',
+        authoritySeal: 'Ingeniería de estampado — 30 años', scarcityBadge: 'Lote limitado — consulte disponibilidad',
+        heroTitle: 'Troqueles de Precisión Que <span class="text-cyanN glow-text">Forjan Líderes</span> en Ferretería',
+        heroSubtitle: 'Aumente su capacidad de producción con moldes de estampado en frío y caliente. Equipamiento original para palas, palines y carretillas. Disponibilidad inmediata.',
+        ctaCatalog: 'SOLICITAR CATÁLOGO TÉCNICO', seeProducts: 'VER PRODUCTOS',
+        responseTime: 'Respuesta en menos de 2 horas por nuestro equipo de ingeniería.',
+        valueWhy: 'Por qué ForjaTech', valueTitle: 'Ingeniería Que Se Traduce en <span class="text-copper glow-copper-text">Rentabilidad</span>',
+        valueCard1Title: 'ESTAMPADO FRÍO Y CALIENTE', valueCard1Desc: 'Procesos optimizados para calibres de 1.5 mm hasta 2.5 mm. Compatibilidad multilámina verificada en campo.',
+        valueCard2Title: 'COMBO COMPLETO INTEGRAL', valueCard2Desc: 'Troquel de corte, molde de embutido y molde de inyección para empuñaduras. Todo en un solo proveedor.',
+        valueCard3Title: 'LISTOS PARA EXPORTAR', valueCard3Desc: 'Servimos a fabricantes en toda Latinoamérica. Logística documentada y soporte técnico remoto incluido.',
+        catalogLabel: 'Línea completa', catalogTitle: 'Catálogo de Troqueles y Moldes', catalogSubtitle: 'Cada pieza es el resultado de tres décadas de ingeniería de estampado. Consulte disponibilidad para su línea de producción.',
+        catalogScarcity: 'Lote limitado de troqueles originales — consulte disponibilidad',
+        processLabel: 'Know-how técnico', processTitle: 'Proceso de <span class="text-copper glow-copper-text">Fabricación</span>',
+        processSubtitle: 'Desde la plancha de acero hasta la herramienta terminada: cada etapa está controlada con tolerancias de precisión CNC.',
+        testimonialsLabel: 'Prueba social', testimonialsTitle: 'Lo Que Dicen los Fabricantes',
+        footerDesc: 'No vendemos troqueles; entregamos la llave para fabricar las herramientas del futuro. Treinta años de ingeniería de estampado al servicio de fabricantes latinoamericanos.',
+        footerNav: 'NAVEGACIÓN', footerContact: 'CONTACTO', footerCtalog: 'SOLICITAR CATÁLOGO',
+        modalTitle: 'Solicitar Información', modalSubtitle: 'Un especialista le responderá en menos de 2 horas.',
+        formName: 'Nombre completo', formCompany: 'Empresa', formCountry: 'País', formPhone: 'Teléfono / WhatsApp',
+        formEmail: 'Correo electrónico', formProduct: 'Producto de interés', formSelect: 'Seleccione un producto...',
+        formMessage: 'Mensaje adicional', formSubmit: 'ENVIAR SOLICITUD', formPrivacy: 'Su información es tratada con confidencialidad industrial.',
+        processColdTitle: 'ESTAMPADO EN FRÍO', processColdDesc: 'Proceso a temperatura ambiente para láminas de 1.5 a 2.0 mm. Ideal para geometrías de corte limpio con alta velocidad de producción y menor desgaste de matriz.',
+        processHotTitle: 'ESTAMPADO EN CALIENTE', processHotDesc: 'La lámina se calienta antes del conformado para espesores de 2.0 a 2.5 mm. Reduce la fuerza necesaria y permite refuerzos de doble capa.',
+        trustSeal1: 'Entrega inmediata', trustSeal2: 'Soporte técnico remoto', trustSeal3: 'Garantía de dimensionalidad', trustSeal4: 'Documentación técnica incluida',
+      },
+      en: {
+        nav1: 'Value Prop', nav2: 'Catalog', nav3: 'Process', nav4: 'Trust', contactBtn: 'CONTACT',
+        authoritySeal: 'Stamping engineering — 30 years', scarcityBadge: 'Limited batch — check availability',
+        heroTitle: 'Precision Dies That <span class="text-cyanN glow-text">Forge Leaders</span> in Hardware',
+        heroSubtitle: 'Boost your production with cold and hot stamping molds. Original equipment for shovels, spades and wheelbarrows. Immediate availability.',
+        ctaCatalog: 'REQUEST TECHNICAL CATALOG', seeProducts: 'VIEW PRODUCTS',
+        responseTime: 'Response in less than 2 hours by our engineering team.',
+        valueWhy: 'Why ForjaTech', valueTitle: 'Engineering That Translates into <span class="text-copper glow-copper-text">Profitability</span>',
+        valueCard1Title: 'COLD & HOT STAMPING', valueCard1Desc: 'Processes optimized for gauges from 1.5 mm to 2.5 mm. Field-verified multi-sheet compatibility.',
+        valueCard2Title: 'COMPLETE COMBO', valueCard2Desc: 'Cutting die, embossing mold and injection mold for handles. All from a single supplier.',
+        valueCard3Title: 'EXPORT READY', valueCard3Desc: 'We serve manufacturers throughout Latin America. Documented logistics and remote technical support included.',
+        catalogLabel: 'Full line', catalogTitle: 'Die and Mold Catalog', catalogSubtitle: 'Each piece is the result of three decades of stamping engineering. Check availability for your production line.',
+        catalogScarcity: 'Limited batch of original dies — check availability',
+        processLabel: 'Technical know-how', processTitle: '<span class="text-copper glow-copper-text">Manufacturing</span> Process',
+        processSubtitle: 'From steel sheet to finished tool: every stage is controlled with CNC precision tolerances.',
+        testimonialsLabel: 'Social proof', testimonialsTitle: 'What Manufacturers Say',
+        footerDesc: 'We do not sell dies; we deliver the key to manufacture the tools of the future. Thirty years of stamping engineering at the service of Latin American manufacturers.',
+        footerNav: 'NAVIGATION', footerContact: 'CONTACT', footerCtalog: 'REQUEST CATALOG',
+        modalTitle: 'Request Information', modalSubtitle: 'A specialist will answer you in less than 2 hours.',
+        formName: 'Full name', formCompany: 'Company', formCountry: 'Country', formPhone: 'Phone / WhatsApp',
+        formEmail: 'Email', formProduct: 'Product of interest', formSelect: 'Select a product...',
+        formMessage: 'Additional message', formSubmit: 'SEND REQUEST', formPrivacy: 'Your information is treated with industrial confidentiality.',
+        processColdTitle: 'COLD STAMPING', processColdDesc: 'Process at room temperature for sheets of 1.5 to 2.0 mm. Ideal for clean cut geometries with high production speed and less die wear.',
+        processHotTitle: 'HOT STAMPING', processHotDesc: 'The sheet is heated before forming for thicknesses of 2.0 to 2.5 mm. Reduces force needed and allows double-layer reinforcements.',
+        trustSeal1: 'Immediate delivery', trustSeal2: 'Remote technical support', trustSeal3: 'Dimensionality warranty', trustSeal4: 'Technical documentation included',
+      }
+    };
+
+    let currentLang = 'es';
+    window.products = [];
+
+    function translatePage() {
+      const dict = i18n[currentLang];
+      document.querySelectorAll('.i18n').forEach(el => {
+        const key = el.dataset.key;
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+    }
+
+    window.switchLang = function (lang) {
+      currentLang = lang;
+      // --- escritorio ---
+      const desktopEs = document.getElementById('lang-es');
+      const desktopEn = document.getElementById('lang-en');
+      if (desktopEs) desktopEs.classList.toggle('active', lang === 'es');
+      if (desktopEn) desktopEn.classList.toggle('active', lang === 'en');
+      // --- flotantes móviles ---
+      const floatEs = document.getElementById('lang-es-float');
+      const floatEn = document.getElementById('lang-en-float');
+      if (floatEs) floatEs.classList.toggle('active', lang === 'es');
+      if (floatEn) floatEn.classList.toggle('active', lang === 'en');
+      // --- aplicar traducción ---
+      translatePage();
+      renderValueCards();
+      renderProducts();
+      renderProcess();
+      renderTestimonials();
+      resetChat();
+    };
+
+    window.toggleTheme = function () {
+      document.documentElement.classList.toggle('light');
+      document.documentElement.classList.toggle('dark');
+      // Actualizar íconos en flotante móvil
+      const floatToggle = document.getElementById('theme-toggle-float');
+      if (floatToggle) {
+        const isLight = document.documentElement.classList.contains('light');
+        floatToggle.querySelector('.fa-sun').style.display = isLight ? 'none' : 'inline-block';
+        floatToggle.querySelector('.fa-moon').style.display = isLight ? 'inline-block' : 'none';
+      }
+    };
+    const IMG_BASE = "https://cdn.jsdelivr.net/gh/GuilleMerca/forjatech-cdn@main/";
+    // Datos de productos bilingües
+    const productData = [
+      {
+        id: 'escardilla', icon: 'fa-seedling', hot: false, thickness: '1.5 – 2.0 mm',
+        name: { es: 'Troquel para Escardilla Jardinera', en: 'Garden Weeder Die' },
+        process: { es: 'Estampado en frío', en: 'Cold stamping' },
+        desc: { es: 'Incluye molde de formado cóncavo para jardinería profesional.', en: 'Includes concave forming mold for professional gardening.' },
+        phrase: { es: 'El complemento que faltaba en su catálogo de herramientas de jardín.', en: 'The missing piece in your garden tool catalog.' },
+        images: [IMG_BASE + "img/productos/troquel_escardilla-01.webp", IMG_BASE + "img/productos/troquel_escardilla-02.webp", IMG_BASE + "img/productos/troquel_escardilla-03.webp", IMG_BASE + "img/productos/troquel_escardilla-04.webp", IMG_BASE + "img/productos/escardilla-01.webp", IMG_BASE + "img/productos/escardilla-02.webp", IMG_BASE + "img/productos/escardilla-03.webp", IMG_BASE + "img/productos/escardilla-04.webp"], links: { mercadolibre: '', marketplace: '', youtube: '', facebookAds: '' }
+      },
+      {
+        id: 'pala-cuadrada', icon: 'fa-square', hot: false, thickness: '1.5 – 2.0 mm',
+        name: { es: 'Troquel para Pala Punta Cuadrada', en: 'Square Point Shovel Die' },
+        process: { es: 'Estampado en frío', en: 'Cold stamping' },
+        desc: { es: 'Diseño simplificado de 3 estaciones.', en: 'Simplified 3-station design.' },
+        phrase: { es: 'Pala de albañil de geometría exacta con mínimo retrabajo.', en: 'Mason shovel with exact geometry and minimal rework.' },
+        images: [IMG_BASE + "img/productos/pala-cuadrada-01.webp", IMG_BASE + "img/productos/pala-cuadrada-02.webp", IMG_BASE + "img/productos/pala-cuadrada-03.webp", IMG_BASE + "img/productos/pala-cuadrada-04.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-corto-01.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-corto-02.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-corto-03.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-largo-01.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-largo-02.webp", IMG_BASE + "img/productos/pala-cuadrada-cabo-largo-03.webp"], links: {}
+      },
+      {
+        id: 'pala-redonda', icon: 'fa-circle', hot: false, thickness: '1.5 – 2.0 mm',
+        name: { es: 'Troquel para Pala Punta Redonda', en: 'Round Point Shovel Die' },
+        process: { es: 'Estampado en frío', en: 'Cold stamping' },
+        desc: { es: 'Incluye molde redondeador tubular para cabo.', en: 'Includes tubular rounding mold for handle.' },
+        phrase: { es: 'Ergonomía estructural para palas de uso mixto.', en: 'Structural ergonomics for mixed-use shovels.' },
+        images: [IMG_BASE + "img/productos/pala-redonda-01.webp", IMG_BASE + "img/productos/pala-redonda-02.webp", IMG_BASE + "img/productos/pala-redonda-03.webp", IMG_BASE + "img/productos/pala-redonda-04.webp", IMG_BASE + "img/productos/pala-redonda-cabo-corto-01.webp", IMG_BASE + "img/productos/pala-redonda-cabo-corto-02.webp", IMG_BASE + "img/productos/pala-redonda-cabo-corto-03.webp", IMG_BASE + "img/productos/pala-redonda-cabo-largo-01.webp", IMG_BASE + "img/productos/pala-redonda-cabo-largo-02.webp", IMG_BASE + "img/productos/pala-redonda-cabo-largo-03.webp"], links: {}
+      },
+      {
+        id: 'palin-mina', icon: 'fa-mountain', hot: true, thickness: '≥ 2.5 mm',
+        name: { es: 'Troquel para Palín de Mina con Refuerzo', en: 'Reinforced Mining Spade Die' },
+        process: { es: 'Estampado en caliente', en: 'Hot stamping' },
+        desc: { es: 'Troquel de refuerzo de doble capa integrado.', en: 'Integrated double-layer reinforcement die.' },
+        phrase: { es: 'Resistencia comprobada bajo las condiciones más extremas.', en: 'Proven strength under the most extreme conditions.' },
+        images: [], links: {}
+      },
+      {
+        id: 'palin-corte', icon: 'fa-scissors', hot: true, thickness: '≥ 2.0 mm',
+        name: { es: 'Troquel para Palín de Corte', en: 'Cutting Spade Die' },
+        process: { es: 'Estampado en caliente', en: 'Hot stamping' },
+        desc: { es: 'Lógica de corte lateral con bisel incluido en el embutido.', en: 'Lateral cutting logic with bevel included in the drawing.' },
+        phrase: { es: 'Filo industrial que multiplica la productividad en campo.', en: 'Industrial edge that multiplies field productivity.' },
+        images: [IMG_BASE + "img/productos/troquel-estampa-frio-palin-corte-01.webp", IMG_BASE + "img/productos/troquel-estampa-frio-palin-corte-02.webp", IMG_BASE + "img/productos/troquel-estampa-frio-palin-corte-03.webp", IMG_BASE + "img/productos/troquel-estampa-frio-palin-corte-04.webp"], links: {}
+      },
+      {
+        id: 'palin-andino', icon: 'fa-wheat-awn', hot: true, thickness: '≥ 2.0 mm',
+        name: { es: 'Troquel para Palín Andino', en: 'Andean Spade Die' },
+        process: { es: 'Estampado en caliente', en: 'Hot stamping' },
+        desc: { es: 'Diseño regional optimizado para agricultura de altura.', en: 'Regional design optimized for high-altitude agriculture.' },
+        phrase: { es: 'Tradición forjada con tecnología moderna.', en: 'Tradition forged with modern technology.' },
+        images: [IMG_BASE + "img/productos/troquel-cuello-embuticion-estampado-caliente-01.webp", IMG_BASE + "img/productos/troquel-cuello-embuticion-estampado-caliente-02.webp", IMG_BASE + "img/productos/troquel-cuello-embuticion-estampado-caliente-03.webp"], links: {}
+      },
+      {
+        id: 'rin-ml25', icon: 'fa-circle-notch', hot: false, thickness: '1.5 – 2.0 mm',
+        name: { es: 'Troquel para Rin ML25', en: 'ML25 Rim Die' },
+        process: { es: 'Estampado en frío', en: 'Cold stamping' },
+        desc: { es: 'Sistema de redondeo tubular de alta precisión.', en: 'High-precision tubular rounding system.' },
+        phrase: { es: 'El componente circular que completa su línea de carretillas.', en: 'The circular component that completes your wheelbarrow line.' },
+        images: [IMG_BASE + "img/productos/troquel-molde-rin-ML25-01.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-02.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-03.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-04.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-05.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-06.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-07.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-08.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-09.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-10.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-11.webp", IMG_BASE + "img/productos/troquel-molde-rin-ML25-12.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-01.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-02.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-03.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-04.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-05.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-06.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-07.webp", IMG_BASE + "img/productos/ML25-rin-chapa-eje-08.webp"], links: {}
+      },
+      {
+        id: 'batea-60', icon: 'fa-bucket', hot: false, thickness: '1.5 – 2.0 mm',
+        name: { es: 'Troquel y Molde para Batea 60 L', en: '60L Wheelbarrow Tray Die & Mold' },
+        process: { es: 'Corte + Embutido', en: 'Cut + Drawing' },
+        desc: { es: 'Conjunto de corte y embutido para carretilla de 60 litros.', en: 'Cut and drawing set for 60-liter wheelbarrow.' },
+        phrase: { es: 'Solidez volumétrica para carretillas de uso diario.', en: 'Volumetric solidity for daily-use wheelbarrows.' },
+        images: [IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-04.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-04.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-01.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-02.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-03.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-04.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-01.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-02.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-03.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-04.webp", IMG_BASE + "img/productos/carretilla-60-01.webp", IMG_BASE + "img/productos/carretilla-60-02.webp", IMG_BASE + "img/productos/carretilla-60-03.webp", IMG_BASE + "img/productos/carretilla-60-04.webp"], links: {}
+      },
+      {
+        id: 'batea-80', icon: 'fa-bucket', hot: false, thickness: '1.5 – 2.0 mm',
+        name: { es: 'Troquel y Molde para Batea 80 L', en: '80L Wheelbarrow Tray Die & Mold' },
+        process: { es: 'Corte + Embutido', en: 'Cut + Drawing' },
+        desc: { es: 'Troquel de corte y molde de embutido profundo.', en: 'Cutting die and deep drawing mold.' },
+        phrase: { es: 'El equilibrio perfecto entre capacidad y maniobrabilidad.', en: 'The perfect balance between capacity and maneuverability.' },
+        images: [IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-04.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-04.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-01.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-02.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-03.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-04.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-01.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-02.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-03.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-04.webp", IMG_BASE + "img/productos/carretilla-80-01.webp", IMG_BASE + "img/productos/carretilla-80-02.webp", IMG_BASE + "img/productos/carretilla-80-03.webp", IMG_BASE + "img/productos/carretilla-80-04.webp"], links: {}
+      },
+      {
+        id: 'batea-110', icon: 'fa-boxes-stacked', hot: true, thickness: '1.5 – 2.0 mm',
+        name: { es: 'Troquel y Molde para Batea 110 L', en: '110L Wheelbarrow Tray Die & Mold' },
+        process: { es: 'Embutido progresivo', en: 'Progressive drawing' },
+        desc: { es: 'Sistema de gran formato con estampado en frío y embutido progresivo.', en: 'Large format system with cold stamping and progressive drawing.' },
+        phrase: { es: 'Máxima carga volumétrica. Ingeniería para grandes volúmenes.', en: 'Maximum volumetric load. Engineering for large volumes.' },
+        images: [IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-carretilla-110-04.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-01.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-02.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-03.webp", IMG_BASE + "img/productos/molde-bordeado-corte-batea-embutida-procesada-embuticion-04.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-01.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-02.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-03.webp", IMG_BASE + "img/productos/molde-embuticion-batea-110-04.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-01.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-02.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-03.webp", IMG_BASE + "img/productos/troquel-corte-lamina-embutir-04.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-01.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-02.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-03.webp", IMG_BASE + "img/productos/troquel-refuerzos-lateral-Batea-04.webp", IMG_BASE + "img/productos/carretilla-110-01.webp", IMG_BASE + "img/productos/carretilla-110-02.webp", IMG_BASE + "img/productos/carretilla-110-03.webp", IMG_BASE + "img/productos/carretilla-110-04.webp"], links: {}
+      },
+    ];
+
+    function getProducts() {
+      return productData.map(p => ({
+        name: p.name[currentLang],
+        process: p.process[currentLang],
+        thickness: p.thickness,
+        desc: p.desc[currentLang],
+        phrase: p.phrase[currentLang],
+        icon: p.icon,
+        hot: p.hot,
+        images: p.images,
+        links: p.links || {}
+      }));
+    }
+
+    function renderValueCards() {
+      const container = document.getElementById('value-cards');
+      const dict = i18n[currentLang];
+      container.innerHTML = `
+          <div class="glass p-8 text-center group reveal reveal-delay-1"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-gears text-2xl text-cyanN relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard1Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard1Desc}</p></div>
+          <div class="glass p-8 text-center group reveal reveal-delay-2"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-fire-flame-curved text-2xl text-copper relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard2Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard2Desc}</p></div>
+          <div class="glass p-8 text-center group reveal reveal-delay-3"><div class="icon-glow w-16 h-16 mx-auto mb-6"><i class="fa-solid fa-globe-americas text-2xl text-cyanN relative z-10"></i></div><h3 class="font-orbitron font-bold text-sm tracking-wide text-white mb-3">${dict.valueCard3Title}</h3><p class="font-inter text-sm text-steel/80 leading-relaxed">${dict.valueCard3Desc}</p></div>
+         `;
+      observeNewReveals();
+    }
+
+    function renderProducts() {
+      window.products = getProducts();
+      const grid = document.getElementById('product-grid');
+      const select = document.getElementById('cf-product');
+      grid.innerHTML = '';
+      select.innerHTML = '<option value="">' + i18n[currentLang].formSelect + '</option>';
+      window.products.forEach((p, idx) => {
+        const card = document.createElement('div');
+        card.className = 'product-card glass p-5 flex flex-col reveal';
+        card.style.transitionDelay = `${(idx % 4) * 0.08}s`;
+        let carouselHTML = p.images.length ?
+          `<div class="product-carousel aspect-[4/3]">${p.images.map((src, i) => `<img src="${src}" class="carousel-img ${i === 0 ? 'active' : ''}" alt="${p.name}" loading="${i === 0 ? 'eager' : 'lazy'}">`).join('')}<div class="carousel-dots">${p.images.map((_, i) => `<span class="dot ${i === 0 ? 'active' : ''}" data-index="${i}"></span>`).join('')}</div></div>` :
+          `<div class="product-carousel aspect-[4/3] flex items-center justify-center"><i class="fa-solid ${p.icon} text-7xl text-cyanN/20"></i></div>`;
+        card.innerHTML = `<div class="card-glow"></div>${carouselHTML}
+            <div class="flex items-start justify-between mb-2">${p.hot ? '<span class="text-[0.6rem] font-orbitron font-bold tracking-wider px-2 py-0.5 rounded bg-burnt/15 text-burnt border border-burnt/30">HOT</span>' : '<span class="text-[0.6rem] font-orbitron font-bold tracking-wider px-2 py-0.5 rounded bg-cyanN/8 text-cyanN/60 border border-cyanN/15">STD</span>'}<span class="font-fira text-[0.6rem] text-steel/40">${p.thickness}</span></div>
+            <h3 class="font-orbitron font-bold text-xs tracking-wide text-white leading-snug mb-2">${p.name.toUpperCase()}</h3>
+            <div class="flex items-center gap-2 mb-3"><i class="fa-solid ${p.process.toLowerCase().includes('caliente') || p.process.toLowerCase().includes('hot') ? 'fa-fire text-copper/70' : 'fa-snowflake text-cyanN/50'} text-[0.6rem]"></i><span class="font-fira text-[0.65rem] ${p.process.toLowerCase().includes('caliente') || p.process.toLowerCase().includes('hot') ? 'text-copper/70' : 'text-cyanN/50'}">${p.process}</span></div>
+            <p class="font-inter text-xs text-steel/60 leading-relaxed mb-3 flex-1">${p.desc}</p>
+            <p class="font-inter text-[0.7rem] text-white/40 italic mb-4 border-t border-white/5 pt-3">${p.phrase}</p>
+            <button onclick="openModalWithProduct(${idx})" class="btn-ghost text-[0.6rem] py-2 px-3 w-full">${currentLang === 'es' ? 'CONSULTAR DISPONIBILIDAD' : 'CHECK AVAILABILITY'}</button>
+            <div class="flex items-center justify-center gap-3 mt-4 pt-3 border-t border-white/5 marketplace-icons">
+              <a href="${p.links.mercadolibre || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#FFE600]/10 border border-[#FFE600]/20 flex items-center justify-center hover:bg-[#FFE600]/20 transition-all" title="Mercado Libre" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Próximamente en Mercado Libre':'Coming soon on Mercado Libre','info');}"><i class="fa-solid fa-shop text-[#FFE600] text-xs"></i></a>
+              <a href="${p.links.marketplace || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/20 flex items-center justify-center hover:bg-[#1877F2]/20 transition-all" title="Facebook Marketplace" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Próximamente en Marketplace':'Coming soon on Marketplace','info');}"><i class="fa-brands fa-facebook-f text-[#1877F2] text-xs"></i></a>
+              <a href="${p.links.youtube || '#'}" target="_blank" rel="noopener" class="w-8 h-8 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/20 flex items-center justify-center hover:bg-[#FF0000]/20 transition-all" title="YouTube" onclick="if(this.getAttribute('href')==='#'){event.preventDefault();showToast(currentLang==='es'?'Video próximamente':'Video coming soon','info');}"><i class="fa-brands fa-youtube text-[#FF0000] text-xs"></i></a>
+            </div>`;
+        card.addEventListener('mousemove', e => { const rect = card.getBoundingClientRect(); card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%'); card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%'); });
+        grid.appendChild(card);
+        const opt = document.createElement('option'); opt.value = idx; opt.textContent = p.name; select.appendChild(opt);
+      });
+      initCarousels();
+      observeNewReveals();
+    }
+
+    function renderProcess() {
+      const dict = i18n[currentLang];
+      const steps = [
+        { icon: 'fa-scissors', label: { es: 'CORTE CNC', en: 'CNC CUT' }, desc: { es: 'Troquel de corte de precisión con tolerancias de ±0.05 mm sobre la plancha de acero.', en: 'Precision cutting die with tolerances of ±0.05 mm on the steel plate.' }, color: 'cyanN' },
+        { icon: 'fa-compress', label: { es: 'EMBUTIDO', en: 'DRAWING' }, desc: { es: 'Conformado progresivo de la geometría de la pieza con control de adelgazamiento.', en: 'Progressive shaping of the part geometry with thinning control.' }, color: 'cyanN' },
+        { icon: 'fa-temperature-high', label: { es: 'REFUERZO', en: 'REINFORCE' }, desc: { es: 'Estampado en caliente para láminas ≥2.0 mm. Doble capa de refuerzo estructural.', en: 'Hot stamping for sheets ≥2.0 mm. Double layer of structural reinforcement.' }, color: 'copper' },
+        { icon: 'fa-circle-notch', label: { es: 'REDONDEO', en: 'ROUNDING' }, desc: { es: 'Acabado de bordes tubulares y verificación dimensional con instrumentación calibrada.', en: 'Tubular edge finishing and dimensional verification with calibrated instrumentation.' }, color: 'copper' }
+      ];
+      document.getElementById('process-diagram').innerHTML = '<div class="grid grid-cols-2 md:grid-cols-4 gap-6 relative">' + steps.map((s, i) => `
+          <div class="process-step flex flex-col items-center text-center relative z-10">
+            <div class="tooltip-content glass px-4 py-3 text-xs font-inter text-steel/80" style="white-space:normal;">${s.desc[currentLang]}</div>
+            <div class="step-icon w-16 h-16 rounded-xl border ${s.color === 'copper' ? 'text-copper border-copper/30' : 'text-cyanN border-cyanN/30'} flex items-center justify-center mb-4" style="background: rgba(${s.color === 'copper' ? '196,127,69' : '0,240,255'},0.06);"><i class="fa-solid ${s.icon} text-xl ${s.color === 'copper' ? 'text-copper' : 'text-cyanN'}"></i></div>
+            <span class="step-label font-orbitron font-bold text-[0.65rem] tracking-wider text-steel/70">${s.label[currentLang]}</span>
+            <span class="font-fira text-[0.55rem] text-steel/30 mt-1">${currentLang === 'es' ? 'PASO' : 'STEP'} ${i + 1}</span>
+          </div>`).join('') + '</div>';
+      document.getElementById('process-detail-cards').innerHTML = `
+          <div class="glass p-6 reveal"><h4 class="font-orbitron font-bold text-xs tracking-wider text-cyanN mb-3">${dict.processColdTitle}</h4><p class="font-inter text-sm text-steel/80">${dict.processColdDesc}</p></div>
+          <div class="glass p-6 reveal reveal-delay-1"><h4 class="font-orbitron font-bold text-xs tracking-wider text-copper mb-3">${dict.processHotTitle}</h4><p class="font-inter text-sm text-steel/80">${dict.processHotDesc}</p></div>
+        `;
+      observeNewReveals();
+    }
+
+    function renderTestimonials() {
+      const dict = i18n[currentLang];
+      const testimonials = currentLang === 'es' ? [
+        { quote: 'Desde que instalamos el troquel de pala punta redonda, nuestra merma bajó un 40%. La inversión se pagó en el primer trimestre.', name: 'Carlos Mendoza', role: 'Jefe de Planta', city: 'Medellín, Colombia' },
+        { quote: 'El combo completo de palín de mina nos permitió eliminar dos proveedores. La calidad del refuerzo en caliente es impresionante.', name: 'Roberto Guzmán', role: 'Director de Producción', city: 'Monterrey, México' },
+        { quote: 'Exportamos carretillas con batea 110 L a Centroamérica. El molde de embutido progresivo de ForjaTech nos dio la capacidad que necesitábamos.', name: 'Andrés Vargas', role: 'Gerente General', city: 'Lima, Perú' }
+      ] : [
+        { quote: 'Since we installed the round point shovel die, our waste dropped by 40%. The investment paid for itself in the first quarter.', name: 'Carlos Mendoza', role: 'Plant Manager', city: 'Medellín, Colombia' },
+        { quote: 'The complete mining spade combo allowed us to eliminate two suppliers. The quality of the hot-stamped reinforcement is impressive.', name: 'Roberto Guzmán', role: 'Production Director', city: 'Monterrey, Mexico' },
+        { quote: 'We export 110L wheelbarrows to Central America. The progressive drawing die from ForjaTech gave us the capacity we needed.', name: 'Andrés Vargas', role: 'General Manager', city: 'Lima, Peru' }
+      ];
+      document.getElementById('testimonials-grid').innerHTML = testimonials.map((t, i) => `
+          <div class="testimonial-card glass p-6 reveal reveal-delay-${i + 1}">
+            <p class="font-inter text-sm text-steel/80 leading-relaxed mb-6 relative z-10">${t.quote}</p>
+            <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-cyanN/10 border border-cyanN/20 flex items-center justify-center font-orbitron font-bold text-xs text-cyanN">${t.name.split(' ').map(n => n[0]).join('')}</div><div><p class="font-inter text-sm font-medium text-white/90">${t.name}</p><p class="text-xs text-steel/50">${t.role} — ${t.city}</p></div></div>
+          </div>`).join('');
+      document.getElementById('trust-seals').innerHTML = `
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-truck-fast text-cyanN/40"></i> ${dict.trustSeal1}</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-headset text-cyanN/40"></i> ${dict.trustSeal2}</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-certificate text-cyanN/40"></i> ${dict.trustSeal3}</div>
+          <div class="flex items-center gap-2 text-steel/50 text-xs font-inter"><i class="fa-solid fa-file-invoice text-cyanN/40"></i> ${dict.trustSeal4}</div>
+        `;
+      observeNewReveals();
+    }
+
+    // Inicialización
+    translatePage();
+    renderValueCards();
+    renderProducts();
+    renderProcess();
+    renderTestimonials();
+
+    // Carruseles
+    function initCarousels() {
+      document.querySelectorAll('.product-carousel').forEach(carousel => {
+        const imgs = carousel.querySelectorAll('.carousel-img');
+        if (!imgs.length) return;
+        const dots = carousel.querySelectorAll('.dot');
+        let current = 0, interval;
+        let isHovering = false;
+
+        function goTo(index) {
+          imgs[current].classList.remove('active');
+          dots[current].classList.remove('active');
+          imgs[index].classList.add('active');
+          dots[index].classList.add('active');
+          current = index;
+        }
+        function next() { goTo((current + 1) % imgs.length); }
+
+        function startAuto() {
+          if (interval) clearInterval(interval);
+          // Solo inicia si el carrusel está visible Y no hay hover
+          const rect = carousel.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          if (isVisible && !isHovering) {
+            interval = setInterval(next, 3500);
+          }
+        }
+
+        // Observer para visibilidad
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (!isHovering) interval = setInterval(next, 3500);
+            } else {
+              clearInterval(interval);
+            }
+          });
+        }, { threshold: 0.3 });
+        observer.observe(carousel);
+
+        // Pausa al hacer hover sobre la imagen
+        carousel.addEventListener('mouseenter', () => {
+          isHovering = true;
+          clearInterval(interval);
+        });
+        carousel.addEventListener('mouseleave', () => {
+          isHovering = false;
+          startAuto();
+        });
+
+        // Navegación por dots
+        dots.forEach((dot, i) => {
+          dot.style.cursor = 'pointer';
+          dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearInterval(interval);
+            goTo(i);
+            startAuto();
+          });
+        });
+
+        // CLIC PARA ABRIR LIGHTBOX
+        carousel.style.cursor = 'pointer';
+        carousel.addEventListener('click', (e) => {
+          // Evitar que se abra si el clic fue en un dot
+          if (e.target.classList.contains('dot')) return;
+          openLightbox(carousel);
+        });
+
+        // Guardar referencias
+        carousel._interval = interval;
+        carousel._observer = observer;
+      });
+    }
+    // ===== LIGHTBOX =====
+    let lightboxElement = null;
+    let lightboxCarousel = null;
+    let lightboxCurrent = 0;
+    let lightboxInterval = null;
+    let lightboxHover = false;
+
+    function createLightboxElement() {
+      if (lightboxElement) return lightboxElement;
+      const lb = document.createElement('div');
+      lb.id = 'product-lightbox';
+      lb.innerHTML = `
+      <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="Producto" />
+        <div class="lightbox-dots" id="lightbox-dots"></div>
+      </div>
+      <button class="lightbox-close" onclick="closeLightbox()"><i class="fa-solid fa-xmark"></i></button>
+    `;
+      document.body.appendChild(lb);
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLightbox();
+      });
+      // Pausa automática al hacer hover
+      lb.querySelector('.lightbox-content').addEventListener('mouseenter', () => {
+        lightboxHover = true;
+        clearInterval(lightboxInterval);
+      });
+      lb.querySelector('.lightbox-content').addEventListener('mouseleave', () => {
+        lightboxHover = false;
+        startLightboxAuto();
+      });
+      lightboxElement = lb;
+      return lb;
+    }
+
+    function openLightbox(carouselElement) {
+      const images = carouselElement.querySelectorAll('.carousel-img');
+      if (!images.length) return;
+      lightboxCarousel = images;
+      lightboxCurrent = Array.from(images).findIndex(img => img.classList.contains('active'));
+      if (lightboxCurrent === -1) lightboxCurrent = 0;
+      createLightboxElement();
+      updateLightboxImage();
+      updateLightboxDots();
+      document.getElementById('product-lightbox').classList.add('open');
+      startLightboxAuto();
+    }
+
+    function closeLightbox() {
+      clearInterval(lightboxInterval);
+      document.getElementById('product-lightbox').classList.remove('open');
+    }
+
+    function updateLightboxImage() {
+      const img = document.getElementById('lightbox-img');
+      img.src = lightboxCarousel[lightboxCurrent].src;
+      img.alt = lightboxCarousel[lightboxCurrent].alt;
+    }
+
+    function updateLightboxDots() {
+      const dotsContainer = document.getElementById('lightbox-dots');
+      dotsContainer.innerHTML = '';
+      lightboxCarousel.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = `dot ${i === lightboxCurrent ? 'active' : ''}`;
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          lightboxCurrent = i;
+          updateLightboxImage();
+          updateLightboxDots();
+          clearInterval(lightboxInterval);
+          startLightboxAuto();
+        });
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function startLightboxAuto() {
+      clearInterval(lightboxInterval);
+      if (lightboxHover) return;
+      lightboxInterval = setInterval(() => {
+        lightboxCurrent = (lightboxCurrent + 1) % lightboxCarousel.length;
+        updateLightboxImage();
+        updateLightboxDots();
+      }, 3500);
+    }
+
+    function stopLightboxAuto() {
+      clearInterval(lightboxInterval);
+    }
+
+
+
+    // Navbar
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) { navbar.style.background = 'var(--bg)'; navbar.style.backdropFilter = 'blur(16px)'; navbar.style.borderBottom = '1px solid var(--card-border)'; }
+      else { navbar.style.background = 'transparent'; navbar.style.backdropFilter = 'none'; navbar.style.borderBottom = 'none'; }
+    });
+
+    // Cursor
+    const cursorDot = document.getElementById('cursor-dot'), cursorRing = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursorDot.style.transform = `translate(${mx - 3}px,${my - 3}px)`; });
+    (function animCursor() { rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15; cursorRing.style.transform = `translate(${rx - 18}px,${ry - 18}px)`; requestAnimationFrame(animCursor); })();
+    document.querySelectorAll('a,button,.product-card,.quick-reply,input,select,textarea').forEach(el => { el.addEventListener('mouseenter', () => cursorRing.classList.add('hover')); el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover')); });
+
+    // Mobile menu
+    const mobileMenu = document.getElementById('mobile-menu'), mobileOverlay = document.getElementById('mobile-overlay');
+    document.getElementById('hamburger').addEventListener('click', () => { mobileMenu.classList.toggle('open'); mobileOverlay.classList.toggle('open'); });
+    window.closeMobileMenu = () => { mobileMenu.classList.remove('open'); mobileOverlay.classList.remove('open'); };
+
+    // Modal
+    const contactModal = document.getElementById('contact-modal');
+    window.openModal = () => { contactModal.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    window.openModalWithProduct = idx => { openModal(); document.getElementById('cf-product').value = idx; };
+
+    window.closeModal = () => { contactModal.classList.remove('open'); document.body.style.overflow = ''; };
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeLightbox();
+        if (document.getElementById('chat-window').classList.contains('open')) {
+          toggleChat();
+        }
+      }
+    });
+
+    // Envío de correo
+    async function sendEmail(data) {
+      if (USE_EMAILJS && typeof emailjs !== 'undefined') {
+        try { await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data, EMAILJS_USER_ID); return true; }
+        catch (e) { console.error('Error EmailJS:', e); return false; }
+      }
+      return false;
+    }
+
+    window.handleContactSubmit = async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById('cf-submit-btn'); btn.textContent = 'ENVIANDO...'; btn.disabled = true;
+      const data = {
+        name: document.getElementById('cf-name').value,
+        company: document.getElementById('cf-company').value,
+        country: document.getElementById('cf-country').value,
+        phone: document.getElementById('cf-phone').value,
+        email: document.getElementById('cf-email').value,
+        product: window.products[document.getElementById('cf-product').value]?.name || 'General',
+        message: document.getElementById('cf-message').value,
+        _subject: `Nuevo lead: ${document.getElementById('cf-name').value} - ${document.getElementById('cf-company').value}`
+      };
+      const ok = await sendEmail(data);
+      btn.textContent = ok ? '✓ ENVIADO' : 'ERROR';
+      btn.style.background = ok ? 'rgba(0,240,255,0.15)' : 'rgba(255,80,80,0.3)';
+      showToast(ok ? (currentLang === 'es' ? 'Solicitud enviada. Un especialista le contactará en breve.' : 'Request sent. A specialist will contact you shortly.') : (currentLang === 'es' ? 'No se pudo enviar. Intente de nuevo o contáctenos por WhatsApp.' : 'Could not send. Try again or contact us on WhatsApp.'), ok ? 'success' : 'info');
+      setTimeout(() => { btn.textContent = currentLang === 'es' ? 'ENVIAR SOLICITUD' : 'SEND REQUEST'; btn.disabled = false; btn.style.background = ''; }, 3000);
+    };
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-info'} mr-2"></i>${msg}`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4200);
+    }
+
+    // Chatbot
+    const chatBubble = document.getElementById('chat-bubble'), chatWindow = document.getElementById('chat-window');
+    const chatMessages = document.getElementById('chat-messages'), chatQuickReplies = document.getElementById('chat-quick-replies');
+    const chatInput = document.getElementById('chat-input');
+    let chatOpen = false, chatState = 'IDLE', chatLead = {};
+    // ---- Control de visibilidad de los controles flotantes móviles (por actividad y chat) ----
+    const mobileControls = document.getElementById('mobile-controls');
+    let hideControlsTimer = null;
+
+    function showControls() {
+      if (chatOpen) return;         // no mostrar si el chat está abierto
+      if (!mobileControls) return;
+      mobileControls.style.opacity = '1';
+      mobileControls.style.pointerEvents = 'auto';
+      resetControlsTimer();
+    }
+
+    function hideControls() {
+      if (!mobileControls) return;
+      mobileControls.style.opacity = '0';
+      mobileControls.style.pointerEvents = 'none';
+    }
+
+    function resetControlsTimer() {
+      clearTimeout(hideControlsTimer);
+      hideControlsTimer = setTimeout(hideControls, 5000); // 5 segundos
+    }
+
+    // Inicialmente ocultos
+    hideControls();
+
+    // Mostrar al detectar cualquier interacción (scroll, toque, clic), solo si el chat no está abierto
+    ['scroll', 'touchstart', 'click'].forEach(eventType => {
+      window.addEventListener(eventType, () => {
+        if (chatOpen) return;
+        showControls();
+      });
+    });
+
+
+    window.toggleChat = function () {
+      chatOpen = !chatOpen;
+      chatWindow.classList.toggle('open', chatOpen);
+      if (chatOpen && chatMessages.children.length === 0) startChat();
+
+      // --- Control de los botones flotantes ---
+      if (mobileControls) {
+        if (chatOpen) {
+          // Chat abierto → forzar ocultación, cancelar cualquier temporizador
+          hideControls();
+          clearTimeout(hideControlsTimer);
+        } else {
+          // Chat cerrado → mostrar y activar el temporizador de 10 segundos
+          showControls();      // showControls() ya verifica que chatOpen sea false, así que aquí se mostrará
+        }
+      }
+    };
+
+
+
+    function addBotMsg(text) {
+      const t = document.createElement('div'); t.className = 'chat-msg bot typing-indicator'; t.innerHTML = '<span></span><span></span><span></span>';
+      chatMessages.appendChild(t); chatMessages.scrollTop = chatMessages.scrollHeight;
+      setTimeout(() => { t.remove(); const m = document.createElement('div'); m.className = 'chat-msg bot'; m.textContent = text; chatMessages.appendChild(m); chatMessages.scrollTop = chatMessages.scrollHeight; }, 800);
+    }
+    function addUserMsg(text) { const m = document.createElement('div'); m.className = 'chat-msg user'; m.textContent = text; chatMessages.appendChild(m); chatMessages.scrollTop = chatMessages.scrollHeight; }
+    function setQuickReplies(opts) {
+      chatQuickReplies.innerHTML = '';
+      opts.forEach(o => { const b = document.createElement('button'); b.className = 'quick-reply'; b.textContent = o.label; b.onclick = () => { addUserMsg(o.label); chatQuickReplies.innerHTML = ''; o.action(); }; chatQuickReplies.appendChild(b); });
+    }
+
+    function resetChat() {
+      chatMessages.innerHTML = '';
+      chatQuickReplies.innerHTML = '';
+      chatState = 'IDLE';
+      chatLead = {};
+      if (chatOpen) {
+        startChat();
+      }
+    }
+
+    function startChat() {
+      chatState = 'GREETING'; chatLead = {};
+      addBotMsg(currentLang === 'es' ? 'Bienvenido al Asistente Técnico de ForjaTechMCBO. Soy su primer punto de contacto para consultas sobre troqueles y moldes de estampado.' : 'Welcome to the ForjaTechMCBO Technical Assistant. I am your first point of contact for queries about stamping dies and molds.');
+      setTimeout(() => {
+        addBotMsg(currentLang === 'es' ? '¿En qué puedo ayudarle hoy?' : 'How can I help you today?');
+        setTimeout(() => {
+          setQuickReplies([
+            { label: currentLang === 'es' ? 'Ver productos' : 'View products', action: showProductList },
+            { label: currentLang === 'es' ? 'Consultar precio' : 'Check price', action: () => startLeadCapture('pricing') },
+            { label: currentLang === 'es' ? 'Soporte técnico' : 'Technical support', action: startTechSupport },
+            { label: currentLang === 'es' ? 'Hablar con especialista' : 'Talk to a specialist', action: () => startLeadCapture('general') },
+          ]);
+        }, 1200);
+      }, 1400);
+    }
+
+    function showProductList() {
+      chatState = 'PRODUCT_LIST';
+      const names = window.products.map(p => p.name);
+      const first = names.slice(0, 5);
+      const rest = names.slice(5);
+      const replies = first.map(n => ({ label: n, action: () => { chatLead.product = n; showProductDetail(n); } }));
+      if (rest.length > 0) replies.push({ label: currentLang === 'es' ? 'Ver más...' : 'More...', action: () => showMoreProducts(rest) });
+      addBotMsg(currentLang === 'es' ? 'Contamos con la siguiente línea de troqueles y moldes:' : 'We have the following line of dies and molds:');
+      setTimeout(() => setQuickReplies(replies), 1000);
+    }
+    function showMoreProducts(rest) { setQuickReplies(rest.map(n => ({ label: n, action: () => { chatLead.product = n; showProductDetail(n); } }))); }
+    function showProductDetail(name) {
+      const p = window.products.find(pr => pr.name === name);
+      if (!p) return;
+      addBotMsg(`${p.name}. ${p.process}. ${p.desc}`);
+      setTimeout(() => setQuickReplies([{ label: currentLang === 'es' ? 'Sí, consultar precio' : 'Yes, check price', action: () => startLeadCapture('pricing') }]), 1000);
+    }
+    function startTechSupport() { addBotMsg(currentLang === 'es' ? 'Describa su consulta técnica:' : 'Describe your technical query:'); chatState = 'TECH_SUPPORT_INPUT'; }
+    function startLeadCapture() {
+      addBotMsg(currentLang === 'es' ? '¿Cuál es su nombre completo?' : 'What is your full name?');
+      chatState = 'LEAD_CAPTURE_NAME';
+    }
+    function processLeadField(text) {
+      switch (chatState) {
+        case 'LEAD_CAPTURE_NAME': chatLead.name = text; addBotMsg(currentLang === 'es' ? `Gracias, ${text}. ¿Cuál es el nombre de su empresa?` : `Thanks, ${text}. What is your company name?`); chatState = 'LEAD_CAPTURE_COMPANY'; break;
+        case 'LEAD_CAPTURE_COMPANY': chatLead.company = text; addBotMsg(currentLang === 'es' ? '¿Desde qué país nos escribe?' : 'Which country are you writing from?'); chatState = 'LEAD_CAPTURE_COUNTRY'; break;
+        case 'LEAD_CAPTURE_COUNTRY': chatLead.country = text; addBotMsg(currentLang === 'es' ? '¿Cuál es su número de WhatsApp? (incluya código de país)' : 'What is your WhatsApp number? (include country code)'); chatState = 'LEAD_CAPTURE_PHONE'; break;
+        case 'LEAD_CAPTURE_PHONE': chatLead.phone = text; addBotMsg(currentLang === 'es' ? '¿Y su correo electrónico?' : 'And your email?'); chatState = 'LEAD_CAPTURE_EMAIL'; break;
+        case 'LEAD_CAPTURE_EMAIL': chatLead.email = text; finalizeLead(); break;
+      }
+    }
+    async function finalizeLead() {
+      chatState = 'TRANSFER';
+      await sendEmail({ name: chatLead.name, company: chatLead.company, country: chatLead.country, phone: chatLead.phone, email: chatLead.email, product: chatLead.product || 'General', message: '', _subject: `Lead Chatbot: ${chatLead.name} - ${chatLead.company}` });
+      addBotMsg(currentLang === 'es' ? 'Perfecto. He registrado su solicitud y enviado un resumen a nuestro equipo de ingeniería.' : 'Perfect. I have registered your request and sent a summary to our engineering team.');
+      setTimeout(() => {
+        addBotMsg(currentLang === 'es' ? `Un especialista le contactará por WhatsApp en menos de 2 horas al número ${chatLead.phone}.` : `A specialist will contact you via WhatsApp in less than 2 hours at ${chatLead.phone}.`);
+        setTimeout(() => {
+          setQuickReplies([{
+            label: currentLang === 'es' ? 'Ir a WhatsApp ahora' : 'Go to WhatsApp now',
+            action: () => { const msg = encodeURIComponent(`Hola, soy ${chatLead.name} de ${chatLead.company} (${chatLead.country}). Consulto sobre: ${chatLead.product || 'troqueles ForjaTech'}.`); window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank'); }
+          }, { label: currentLang === 'es' ? 'Nueva consulta' : 'New query', action: startChat }]);
+        }, 1000);
+      }, 1200);
+    }
+    window.sendChatMessage = function () {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      chatInput.value = ''; addUserMsg(text); chatQuickReplies.innerHTML = '';
+      if (['LEAD_CAPTURE_NAME', 'LEAD_CAPTURE_COMPANY', 'LEAD_CAPTURE_COUNTRY', 'LEAD_CAPTURE_PHONE', 'LEAD_CAPTURE_EMAIL'].includes(chatState)) processLeadField(text);
+      else if (chatState === 'TECH_SUPPORT_INPUT') { chatLead.message = text; addBotMsg(currentLang === 'es' ? 'Gracias por su consulta. ¿Desea dejar sus datos para que le contactemos?' : 'Thanks for your query. Would you like to leave your data so we can contact you?'); chatState = 'TECH_SUPPORT_ASK_LEAD'; setTimeout(() => setQuickReplies([{ label: currentLang === 'es' ? 'Sí, dejar mis datos' : 'Yes, leave my data', action: () => startLeadCapture('tech') }, { label: currentLang === 'es' ? 'No, gracias' : 'No, thanks', action: () => { addBotMsg(currentLang === 'es' ? 'Entendido. Estoy aquí si me necesita.' : 'Understood. I am here if you need me.'); chatState = 'IDLE'; } }]), 1000); }
+      else if (chatState === 'TECH_SUPPORT_ASK_LEAD') { if (text.toLowerCase().includes('sí') || text.toLowerCase().includes('yes')) startLeadCapture('tech'); else { addBotMsg(currentLang === 'es' ? 'Entendido. Estoy aquí si me necesita.' : 'Understood. I am here if you need me.'); chatState = 'IDLE'; } }
+      else startChat();
+    };
+
+    // Init
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2200);
+      document.getElementById('wa-float').href = `https://wa.me/${WA_NUMBER}`;
+    });
+  </script>
+
+</body>
+
+</html>

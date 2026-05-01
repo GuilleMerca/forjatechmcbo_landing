@@ -6,7 +6,7 @@ img/productos/png/
 /dist/
 /.env
 /.env.js
-
+/.index2.html
 # Ignorar archivos específicos
 *.log
 .DS_Store
